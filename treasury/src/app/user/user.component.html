@@ -1,7 +1,7 @@
 <ul>
-  <li>{{ (user | async)?.uid }}</li>
-  <li><img src="{{ (user | async)?.providerData[0].photoURL }}" height="50" *ngIf="(user | async)?.uid" /></li>
-  <li>catalog <span *ngIf="(userRecord | async)?.isCatalogPublic">public</span><span *ngIf="!(userRecord | async)?.isCatalogPublic">private</span></li>
+  <li *ngIf="(user | async)?.uid">{{ (user | async)?.uid }}</li>
+  <li *ngIf="(user | async)?.uid"><img src="{{ (user | async)?.providerData[0].photoURL }}" height="50" *ngIf="(user | async)?.uid" /></li>
+  <li *ngIf="(user | async)?.uid">catalog <span *ngIf="(userRecord | async)?.isCatalogPublic">public</span><span *ngIf="!(userRecord | async)?.isCatalogPublic">private</span></li>
 </ul>
 <button (click)="login()" *ngIf="!(user | async)?.uid">Login</button>
 <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>

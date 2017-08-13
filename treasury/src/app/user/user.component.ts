@@ -13,16 +13,19 @@ export class UserComponent implements OnInit {
 
   user: Observable<firebase.User>;
   userRecord: FirebaseObjectObservable<any>;
+  userRecordSubscription: any;
 
   constructor(public afAuth: AngularFireAuth, db: AngularFireDatabase) {
     this.user = afAuth.authState;
 
     // after user is fetched from auth...
     this.user.subscribe(user => {
-      // grab the record from the database - it can be empty!
-      this.userRecord = db.object("/users/" + user.uid);
-      // check if all initial values are set up
-      this.userRecord.subscribe(data => this.checkAndInitializeUserRecord(data));
+      if (user && user.uid) {
+        // grab the record from the database - it can be empty!
+        this.userRecord = db.object("/users/" + user.uid);
+        // check if all initial values are set up
+        this.userRecordSubscription = this.userRecord.subscribe(data => this.checkAndInitializeUserRecord(data));
+      }
     });
   }
 
@@ -50,6 +53,7 @@ export class UserComponent implements OnInit {
    * Log user out with Firebase Auth.
    */
   logout() {
+    this.userRecordSubscription.unsubscribe();
     this.afAuth.auth.signOut();
   }
 
