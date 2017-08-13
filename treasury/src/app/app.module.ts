@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 
+import { MaterialDesignModule } from './materialdesign/materialdesign.module';
+
 
 @NgModule({
   declarations: [
@@ -19,11 +21,12 @@ import { UserComponent } from './user/user.component';
     UserComponent
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
-    BrowserAnimationsModule,
-    BrowserModule,
+    MaterialDesignModule
   ],
   providers: [],
   bootstrap: [AppComponent]
