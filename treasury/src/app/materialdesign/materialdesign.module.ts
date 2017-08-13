@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MdMenuModule} from '@angular/material';
+import { NgModule } from '@angular/core';
+import { MdMenuModule } from '@angular/material';
 
 @NgModule({
   imports: [
