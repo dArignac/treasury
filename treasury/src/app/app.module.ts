@@ -8,11 +8,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { environment } from '../environments/environment';
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
