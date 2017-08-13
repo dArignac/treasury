@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
 @Component({
@@ -11,35 +12,43 @@ import * as firebase from 'firebase/app';
 export class UserComponent implements OnInit {
 
   user: Observable<firebase.User>;
+  userRecord: FirebaseObjectObservable<any>;
 
-  constructor(public afAuth: AngularFireAuth) {
+  constructor(public afAuth: AngularFireAuth, db: AngularFireDatabase) {
     this.user = afAuth.authState;
 
-    // this.user.subscribe(res => {
-    //   if (res && res.uid) {
-    //     console.log('user is logged in');
-    //     res.providerData.forEach(
-    //       function (profile) {
-    //         console.log("Sign-in provider: " + profile.providerId);
-    //         console.log("  Provider-specific UID: " + profile.uid);
-    //         console.log("  Name: " + profile.displayName);
-    //         console.log("  Email: " + profile.email);
-    //         console.log("  Photo URL: " + profile.photoURL);
-    //       }
-    //     );
-    //   } else {
-    //     console.log('user not logged in');
-    //   }
-    // });
+    // after user is fetched from auth...
+    this.user.subscribe(user => {
+      // grab the record from the database - it can be empty!
+      this.userRecord = db.object("/users/" + user.uid);
+      // check if all initial values are set up
+      this.userRecord.subscribe(data => this.checkAndInitializeUserRecord(data));
+    });
+  }
+
+  /**
+   * Initializes the user database record with the default values if they do not exist.
+   * @param dataReturned data from database query
+   */
+  private checkAndInitializeUserRecord(dataReturned) {
+    if (!dataReturned.hasOwnProperty("isCatalogPublic")) {
+      this.userRecord.set({isCatalogPublic: false});
+    }
   }
 
   ngOnInit() {
   }
 
+  /**
+   * Log user in with Firebase Auth.
+   */
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
+  /**
+   * Log user out with Firebase Auth.
+   */
   logout() {
     this.afAuth.auth.signOut();
   }
