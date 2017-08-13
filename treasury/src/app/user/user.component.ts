@@ -15,13 +15,22 @@ export class UserComponent implements OnInit {
   constructor(public afAuth: AngularFireAuth) {
     this.user = afAuth.authState;
 
-    this.user.subscribe(res => {
-      if (res && res.uid) {
-        console.log('user is logged in');
-      } else {
-        console.log('user not logged in');
-      }
-    });
+    // this.user.subscribe(res => {
+    //   if (res && res.uid) {
+    //     console.log('user is logged in');
+    //     res.providerData.forEach(
+    //       function (profile) {
+    //         console.log("Sign-in provider: " + profile.providerId);
+    //         console.log("  Provider-specific UID: " + profile.uid);
+    //         console.log("  Name: " + profile.displayName);
+    //         console.log("  Email: " + profile.email);
+    //         console.log("  Photo URL: " + profile.photoURL);
+    //       }
+    //     );
+    //   } else {
+    //     console.log('user not logged in');
+    //   }
+    // });
   }
 
   ngOnInit() {
