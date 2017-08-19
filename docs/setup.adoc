@@ -1,0 +1,25 @@
+== Setup
+IMPORTANT: This project leverages Google Firebase as main "backend" and Angular as frontend using Angular CLI.
+
+=== Firebase Setup
+WARNING: TODO
+
+=== Development Setup
+* clone the source
+* `npm install`
+* `ng serve`
+* open browser
+
+==== Development Insights
+* https://github.com/angular/angularfire2 for Angular-Firebase bindings
+* https://github.com/angular/material2 for Material Design bindings in Angular
+
+material2.install
+----
+npm install --save @angular/material @angular/cdk
+npm install --save @angular/animations
+npm install --save hammerjs
+----
+
+=== Live Setup
+WARNING: TODO
