@@ -11,16 +11,16 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AuthService } from "./auth.service";
-import { UserComponent } from './user/user.component';
 import { MaterialModule } from "./material/material.module"
 
 import 'hammerjs';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
