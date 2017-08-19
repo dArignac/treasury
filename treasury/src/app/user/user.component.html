@@ -1,22 +1,18 @@
 <md-toolbar color="primary">
-  <span>Custom Toolbar</span>
-
-  <md-toolbar-row>
-    <span>Second Line</span>
-
-    <span class="demo-fill-remaining"></span>
-
-    <md-icon class="demo-toolbar-icon">verified_user</md-icon>
-  </md-toolbar-row>
-
-  <md-toolbar-row>
-    <span>Third Line</span>
-
-    <span class="demo-fill-remaining"></span>
-
-    <md-icon class="demo-toolbar-icon">favorite</md-icon>
-    <md-icon class="demo-toolbar-icon">delete</md-icon>
-  </md-toolbar-row>
+  <span>Treasury</span>
+  <span class="fill-remaining"></span>
+  <div class="menu-anonymous" *ngIf="!(user | async)?.uid">
+    <button md-icon-button [mdMenuTriggerFor]="menu1" aria-label="Open x-positioned menu">
+      <md-icon>person_outline</md-icon>
+    </button>
+    <md-menu #menu1="mdMenu" xPosition="before" class="before">
+      <button md-menu-item (click)="login()">
+        <md-icon>arrow_forward</md-icon>
+        <span>Login</span>
+      </button>
+    </md-menu>
+  </div>
+  <md-icon *ngIf="(user | async)?.uid">person</md-icon>
 </md-toolbar>
 <ul>
   <li *ngIf="(user | async)?.uid">{{ (user | async)?.uid }}</li>
@@ -24,5 +20,4 @@
   <li *ngIf="(user | async)?.uid">catalog <span *ngIf="(userRecord | async)?.isCatalogPublic">public</span><span *ngIf="!(userRecord | async)?.isCatalogPublic">private</span>
   </li>
 </ul>
-<button (click)="login()" *ngIf="!(user | async)?.uid">Login</button>
 <button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
