@@ -12,7 +12,17 @@
       </button>
     </md-menu>
   </div>
-  <md-icon *ngIf="(user | async)?.uid">person</md-icon>
+  <div class="menu-authenticated" *ngIf="(user | async)?.uid">
+    <button md-icon-button [mdMenuTriggerFor]="menu2" aria-label="Open x-positioned menu">
+      <md-icon>person</md-icon>
+    </button>
+    <md-menu #menu2="mdMenu" xPosition="before" class="before">
+      <button md-menu-item (click)="logout()">
+        <md-icon>arrow_back</md-icon>
+        <span>Logout</span>
+      </button>
+    </md-menu>
+  </div>
 </md-toolbar>
 <ul>
   <li *ngIf="(user | async)?.uid">{{ (user | async)?.uid }}</li>
@@ -20,4 +30,3 @@
   <li *ngIf="(user | async)?.uid">catalog <span *ngIf="(userRecord | async)?.isCatalogPublic">public</span><span *ngIf="!(userRecord | async)?.isCatalogPublic">private</span>
   </li>
 </ul>
-<button (click)="logout()" *ngIf="(user | async)?.uid">Logout</button>
