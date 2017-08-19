@@ -10,6 +10,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { AuthService } from "./auth.service";
 import { UserComponent } from './user/user.component';
 import { MaterialModule } from "./material/material.module"
 
@@ -29,7 +30,9 @@ import 'hammerjs';
     AngularFireModule.initializeApp(environment.firebase),
     MaterialModule,
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
