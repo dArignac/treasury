@@ -13,6 +13,10 @@
     </md-menu>
   </div>
   <div class="menu-authenticated" *ngIf="(user | async)?.uid">
+    <button md-icon-button>
+      <md-icon class="demo-toolbar-icon" *ngIf="(userRecord | async)?.isCatalogPublic">public</md-icon>
+      <md-icon class="demo-toolbar-icon" *ngIf="!(userRecord | async)?.isCatalogPublic">vpn_lock</md-icon>
+    </button>
     <button md-icon-button [mdMenuTriggerFor]="menu2" aria-label="Open x-positioned menu">
       <md-icon>person</md-icon>
     </button>
@@ -24,9 +28,4 @@
     </md-menu>
   </div>
 </md-toolbar>
-<ul>
-  <li *ngIf="(user | async)?.uid">{{ (user | async)?.uid }}</li>
-  <li *ngIf="(user | async)?.uid"><img src="{{ (user | async)?.providerData[0].photoURL }}" height="50" *ngIf="(user | async)?.uid"/></li>
-  <li *ngIf="(user | async)?.uid">catalog <span *ngIf="(userRecord | async)?.isCatalogPublic">public</span><span *ngIf="!(userRecord | async)?.isCatalogPublic">private</span>
-  </li>
-</ul>
+<!-- FIXME handle avatar <img src="{{ (user | async)?.providerData[0].photoURL }}" height="50" *ngIf="(user | async)?.uid"/> -->
