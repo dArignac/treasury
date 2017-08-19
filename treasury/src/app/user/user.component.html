@@ -18,7 +18,7 @@
       <md-icon class="demo-toolbar-icon" *ngIf="!(userRecord | async)?.isCatalogPublic">vpn_lock</md-icon>
     </button>
     <button md-icon-button [mdMenuTriggerFor]="menu2" aria-label="Open x-positioned menu">
-      <md-icon>person</md-icon>
+      <img src="{{ (user | async)?.providerData[0].photoURL }}" class="avatar" height="40" width="40">
     </button>
     <md-menu #menu2="mdMenu" xPosition="before" class="before">
       <button md-menu-item (click)="logout()">
@@ -28,4 +28,3 @@
     </md-menu>
   </div>
 </md-toolbar>
-<!-- FIXME handle avatar <img src="{{ (user | async)?.providerData[0].photoURL }}" height="50" *ngIf="(user | async)?.uid"/> -->
