@@ -11,6 +11,9 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
+import { MaterialModule } from "./material/material.module"
+
+import 'hammerjs';
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { UserComponent } from './user/user.component';
     BrowserAnimationsModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
