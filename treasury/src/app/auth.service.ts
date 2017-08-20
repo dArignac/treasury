@@ -1,38 +1,28 @@
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { Subject } from "rxjs/Subject";
+
 import * as firebase from 'firebase/app';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class AuthService {
 
   user: Observable<firebase.User>;
-  userRecord: FirebaseObjectObservable<any>;
-  private userRecordSubscription: any;
+  isAuthenticated: Subject<boolean>;
 
   constructor(public afAuth: AngularFireAuth, db: AngularFireDatabase) {
     this.user = afAuth.authState;
-
-    // after user is fetched from auth...
+    this.isAuthenticated = new Subject();
+    this.isAuthenticated.next(false);
     this.user.subscribe(user => {
       if (user && user.uid) {
-        // grab the record from the database - it can be empty!
-        this.userRecord = db.object("/users/" + user.uid);
-        // check if all initial values are set up
-        this.userRecordSubscription = this.userRecord.subscribe(data => this.checkAndInitializeUserRecord(data));
+        this.isAuthenticated.next(true);
       }
     });
-  }
-
-  /**
-   * Initializes the user database record with the default values if they do not exist.
-   * @param dataReturned data from database query
-   */
-  private checkAndInitializeUserRecord(dataReturned) {
-    if (!dataReturned.hasOwnProperty("isCatalogPublic")) {
-      this.userRecord.set({isCatalogPublic: false});
-    }
   }
 
   /**
@@ -46,7 +36,9 @@ export class AuthService {
    * Log user out with Firebase Auth.
    */
   logout() {
-    this.userRecordSubscription.unsubscribe();
+    // notify subscribers about logout
+    this.isAuthenticated.next(false);
+    // logout from Firebase
     this.afAuth.auth.signOut();
   }
 

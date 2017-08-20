@@ -14,8 +14,8 @@
   </div>
   <div class="menu-authenticated" *ngIf="(authService.user | async)?.uid">
     <button md-icon-button>
-      <md-icon class="demo-toolbar-icon" *ngIf="(authService.userRecord | async)?.isCatalogPublic" (click)="setCatalogPrivate()">public</md-icon>
-      <md-icon class="demo-toolbar-icon" *ngIf="!(authService.userRecord | async)?.isCatalogPublic" (click)="setCatalogPublic()">vpn_lock</md-icon>
+      <md-icon class="demo-toolbar-icon" *ngIf="(userService.userRecord | async)?.isCatalogPublic" (click)="setCatalogPrivate()">public</md-icon>
+      <md-icon class="demo-toolbar-icon" *ngIf="!(userService.userRecord | async)?.isCatalogPublic" (click)="setCatalogPublic()">vpn_lock</md-icon>
     </button>
     <button md-icon-button [mdMenuTriggerFor]="menu2" aria-label="Open x-positioned menu">
       <img src="{{ (authService.user | async)?.providerData[0].photoURL }}" class="avatar" height="40" width="40">
