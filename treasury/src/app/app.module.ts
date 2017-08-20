@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from "./material/material.module"
 import { AuthService } from "./services/auth.service";
+import { CatalogService } from "./services/catalog.service";
 import { UserService } from "./services/user.service";
 
 
@@ -31,6 +32,7 @@ import { UserService } from "./services/user.service";
   ],
   providers: [
     AuthService,
+    CatalogService,
     UserService
   ],
   bootstrap: [AppComponent]
