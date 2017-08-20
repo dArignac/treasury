@@ -1,20 +1,19 @@
+import 'hammerjs';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFireModule } from 'angularfire2';
 
+import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { environment } from '../environments/environment';
-
 import { AppComponent } from './app.component';
 import { AuthService } from "./auth.service";
-import { MaterialModule } from "./material/material.module"
-
-import 'hammerjs';
 import { HeaderComponent } from './header/header.component';
+import { UserService } from "./user.service";
+import { MaterialModule } from "./material/material.module"
 
 
 @NgModule({
@@ -31,7 +30,8 @@ import { HeaderComponent } from './header/header.component';
     MaterialModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
