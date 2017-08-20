@@ -10,10 +10,10 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { AuthService } from "./auth.service";
 import { HeaderComponent } from './header/header.component';
-import { UserService } from "./user.service";
 import { MaterialModule } from "./material/material.module"
+import { AuthService } from "./services/auth.service";
+import { UserService } from "./services/user.service";
 
 
 @NgModule({
