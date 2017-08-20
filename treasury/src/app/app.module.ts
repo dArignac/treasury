@@ -1,8 +1,9 @@
 import 'hammerjs';
 
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkTableModule } from '@angular/cdk';
+import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -16,13 +17,15 @@ import { AuthService } from "./services/auth.service";
 import { CatalogService } from "./services/catalog.service";
 import { UserService } from "./services/user.service";
 import { CatalogComponent } from './catalog/catalog.component';
+import { TableDemoComponent } from './table-demo/table-demo.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    CatalogComponent
+    CatalogComponent,
+    TableDemoComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { CatalogComponent } from './catalog/catalog.component';
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
     MaterialModule,
+    CdkTableModule
   ],
   providers: [
     AuthService,
