@@ -17,12 +17,4 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  setCatalogPublic() {
-    console.log('public');
-  }
-
-  setCatalogPrivate() {
-    console.log('private');
-  }
-
 }

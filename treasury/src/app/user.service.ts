@@ -39,4 +39,12 @@ export class UserService {
     }
   }
 
+  setCatalogPublic() {
+    this.userRecord.update({isCatalogPublic: true});
+  }
+
+  setCatalogPrivate() {
+    this.userRecord.update({isCatalogPublic: false});
+  }
+
 }
