@@ -8,6 +8,7 @@ WARNING: TODO
 * clone the source
 * `npm install -g @angular/cli`
 * `npm install`
+* copy `treasury/src/environments/environment.ts` to `treasury/src/environments/environment.dev.ts` and fill in your firebase values
 * `ng serve`
 * open browser
 
