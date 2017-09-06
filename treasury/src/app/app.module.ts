@@ -17,6 +17,7 @@ import { CatalogService } from "./services/catalog.service";
 import { UserService } from "./services/user.service";
 import { CatalogComponent } from './catalog/catalog.component';
 import { TableDemoComponent } from './table-demo/table-demo.component';
+import { FormAddComponent } from './form-add/form-add.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TableDemoComponent } from './table-demo/table-demo.component';
     AppComponent,
     HeaderComponent,
     CatalogComponent,
-    TableDemoComponent
+    TableDemoComponent,
+    FormAddComponent
   ],
   imports: [
     BrowserModule,
