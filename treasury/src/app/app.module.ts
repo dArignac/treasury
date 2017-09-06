@@ -2,7 +2,6 @@ import 'hammerjs';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkTableModule } from '@angular/cdk';
 import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
@@ -33,8 +32,7 @@ import { TableDemoComponent } from './table-demo/table-demo.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
-    MaterialModule,
-    CdkTableModule
+    MaterialModule
   ],
   providers: [
     AuthService,

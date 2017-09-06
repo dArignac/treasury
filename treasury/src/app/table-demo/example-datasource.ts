@@ -5,7 +5,7 @@
  * the underlying data. Instead, it only needs to take the data and send the table exactly what
  * should be rendered.
  */
-import { DataSource } from "@angular/cdk";
+import { DataSource } from '@angular/cdk/collections';
 import { ExampleDatabase } from "./example-database";
 import { MdPaginator } from "@angular/material";
 import { UserData } from "./user-data";
