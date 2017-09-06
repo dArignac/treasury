@@ -18,3 +18,4 @@ If you share movies with your friends like I do, this tool will help you.
 
 // setup
 include::setup.adoc[]
+include::functionality.adoc[]
