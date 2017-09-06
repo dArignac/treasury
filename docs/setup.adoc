@@ -6,6 +6,7 @@ WARNING: TODO
 
 === Development Setup
 * clone the source
+* `npm install -g @angular/cli`
 * `npm install`
 * `ng serve`
 * open browser
