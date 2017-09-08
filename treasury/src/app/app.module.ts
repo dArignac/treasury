@@ -19,7 +19,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { TableDemoComponent } from './table-demo/table-demo.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { TheMovieDbService } from "./services/the-movie-db.service";
+import { TheMovieDbService } from "./themoviedb/the-movie-db.service";
 
 
 @NgModule({

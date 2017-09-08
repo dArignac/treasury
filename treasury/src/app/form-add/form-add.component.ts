@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
-import { TheMovieDbService } from "../services/the-movie-db.service";
+import { TheMovieDbService } from "../themoviedb/the-movie-db.service";
 
 
 @Component({
