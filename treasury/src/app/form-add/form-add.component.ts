@@ -40,11 +40,10 @@ export class FormAddComponent implements OnInit {
     this.filteredMovies = this.movieControl.valueChanges
       .debounceTime(1000)
       .startWith(null)
-      .map(state => state ? this.filterStates(state) : this.movies.slice());
+      .map(movie => movie ? this.filterMovies(movie) : this.movies.slice());
   }
 
-  filterStates(name: string) {
-    console.log(name);
+  filterMovies(name: string) {
     return this.movies.filter(state =>
       state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
