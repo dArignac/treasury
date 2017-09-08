@@ -38,6 +38,7 @@ export class FormAddComponent implements OnInit {
   constructor() {
     this.movieControl = new FormControl();
     this.filteredMovies = this.movieControl.valueChanges
+      .debounceTime(1000)
       .startWith(null)
       .map(state => state ? this.filterStates(state) : this.movies.slice());
   }
