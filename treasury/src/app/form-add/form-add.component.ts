@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 })
 export class FormAddComponent implements OnInit {
 
-  stateCtrl: FormControl;
+  movieControl: FormControl;
   filteredMovies: Observable<any[]>;
 
   movies: any[] = [
@@ -36,8 +36,8 @@ export class FormAddComponent implements OnInit {
   ];
 
   constructor() {
-    this.stateCtrl = new FormControl();
-    this.filteredMovies = this.stateCtrl.valueChanges
+    this.movieControl = new FormControl();
+    this.filteredMovies = this.movieControl.valueChanges
       .startWith(null)
       .map(state => state ? this.filterStates(state) : this.movies.slice());
   }

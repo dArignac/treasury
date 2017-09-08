@@ -1,6 +1,6 @@
 <form class="example-form">
   <md-form-field class="example-full-width">
-    <input mdInput placeholder="Movie title" aria-label="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
+    <input mdInput placeholder="Movie title" aria-label="State" [mdAutocomplete]="auto" [formControl]="movieControl">
     <md-autocomplete #auto="mdAutocomplete">
       <md-option *ngFor="let movie of filteredMovies | async" [value]="movie.name">
         <span>{{ movie.name }}</span> |
