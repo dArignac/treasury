@@ -40,7 +40,7 @@ export class FormAddComponent implements OnInit {
     this.filteredMovies = this.movieControl.valueChanges
       .debounceTime(1000)
       .startWith(null)
-      .map(movie => movie ? this.filterMovies(movie) : this.movies.slice());
+      .map(movie => movie ? this.filterMovies(movie) : []);
   }
 
   filterMovies(name: string) {
