@@ -19,6 +19,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { TableDemoComponent } from './table-demo/table-demo.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TheMovieDbService } from "./services/the-movie-db.service";
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
   providers: [
     AuthService,
     CatalogService,
+    TheMovieDbService,
     UserService
   ],
   bootstrap: [AppComponent]
