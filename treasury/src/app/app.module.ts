@@ -2,6 +2,7 @@ import 'hammerjs';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
@@ -18,8 +19,8 @@ import { UserService } from "./services/user.service";
 import { CatalogComponent } from './catalog/catalog.component';
 import { TableDemoComponent } from './table-demo/table-demo.component';
 import { FormAddComponent } from './form-add/form-add.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TheMovieDbService } from "./themoviedb/the-movie-db.service";
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { TheMovieDbService } from "./themoviedb/the-movie-db.service";
     AngularFireModule.initializeApp(environment.firebase),
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,

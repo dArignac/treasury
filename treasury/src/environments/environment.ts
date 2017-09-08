@@ -7,11 +7,16 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: '<your-key>',
-    authDomain: '<your-project-authdomain>',
-    databaseURL: '<your-database-URL>',
-    projectId: '<your-project-id>',
-    storageBucket: '<your-storage-bucket>',
-    messagingSenderId: '<your-messaging-sender-id>'
+    // your firebase settings, see overview of your firebase app in the firebase console
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: ''
+  },
+  themoviedb: {
+    // your themoviedb.org API key, see https://www.themoviedb.org/settings/api
+    apiKey: ''
   }
 };
