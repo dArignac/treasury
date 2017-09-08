@@ -1,3 +1,11 @@
-<p>
-  form-add works!
-</p>
+<form class="example-form">
+  <md-form-field class="example-full-width">
+    <input mdInput placeholder="Movie title" aria-label="State" [mdAutocomplete]="auto" [formControl]="stateCtrl">
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option *ngFor="let movie of filteredMovies | async" [value]="movie.name">
+        <span>{{ movie.name }}</span> |
+        <small>{{movie.year}}</small>
+      </md-option>
+    </md-autocomplete>
+  </md-form-field>
+</form>

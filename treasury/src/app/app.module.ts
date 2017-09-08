@@ -18,6 +18,7 @@ import { UserService } from "./services/user.service";
 import { CatalogComponent } from './catalog/catalog.component';
 import { TableDemoComponent } from './table-demo/table-demo.component';
 import { FormAddComponent } from './form-add/form-add.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import { FormAddComponent } from './form-add/form-add.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
