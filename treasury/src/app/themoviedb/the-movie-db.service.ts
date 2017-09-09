@@ -32,9 +32,23 @@ export class TheMovieDbService {
   extractData(response: MovieResponse) {
     console.log(response);
     if (response.total_results > 0) {
-      // FIXME sort by titles
+
+      // sort by titles
+      let results = response.results.sort(
+        (n1, n2) => {
+          if (n1.title > n2.title) {
+            return 1;
+          }
+          if (n1.title < n2.title) {
+            return -1;
+          }
+          return 0;
+        }
+      );
+
+      // transforms
       let values = [];
-      for (let item of response.results) {
+      for (let item of results) {
         values.push({
           id: item.id,
           title: item.title,
@@ -43,7 +57,7 @@ export class TheMovieDbService {
       }
       return values;
     }
-    return [{name: 'No results found'}];
+    return [{title: 'No results found'}];
   }
 
   // FIXME test this
