@@ -23,7 +23,7 @@ export class FormAddComponent implements OnInit {
     this.filteredMovies = this.movieControl.valueChanges
       .debounceTime(1000)
       .startWith(null)
-      .map(title => title ? this.theMovieDbService.getMovies(title) : []);
+      .switchMap(title => title ? theMovieDbService.getMovies(title): []);
   }
 
   ngOnInit() {

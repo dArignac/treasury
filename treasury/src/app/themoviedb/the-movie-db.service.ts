@@ -12,8 +12,11 @@ export class TheMovieDbService {
     this.apiBaseURL = 'https://api.themoviedb.org/3/search/';
   }
 
+  getMovies(title: string) {
+    return this.getMoviesFromAPI(title);
+  }
+
   getMovieSearchParams(title: string): HttpParams {
-    // api_key=0b65263d0ba37063fa8c01afb267050c&language=en-US&query=the%20mentalist&page=1&include_adult=false
     let p = new HttpParams();
     p = p.append('api_key', environment.themoviedb.apiKey);
     p = p.append('language', 'en-US'); // FIXME should be configurable
@@ -23,14 +26,34 @@ export class TheMovieDbService {
     return p;
   }
 
-  getMovies(title: string): any[] {
-    // see https://developers.themoviedb.org/3/search/search-movies
-    // FIXME request result is not synchron, how to handle?
-    this.http.get<MovieResponse>(this.apiBaseURL + 'movie', {params: this.getMovieSearchParams(title)}).subscribe(data => {
-      // FIXME handle
-      console.log(data);
-    });
-    return [{name: title, year: 1970}];
+  async getMoviesFromAPI(title: string): Promise<any> {
+    const response = await this.http.get<MovieResponse>(this.apiBaseURL + 'movie', {params: this.getMovieSearchParams(title)}).toPromise()
+      .then(this.extractData)
+      .catch(this.handleErrorPromise);
+    return response;
+  }
+
+  extractData(response: MovieResponse) {
+    console.log(response);
+    if (response.total_results > 0) {
+      // FIXME sort by titles
+      let values = [];
+      for (let item of response.results) {
+        values.push({
+          id: item.id,
+          title: item.title,
+          year: item.release_date
+        });
+      }
+      return values;
+    }
+    return [{name: 'No results found'}];
+  }
+
+  // FIXME test this
+  private handleErrorPromise(error: Response | any) {
+    console.error(error.message || error);
+    return Promise.reject(error.message || error);
   }
 
 }

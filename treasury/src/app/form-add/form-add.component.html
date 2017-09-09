@@ -3,8 +3,7 @@
     <input mdInput placeholder="Movie title" aria-label="State" [mdAutocomplete]="auto" [formControl]="movieControl">
     <md-autocomplete #auto="mdAutocomplete">
       <md-option *ngFor="let movie of filteredMovies | async" [value]="movie.name">
-        <span>{{ movie.name }}</span> |
-        <small>{{movie.year}}</small>
+        <span>{{ movie.title }}</span><span *ngIf="movie.year"> | <small>{{ movie.year }}</small></span>
       </md-option>
     </md-autocomplete>
   </md-form-field>
