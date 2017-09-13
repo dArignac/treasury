@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CatalogComponent } from './catalog/catalog.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { environment } from '../environments/environment';
+import { CatalogListComponent } from './catalog-list/catalog-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {
     path: 'catalog',
-    component: CatalogComponent,
+    component: CatalogListComponent,
   },
   {
     path: '',

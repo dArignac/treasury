@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
-import { CatalogComponent } from './catalog/catalog.component';
+import { CatalogListComponent } from './catalog-list/catalog-list.component';
 import { CatalogService } from './services/catalog.service';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
@@ -29,10 +29,10 @@ import { UserService } from './services/user.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    CatalogComponent,
     TableDemoComponent,
     FormAddComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CatalogListComponent
   ],
   imports: [
     BrowserModule,
