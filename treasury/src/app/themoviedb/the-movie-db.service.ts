@@ -12,6 +12,11 @@ export class TheMovieDbService {
     this.apiBaseURL = 'https://api.themoviedb.org/3/search/';
   }
 
+  /**
+   * Prepare the API HTTP query.
+   * @param {string} title
+   * @returns {HttpParams}
+   */
   getMovieSearchParams(title: string): HttpParams {
     let p = new HttpParams();
     p = p.append('api_key', environment.themoviedb.apiKey);
@@ -22,6 +27,11 @@ export class TheMovieDbService {
     return p;
   }
 
+  /**
+   * Searches for movies with the given title.
+   * @param {string} title
+   * @returns {Promise<any>}
+   */
   async getMovies(title: string): Promise<any> {
     const response = await this.http.get<MovieResponse>(this.apiBaseURL + 'movie', {params: this.getMovieSearchParams(title)}).toPromise()
       .then(this.extractData)
@@ -29,8 +39,12 @@ export class TheMovieDbService {
     return response;
   }
 
+  /**
+   * Extracts the relevant data from the returned response.
+   * @param {MovieResponse} response
+   * @returns {any}
+   */
   extractData(response: MovieResponse) {
-    console.log(response);
     if (response.total_results > 0) {
 
       // sort by titles
