@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { Subject } from "rxjs/Subject";
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 
 import * as firebase from 'firebase/app';
 
@@ -11,10 +12,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class AuthService {
 
+  // FIXME check against https://github.com/angular/angularfire2/issues/282#issuecomment-304092627
+
   user: Observable<firebase.User>;
   isAuthenticated: Subject<boolean>;
 
-  constructor(public afAuth: AngularFireAuth, db: AngularFireDatabase) {
+  constructor(public afAuth: AngularFireAuth, db: AngularFireDatabase, private router: Router) {
     this.user = afAuth.authState;
     this.isAuthenticated = new Subject();
     this.isAuthenticated.next(false);
@@ -29,7 +32,9 @@ export class AuthService {
    * Log user in with Firebase Auth.
    */
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+      () => this.router.navigate(['/'])
+    );
   }
 
   /**
@@ -39,7 +44,10 @@ export class AuthService {
     // notify subscribers about logout
     this.isAuthenticated.next(false);
     // logout from Firebase
-    this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then(
+      // FIXME this does not redirect
+      () => this.router.navigate(['/'])
+    );
   }
 
 }

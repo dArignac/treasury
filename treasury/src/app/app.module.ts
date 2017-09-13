@@ -13,6 +13,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { CatalogListComponent } from './catalog-list/catalog-list.component';
 import { CatalogService } from './services/catalog.service';
@@ -23,6 +24,7 @@ import { TableDemoComponent } from './table-demo/table-demo.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserService } from './services/user.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { UserService } from './services/user.service';
     TableDemoComponent,
     FormAddComponent,
     PageNotFoundComponent,
-    CatalogListComponent
+    CatalogListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { UserService } from './services/user.service';
   ],
   providers: [
     AuthService,
+    AuthGuard,
     CatalogService,
     TheMovieDbService,
     UserService
