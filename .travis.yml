@@ -1,0 +1,25 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull darignac/asciidoctor
+
+script:
+  - docker run --rm -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html darignac/asciidoctor asciidoctor -r asciidoctor-diagram documents/index.adoc
+
+after_error:
+  - docker logs asciidoc-to-html
+
+after_failure:
+  - docker logs asciidoc-to-html
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: documents
+  target_branch: gh-pages
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
