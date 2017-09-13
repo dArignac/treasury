@@ -3,6 +3,7 @@ import 'hammerjs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
@@ -11,18 +12,17 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './services/auth.service';
+import { CatalogComponent } from './catalog/catalog.component';
+import { CatalogService } from './services/catalog.service';
+import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from './material/material.module'
-import { AuthService } from './services/auth.service';
-import { CatalogService } from './services/catalog.service';
-import { UserService } from './services/user.service';
-import { CatalogComponent } from './catalog/catalog.component';
 import { TableDemoComponent } from './table-demo/table-demo.component';
-import { FormAddComponent } from './form-add/form-add.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
-import { HttpClientModule } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AppRoutingModule } from './app-routing.module';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
