@@ -6,6 +6,7 @@
 // displays all relevant values, however, create a custom environment.dev.ts for local dev usage with the appropriate credentials in it
 export const environment = {
   production: false,
+  debugRouting: false,
   firebase: {
     // your firebase settings, see overview of your firebase app in the firebase console
     apiKey: '',

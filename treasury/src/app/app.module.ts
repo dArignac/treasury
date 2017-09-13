@@ -3,6 +3,7 @@ import 'hammerjs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
@@ -21,6 +22,24 @@ import { TableDemoComponent } from './table-demo/table-demo.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+
+const appRoutes: Routes = [
+  {
+    path: 'catalog',
+    component: CatalogComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/catalog',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
+];
 
 
 @NgModule({
@@ -29,7 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     CatalogComponent,
     TableDemoComponent,
-    FormAddComponent
+    FormAddComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +60,10 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: environment.debugRouting }
+    ),
     HttpClientModule
   ],
   providers: [
