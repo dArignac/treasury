@@ -7,6 +7,9 @@ WARNING: TODO - how to create a proper firebase app & fill the environment value
 === TheMovieDB setup
 WARNING: TODO - how to create a proper themoviedb.org account and api & fill the environment values
 
+== Sentry setup
+WARNING: TODO - how to create a proper sentry account and fill the environment values
+
 === Development setup
 * clone the source
 * `npm install -g @angular/cli`
