@@ -1,10 +1,11 @@
 import 'hammerjs';
+import * as Raven from 'raven-js';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -26,6 +27,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserService } from './services/user.service';
 import { LoginComponent } from './login/login.component';
 
+
+Raven.config(environment.sentryDSN).install();
+
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err:any) : void {
+    Raven.captureException(err);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -54,7 +63,8 @@ import { LoginComponent } from './login/login.component';
     AuthGuard,
     CatalogService,
     TheMovieDbService,
-    UserService
+    UserService,
+    { provide: ErrorHandler, useClass: RavenErrorHandler }
   ],
   bootstrap: [AppComponent]
 })
