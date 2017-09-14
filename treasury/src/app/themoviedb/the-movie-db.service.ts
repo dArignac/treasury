@@ -20,10 +20,10 @@ export class TheMovieDbService {
   getMovieSearchParams(title: string): HttpParams {
     let p = new HttpParams();
     p = p.append('api_key', environment.themoviedb.apiKey);
-    p = p.append('language', 'en-US'); // FIXME should be configurable
+    p = p.append('language', 'en-US');
     p = p.append('query', title);
-    p = p.append('page', '1'); // FIXME should be configurable
-    p = p.append('include_adult', 'false'); // FIXME should be configurable
+    p = p.append('page', '1');
+    p = p.append('include_adult', 'false');
     return p;
   }
 
