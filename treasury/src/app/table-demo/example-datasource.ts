@@ -6,10 +6,10 @@
  * should be rendered.
  */
 import { DataSource } from '@angular/cdk/collections';
-import { ExampleDatabase } from "./example-database";
-import { MdPaginator } from "@angular/material";
-import { UserData } from "./user-data";
-import { Observable } from "rxjs/Rx";
+import { ExampleDatabase } from './example-database';
+import { MdPaginator } from '@angular/material';
+import { UserData } from './user-data';
+import { Observable } from 'rxjs/Rx';
 
 export class ExampleDataSource extends DataSource<any> {
   constructor(private _exampleDatabase: ExampleDatabase, private _paginator: MdPaginator) {

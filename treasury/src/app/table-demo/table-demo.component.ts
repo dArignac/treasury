@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ExampleDatabase } from "./example-database";
-import { MdPaginator } from "@angular/material";
-import { ExampleDataSource } from "./example-datasource";
+import { ExampleDatabase } from './example-database';
+import { MdPaginator } from '@angular/material';
+import { ExampleDataSource } from './example-datasource';
 
 @Component({
   selector: 'app-table-demo',

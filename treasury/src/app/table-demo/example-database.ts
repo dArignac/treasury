@@ -1,6 +1,6 @@
 /** An example database that the data source uses to retrieve data for the table. */
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { UserData } from "./user-data";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { UserData } from './user-data';
 
 const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
   'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];

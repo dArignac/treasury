@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class UserService {
@@ -15,7 +15,7 @@ export class UserService {
     authService.user.subscribe(user => {
       if (user && user.uid) {
         // grab the record from the database - it can be empty!
-        this.userRecord = db.object("/users/" + user.uid);
+        this.userRecord = db.object('/users/' + user.uid);
         // check if all initial values are set up
         this.userRecordSubscription = this.userRecord.subscribe(data => this.checkAndInitializeUserRecord(data));
       }
@@ -34,7 +34,7 @@ export class UserService {
    * @param dataReturned data from database query
    */
   private checkAndInitializeUserRecord(dataReturned) {
-    if (!dataReturned.hasOwnProperty("isCatalogPublic")) {
+    if (!dataReturned.hasOwnProperty('isCatalogPublic')) {
       this.userRecord.set({isCatalogPublic: false});
     }
   }

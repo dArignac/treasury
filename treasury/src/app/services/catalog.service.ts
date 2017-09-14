@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireDatabase } from 'angularfire2/database';
 
-import { AuthService } from "./auth.service";
-import { UserService } from "./user.service";
+import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 
 @Injectable()
