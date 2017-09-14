@@ -28,7 +28,7 @@ import { UserService } from './services/user.service';
 import { LoginComponent } from './login/login.component';
 
 
-Raven.config(environment.sentryDSN).install();
+if (environment.sentryDSN.length > 0) Raven.config(environment.sentryDSN).install();
 
 export class RavenErrorHandler implements ErrorHandler {
   handleError(err:any) : void {
