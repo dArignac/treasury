@@ -45,7 +45,6 @@ export class AuthService {
     this.isAuthenticated.next(false);
     // logout from Firebase
     this.afAuth.auth.signOut().then(
-      // FIXME this does not redirect
       () => this.router.navigate(['/'])
     );
   }
