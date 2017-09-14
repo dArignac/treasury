@@ -4,6 +4,5 @@ export class Movie {
               public title: string,
               public title_original: string,
               public release_date: string) {
-    // TODO add poster image and genres
   }
 }
