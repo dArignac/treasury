@@ -74,7 +74,6 @@ export class TheMovieDbService {
     return [{title: 'No results found'}];
   }
 
-  // FIXME test this
   private handleErrorPromise(error: Response | any) {
     console.error(error.message || error);
     return Promise.reject(error.message || error);
