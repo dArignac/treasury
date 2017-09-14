@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
-
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
 
 
@@ -16,14 +12,9 @@ import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
 export class FormAddComponent implements OnInit {
 
   movieControl: FormControl;
-  // filteredMovies: Observable<any[]>;
 
   constructor(private theMovieDbService: TheMovieDbService) {
     this.movieControl = new FormControl();
-    // this.filteredMovies = this.movieControl.valueChanges
-    //   .debounceTime(1000)
-    //   .startWith(null)
-    //   .switchMap(title => title ? theMovieDbService.getMovies(title): []);
     this.movieControl.valueChanges.debounceTime(1000).subscribe(
       title => console.log(title)
     );
