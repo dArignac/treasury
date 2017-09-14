@@ -6,6 +6,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { CatalogListComponent } from './catalog-list/catalog-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
+import { FormAddComponent } from './form-add/form-add.component';
 
 const appRoutes: Routes = [
   {
@@ -17,6 +18,11 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: '/catalog',
     pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add',
+    component: FormAddComponent,
     canActivate: [AuthGuard]
   },
   {
