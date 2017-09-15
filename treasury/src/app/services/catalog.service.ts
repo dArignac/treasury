@@ -14,16 +14,22 @@ export class CatalogService {
 
   }
 
+  /**
+   * Adds the given movie to the global catalog and to the current user's catalog.
+   * @param {MovieResponseItem} movie
+   * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
+   */
   addMovie(movie: MovieResponseItem): Promise<boolean> {
     let promise = new Promise<boolean>((resolve, reject) => {
       this.db.object(`/catalog/${movie.id}`).subscribe(item => {
+        // if item does not exists in the global catalog, add it
         if (!item.$exists()) {
           this.db.object(`/catalog/${movie.id}`).set(movie);
-          //FIXME add to user list of movies
-          resolve(true);
         } else {
-          resolve(false);
+          // FIXME maybe update the existing item?
         }
+        // add to user list of movies
+        this.userService.addMovieToCatalog(movie).then(wasAdded => resolve(wasAdded));
       });
     });
     return promise;
