@@ -3,4 +3,11 @@
     <input mdInput placeholder="Movie title" aria-label="State" [formControl]="movieControl">
   </md-form-field>
 </form>
+
+<md-list *ngFor="let item of resultList | async">
+  <md-list-item>
+    {{ item.title }} <span *ngIf="item.year">({{ item.year }})</span>
+  </md-list-item>
+</md-list>
+
 <router-outlet></router-outlet>

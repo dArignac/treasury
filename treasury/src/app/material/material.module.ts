@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MdAutocompleteModule,
   MdButtonModule,
   MdFormFieldModule,
   MdIconModule,
   MdInputModule,
+  MdListModule,
   MdMenuModule,
   MdOptionModule,
   MdPaginatorModule,
@@ -17,11 +17,11 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    MdAutocompleteModule,
     MdButtonModule,
     MdFormFieldModule,
     MdIconModule,
     MdInputModule,
+    MdListModule,
     MdMenuModule,
     MdOptionModule,
     MdPaginatorModule,
@@ -30,11 +30,11 @@ import {
     MdToolbarModule,
   ],
   exports: [
-    MdAutocompleteModule,
     MdButtonModule,
     MdFormFieldModule,
     MdIconModule,
     MdInputModule,
+    MdListModule,
     MdMenuModule,
     MdOptionModule,
     MdPaginatorModule,
