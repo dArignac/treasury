@@ -60,16 +60,7 @@ export class TheMovieDbService {
         }
       );
 
-      // transforms
-      let values = [];
-      for (let item of results) {
-        values.push({
-          id: item.id,
-          title: item.title,
-          year: item.release_date
-        });
-      }
-      return values;
+      return results;
     }
     return [{title: 'No results found'}];
   }

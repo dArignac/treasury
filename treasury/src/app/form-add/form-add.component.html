@@ -8,7 +8,7 @@
   <a md-list-item *ngFor="let item of resultList | async" (click)="buttonClicked(item)">
     <md-icon md-list-icon>add</md-icon>
     <span md-line>{{ item.title }}</span>
-    <span md-line class="demo-secondary-text" *ngIf="item.year"> {{ item.year }} </span>
+    <span md-line class="demo-secondary-text" *ngIf="item.release_date"> {{ item.release_date }} </span>
   </a>
 </md-nav-list>
 
