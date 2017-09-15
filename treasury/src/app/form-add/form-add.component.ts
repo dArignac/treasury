@@ -29,11 +29,11 @@ export class FormAddComponent implements OnInit {
   buttonClicked(item) {
     this.catalogService.addMovie(item).then(wasAdded => {
       // if the movie was not added then it is already there
-      if (!wasAdded) {
-        let config = new MdSnackBarConfig();
-        config.duration = 3000;
-        this.snackbar.open(`${item.title} already exists.`, undefined, config);
-      }
+      let msg = wasAdded ? 'was added' : 'already exists';
+      //FIXME separate the snackbar color on real addition and on info only
+      let config = new MdSnackBarConfig();
+      config.duration = 3000;
+      this.snackbar.open(`${item.title} ${msg}.`, undefined, config);
     });
   }
 
