@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
+import { CatalogService } from '../services/catalog.service';
 
 
 @Component({
@@ -18,14 +20,21 @@ export class FormAddComponent implements OnInit {
 
   // FIXME check if found result is already in user catalog
 
-  constructor(private theMovieDbService: TheMovieDbService) {
+  constructor(private theMovieDbService: TheMovieDbService, private catalogService: CatalogService, public snackbar: MdSnackBar) {
     this.movieControl = new FormControl();
     this.resultList = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
   }
 
   // FIXME implement
   buttonClicked(item) {
-    console.log('clicked', item);
+    this.catalogService.addMovie(item).then(wasAdded => {
+      // if the movie was not added then it is already there
+      if (!wasAdded) {
+        let config = new MdSnackBarConfig();
+        config.duration = 3000;
+        this.snackbar.open(`${item.title} already exists.`, undefined, config);
+      }
+    });
   }
 
   ngOnInit() {
