@@ -16,9 +16,16 @@ export class FormAddComponent implements OnInit {
   resultList: Observable<any>;
   movieControl: FormControl;
 
+  // FIXME check if found result is already in user catalog
+
   constructor(private theMovieDbService: TheMovieDbService) {
     this.movieControl = new FormControl();
     this.resultList = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
+  }
+
+  // FIXME implement
+  buttonClicked(item) {
+    console.log('clicked', item);
   }
 
   ngOnInit() {
