@@ -62,7 +62,7 @@ export class TheMovieDbService {
 
       return results;
     }
-    return [{title: 'No results found'}];
+    return [{error: 404, title: 'No results found'}];
   }
 
   private handleErrorPromise(error: Response | any) {

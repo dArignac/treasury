@@ -28,14 +28,16 @@ export class FormAddComponent implements OnInit {
    * @param item
    */
   buttonClicked(item) {
-    this.catalogService.addMovie(item).then(wasAdded => {
-      // if the movie was not added then it is already there
-      let msg = wasAdded ? 'was added' : 'already exists';
-      let config = new MdSnackBarConfig();
-      config.duration = 30000;
-      config.extraClasses = wasAdded ? ['snackbar', 'ok'] : ['snackbar', 'warning'];
-      this.snackbar.open(`${item.title} ${msg}.`, undefined, config);
-    });
+    if (!item.hasOwnProperty('error')) {
+      this.catalogService.addMovie(item).then(wasAdded => {
+        // if the movie was not added then it is already there
+        let msg = wasAdded ? 'was added' : 'already exists';
+        let config = new MdSnackBarConfig();
+        config.duration = 30000;
+        config.extraClasses = wasAdded ? ['snackbar', 'ok'] : ['snackbar', 'warning'];
+        this.snackbar.open(`${item.title} ${msg}.`, undefined, config);
+      });
+    }
   }
 
   ngOnInit() {
