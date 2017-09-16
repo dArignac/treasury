@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MdAutocompleteModule,
   MdButtonModule,
   MdFormFieldModule,
   MdIconModule,
   MdInputModule,
+  MdListModule,
   MdMenuModule,
   MdOptionModule,
   MdPaginatorModule,
   MdSlideToggleModule,
+  MdSnackBarModule,
   MdTableModule,
   MdToolbarModule
 } from '@angular/material';
@@ -17,28 +18,30 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    MdAutocompleteModule,
     MdButtonModule,
     MdFormFieldModule,
     MdIconModule,
     MdInputModule,
+    MdListModule,
     MdMenuModule,
     MdOptionModule,
     MdPaginatorModule,
     MdSlideToggleModule,
+    MdSnackBarModule,
     MdTableModule,
     MdToolbarModule,
   ],
   exports: [
-    MdAutocompleteModule,
     MdButtonModule,
     MdFormFieldModule,
     MdIconModule,
     MdInputModule,
+    MdListModule,
     MdMenuModule,
     MdOptionModule,
     MdPaginatorModule,
     MdSlideToggleModule,
+    MdSnackBarModule,
     MdTableModule,
     MdToolbarModule
   ],

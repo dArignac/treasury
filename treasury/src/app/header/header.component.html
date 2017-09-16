@@ -1,7 +1,7 @@
 <md-toolbar color="primary">
   <span>Treasury</span>
   <span class="fill-remaining"></span>
-  <div class="menu-anonymous" *ngIf="!(authService.user | async)?.uid">
+  <div class="menu-anonymous" *ngIf="!authService.authenticated">
     <button md-icon-button [mdMenuTriggerFor]="menu1" aria-label="Open x-positioned menu">
       <md-icon>person_outline</md-icon>
     </button>
@@ -12,13 +12,13 @@
       </button>
     </md-menu>
   </div>
-  <div class="menu-authenticated" *ngIf="(authService.user | async)?.uid">
+  <div class="menu-authenticated" *ngIf="authService.authenticated">
     <button md-icon-button>
       <md-icon class="demo-toolbar-icon" *ngIf="(userService.userRecord | async)?.isCatalogPublic" (click)="userService.setCatalogPrivate()">public</md-icon>
       <md-icon class="demo-toolbar-icon" *ngIf="!(userService.userRecord | async)?.isCatalogPublic" (click)="userService.setCatalogPublic()">vpn_lock</md-icon>
     </button>
     <button md-icon-button [mdMenuTriggerFor]="menu2" aria-label="Open x-positioned menu">
-      <img src="{{ (authService.user | async)?.providerData[0].photoURL }}" class="avatar" height="40" width="40">
+      <img src="{{ authService.user.providerData[0].photoURL }}" class="avatar" height="40" width="40">
     </button>
     <md-menu #menu2="mdMenu" xPosition="before" class="before">
       <button md-menu-item (click)="authService.logout()">

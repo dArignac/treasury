@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
@@ -12,20 +11,34 @@ import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class AuthService {
 
-  // FIXME check against https://github.com/angular/angularfire2/issues/282#issuecomment-304092627
-
-  user: Observable<firebase.User>;
+  private _user: firebase.User = null;
   isAuthenticated: Subject<boolean>;
 
-  constructor(public afAuth: AngularFireAuth, db: AngularFireDatabase, private router: Router) {
-    this.user = afAuth.authState;
+  constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase, private router: Router) {
     this.isAuthenticated = new Subject();
     this.isAuthenticated.next(false);
-    this.user.subscribe(user => {
-      if (user && user.uid) {
+    afAuth.authState.subscribe(user => {
+      this.user = user;
+      if (this.authenticated) {
         this.isAuthenticated.next(true);
       }
     });
+  }
+
+  get user(): firebase.User {
+    return this._user;
+  }
+
+  set user(value: firebase.User) {
+    this._user = value;
+  }
+
+  get authenticated(): boolean {
+    return this._user !== null;
+  }
+
+  get id(): string {
+    return this.authenticated ? this.user.uid : '';
   }
 
   /**
@@ -33,7 +46,27 @@ export class AuthService {
    */
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
-      () => this.router.navigate(['/'])
+      response => {
+        this.db.object(`/users/${response.user.uid}`)
+          .subscribe(user => {
+            if (!user.$exists()) {
+              // data from firebase
+              let {displayName, email, emailVerified, photoURL, uid} = response.user;
+              // our custom initial data
+              let isCatalogPublic = false;
+              // store to db
+              this.db.object(`/users/${response.user.uid}`).set({
+                displayName,
+                email,
+                emailVerified,
+                photoURL,
+                uid,
+                isCatalogPublic
+              })
+            }
+          });
+        this.router.navigate(['/']);
+      }
     );
   }
 

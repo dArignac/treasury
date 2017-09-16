@@ -103,3 +103,4 @@ typings/
 
 # custom, local dev env with credentials
 src/environments/environment.dev.ts
+src/environments/environment.prod.ts
