@@ -18,21 +18,22 @@ export class FormAddComponent implements OnInit {
   resultList: Observable<any>;
   movieControl: FormControl;
 
-  // FIXME check if found result is already in user catalog
-
   constructor(private theMovieDbService: TheMovieDbService, private catalogService: CatalogService, public snackbar: MdSnackBar) {
     this.movieControl = new FormControl();
     this.resultList = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
   }
 
-  // FIXME implement
+  /**
+   * When a found movie was clicked, try to add it to the global and the user catalog.
+   * @param item
+   */
   buttonClicked(item) {
     this.catalogService.addMovie(item).then(wasAdded => {
       // if the movie was not added then it is already there
       let msg = wasAdded ? 'was added' : 'already exists';
-      //FIXME separate the snackbar color on real addition and on info only
       let config = new MdSnackBarConfig();
-      config.duration = 3000;
+      config.duration = 30000;
+      config.extraClasses = wasAdded ? ['snackbar', 'ok'] : ['snackbar', 'warning'];
       this.snackbar.open(`${item.title} ${msg}.`, undefined, config);
     });
   }
