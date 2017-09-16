@@ -1,5 +1,13 @@
 <h1>Your catalog</h1>
-TODO
+
+<ul *ngIf="(catalogService.userCatalog | async)?.length > 0">
+  <li *ngFor="let item of catalogService.userCatalog | async">
+    {{ item.title }}
+  </li>
+</ul>
+
+<span *ngIf="(catalogService.userCatalog | async)?.length == 0">No items in catalog.</span>
+
 <!--
 <app-table-demo></app-table-demo>
 -->

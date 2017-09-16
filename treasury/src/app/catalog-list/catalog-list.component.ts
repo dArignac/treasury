@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CatalogService } from '../services/catalog.service';
+
 @Component({
   selector: 'app-catalog-list',
   templateUrl: './catalog-list.component.html',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private catalogService: CatalogService) {
+  }
 
   ngOnInit() {
   }

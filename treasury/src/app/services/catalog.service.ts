@@ -1,17 +1,44 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from './auth.service';
-import { UserService } from './user.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
+import { UserService } from './user.service';
 
 
 @Injectable()
 export class CatalogService {
 
-  constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
+  private _userCatalog: MovieResponseItem[] = [];
+  private _userCatalogSubject: BehaviorSubject<MovieResponseItem[]> = new BehaviorSubject([]);
 
+  constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
+    db.list(`/users/${this.authService.id}/catalog`).subscribe(
+      items => {
+        // FIXME is this performant?
+        this._userCatalog = [];
+        for (let item of items) {
+          this.getItem(item.$key).first().subscribe(
+            itemDetail => {
+              this._userCatalog.push(itemDetail);
+              this._userCatalogSubject.next(this._userCatalog);
+            }
+          );
+        }
+      }
+    );
+  }
+
+  get userCatalog(): Observable<MovieResponseItem[]> {
+    return this._userCatalogSubject.asObservable();
+  }
+
+  getItem(id: string): FirebaseObjectObservable<MovieResponseItem> {
+    return this.db.object(`/catalog/${id}`);
   }
 
   /**
