@@ -21,6 +21,14 @@
       <img src="{{ authService.user.providerData[0].photoURL }}" class="avatar" height="40" width="40">
     </button>
     <md-menu #menu2="mdMenu" xPosition="before" class="before">
+      <button md-menu-item (click)="gotoPage('catalog')">
+        <md-icon>library_books</md-icon>
+        <span>Your catalog</span>
+      </button>
+      <button md-menu-item (click)="gotoPage('add')">
+        <md-icon>library_add</md-icon>
+        <span>Add items</span>
+      </button>
       <button md-menu-item (click)="authService.logout()">
         <md-icon>arrow_back</md-icon>
         <span>Logout</span>
