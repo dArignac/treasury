@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/switchMap";
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';

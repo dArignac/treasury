@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { MovieResponse } from './movie-response';
 
-import "rxjs/add/operator/toPromise";
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TheMovieDbService {
