@@ -21,6 +21,7 @@ WARNING: TODO - how to create a proper sentry account and fill the environment v
 ==== Development insights
 * https://github.com/angular/angularfire2 for Angular-Firebase bindings
 * https://mdbootstrap.com/ for Bootstrap & Material Design bindings in Angular
+* http://materializecss.com for some Material Design components that are not free in mdbootstrap
 
 === Live setup
 WARNING: TODO
