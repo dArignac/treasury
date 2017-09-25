@@ -20,14 +20,7 @@ WARNING: TODO - how to create a proper sentry account and fill the environment v
 
 ==== Development insights
 * https://github.com/angular/angularfire2 for Angular-Firebase bindings
-* https://github.com/angular/material2 for Material Design bindings in Angular
-
-material2.install
-----
-npm install --save @angular/material @angular/cdk
-npm install --save @angular/animations
-npm install --save hammerjs
-----
+* https://mdbootstrap.com/ for Bootstrap & Material Design bindings in Angular
 
 === Live setup
 WARNING: TODO
