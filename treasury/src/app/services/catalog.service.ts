@@ -18,6 +18,10 @@ export class CatalogService {
   private _userCatalogSubject: BehaviorSubject<MovieResponseItem[]> = new BehaviorSubject([]);
 
   constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
+    // FIXME use this for preloader styling
+    // setTimeout(() => {
+    //
+    // }, 5000);
     db.list(`/users/${this.authService.id}/catalog`).subscribe(
       items => {
         // FIXME is this performant?
