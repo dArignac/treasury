@@ -1,17 +1,20 @@
-<!--
-<form class="add-form">
-  <md-form-field class="full-width">
-    <input mdInput placeholder="Enter a movie title" aria-label="State" [formControl]="movieControl">
-  </md-form-field>
-</form>
+<div class="container-fluid">
+  <div class="row">
+    <div class="column">
+      <h1>Add item(s) to catalog:</h1>
 
-<md-nav-list>
-  <a md-list-item *ngFor="let item of resultList | async" (click)="buttonClicked(item)">
-    <md-icon md-list-icon *ngIf="!item.error">add</md-icon>
-    <span md-line>{{ item.title }}</span>
-    <span md-line class="demo-secondary-text" *ngIf="item.release_date"> {{ item.release_date }} </span>
-  </a>
-</md-nav-list>
--->
+      <div class="md-form">
+        <input mdbActive type="text" id="form1" class="form-control" [formControl]="movieControl">
+        <label for="form1" class="">Enter a movie title (click it to add)</label>
+      </div>
 
+      <div class="list-group">
+        <a class="list-group-item" *ngFor="let item of resultList | async" (click)="buttonClicked(item)">
+          {{ item.title }} <small *ngIf="item.release_date"> {{ item.release_date }} </small>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>
