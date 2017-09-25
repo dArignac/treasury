@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/switchMap";
 import { Observable } from 'rxjs/Observable';
 
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
@@ -18,7 +19,7 @@ export class FormAddComponent implements OnInit {
   resultList: Observable<any>;
   movieControl: FormControl;
 
-  constructor(private theMovieDbService: TheMovieDbService, private catalogService: CatalogService, public snackbar: MdSnackBar) {
+  constructor(private theMovieDbService: TheMovieDbService, private catalogService: CatalogService) {
     this.movieControl = new FormControl();
     this.resultList = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
   }
@@ -31,11 +32,13 @@ export class FormAddComponent implements OnInit {
     if (!item.hasOwnProperty('error')) {
       this.catalogService.addMovie(item).then(wasAdded => {
         // if the movie was not added then it is already there
+        /* FIXME add a snackbar
         let msg = wasAdded ? 'was added' : 'already exists';
         let config = new MdSnackBarConfig();
         config.duration = 30000;
         config.extraClasses = wasAdded ? ['snackbar', 'ok'] : ['snackbar', 'warning'];
         this.snackbar.open(`${item.title} ${msg}.`, undefined, config);
+        */
       });
     }
   }
