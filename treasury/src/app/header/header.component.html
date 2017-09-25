@@ -37,3 +37,27 @@
   </div>
 </md-toolbar>
 -->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark unique-color-dark" [containerInside]="false">
+  <logo>
+    <a class="logo navbar-brand" href="javascript:;;"><strong>Treasury</strong></a>
+  </logo>
+  <links>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item waves-light" [class.active]="router.url == '/'" mdbRippleRadius>
+        <a class="nav-link" (click)="gotoPage('')">Home <span class="sr-only" *ngIf="router.url == '/'">(current)</span></a>
+      </li>
+      <li class="nav-item waves-light" [class.active]="router.url == '/catalog'" mdbRippleRadius *ngIf="authService.authenticated">
+        <a class="nav-link" (click)="gotoPage('catalog')">Catalog <span class="sr-only" *ngIf="router.url == '/catalog'">(current)</span></a>
+      </li>
+      <li class="nav-item waves-light" [class.active]="router.url == '/add'" mdbRippleRadius *ngIf="authService.authenticated">
+        <a class="nav-link" (click)="gotoPage('add')">Add item <span class="sr-only" *ngIf="router.url == '/add'">(current)</span></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item waves-light" mdbRippleRadius>
+        <a class="nav-link" (click)="authService.login()" *ngIf="!authService.authenticated">Login</a>
+        <a class="nav-link" (click)="authService.logout()" *ngIf="authService.authenticated">Logout</a>
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>

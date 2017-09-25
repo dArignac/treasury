@@ -65,7 +65,7 @@ export class AuthService {
               })
             }
           });
-        this.router.navigate(['/']);
+        this.router.navigate(['/catalog']);
       }
     );
   }

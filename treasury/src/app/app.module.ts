@@ -22,10 +22,10 @@ import { CatalogListComponent } from './catalog-list/catalog-list.component';
 import { CatalogService } from './services/catalog.service';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserService } from './services/user.service';
-import { LoginComponent } from './login/login.component';
 
 
 if (environment.sentryDSN.length > 0) Raven.config(environment.sentryDSN).install();
@@ -43,7 +43,7 @@ export class RavenErrorHandler implements ErrorHandler {
     FormAddComponent,
     PageNotFoundComponent,
     CatalogListComponent,
-    LoginComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
