@@ -1,17 +1,22 @@
-<div class="container-fluid">
-  <div class="row" *ngIf="(catalogService.userCatalog | async)?.length > 0 else loading">
-    <ng-container *ngFor="let item of catalogService.userCatalog | async; index as i; last as isLast">
-      <div class="col">{{item.title}}</div>
-      <div class="w-100" *ngIf="i % 3 == 2"></div>
-      <div class="col" *ngIf="isLast && i % 3 == 1"></div>
-    </ng-container>
-  </div>
-  <ng-template #loading>
-    <div class="row">
-      <div class="col">
-        Loading....
-      </div>
+<section id="catalog">
+  <div class="container-fluid">
+    <div class="row" *ngIf="(catalogService.userCatalog | async)?.length > 0 else loading">
+      <ng-container *ngFor="let item of catalogService.userCatalog | async; index as i; last as isLast">
+        <div class="col">{{item.title}}</div>
+        <div class="w-100" *ngIf="i % 3 == 2"></div>
+        <div class="col" *ngIf="isLast && i % 3 == 1"></div>
+      </ng-container>
     </div>
-  </ng-template>
-</div>
-<router-outlet></router-outlet>
+    <ng-template #loading>
+      <div class="row">
+        <div class="col">
+          Loading...
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <router-outlet></router-outlet>
+</section>

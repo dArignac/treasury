@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~normalize.css/normalize.css";
+
+section#catalog {
+  @import "~materialize-css/sass/components/color";
+  @import "~materialize-css/sass/components/variables";
+  $progress-bar-color: color("grey", "base");
+  @import "~materialize-css/sass/components/normalize";
+  @import "~materialize-css/sass/components/typography";
+  @import "~materialize-css/sass/components/global";
+}
