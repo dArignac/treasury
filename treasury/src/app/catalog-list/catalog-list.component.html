@@ -1,6 +1,6 @@
 <section id="catalog" class="mt-3">
   <div class="container-fluid">
-    <div class="row" *ngIf="(catalogService.userCatalog | async)?.length > 0 else loading">
+    <div class="row" *ngIf="(catalogService.userCatalog | async)?.length > 0; else loading">
       <ng-container *ngFor="let item of catalogService.userCatalog | async; index as i; last as isLast">
         <div class="col-auto mt-1">
           <div class="item view overlay hm-black-strong">
