@@ -20,13 +20,21 @@ export class CatalogService {
   constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
     db.list(`/users/${this.authService.id}/catalog`).subscribe(
       items => {
-        // FIXME is this performant?
+        // FIXME how is this considering performance?
         this._userCatalog = [];
         for (let item of items) {
           this.getItem(item.$key).first().subscribe(
             itemDetail => {
               this._userCatalog.push(itemDetail);
-              this._userCatalogSubject.next(this._userCatalog);
+              this._userCatalogSubject.next(
+                this._userCatalog.sort(
+                  (a, b) => {
+                    if (a.title < b.title) return -1;
+                    if (a.title > b.title) return 1;
+                    return 0;
+                  }
+                )
+              );
             }
           );
         }
