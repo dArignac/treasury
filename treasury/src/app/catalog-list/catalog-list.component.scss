@@ -1,0 +1,14 @@
+section#catalog {
+  @import "~materialize-css/sass/components/color";
+  @import "~materialize-css/sass/components/variables";
+  $progress-bar-color: color("grey", "base");
+  @import "~materialize-css/sass/components/normalize";
+  @import "~materialize-css/sass/components/typography";
+  @import "~materialize-css/sass/components/global";
+
+  .item {
+    height: 231px;
+    overflow: hidden;
+  }
+
+}

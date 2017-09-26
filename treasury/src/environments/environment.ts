@@ -19,6 +19,7 @@ export const environment = {
   },
   themoviedb: {
     // your themoviedb.org API key, see https://www.themoviedb.org/settings/api
-    apiKey: ''
+    apiKey: '',
+    imageBaseURL: 'https://image.tmdb.org/t/p/'
   }
 };
