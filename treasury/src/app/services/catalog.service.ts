@@ -21,15 +21,25 @@ export class CatalogService {
   private _catalogDB: Subscription;
 
   private _userCatalog: MovieResponseItem[] = [];
-  private _userCatalogSubject: BehaviorSubject<MovieResponseItem[]> = new BehaviorSubject([]);
+  //private _userCatalogSubject: BehaviorSubject<MovieResponseItem[]> = new BehaviorSubject([]);
+  private _catalogBS: BehaviorSubject<number[]> = new BehaviorSubject([]);
 
   private _catalogIDs: number[] = []; // stores all ID of the elements in catalog (equivalent to the firebase catalog list of the user)
   private _catalogItems: MovieResponseItem[] = [];
+  private _isCatalogInitialized = false;
+
+  get catalogBS(): BehaviorSubject<number[]> {
+    return this._catalogBS;
+  }
+
+  get isCatalogInitialized(): boolean {
+    return this._isCatalogInitialized;
+  }
 
   constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
     this._catalogDB = db.list(`/users/${this.authService.id}/catalog`).subscribe(
       items => {
-        // FIXME if items are added, save their IDs. If they are removed, remove the ids - base verythin on that
+        // FIXME if items are added, save their IDs. If they are removed, remove the ids - base everything on that
         // FIXME on addition/removal update a separate list with MovieResponseItems
 
         // dehydrate the sent items collection to an array only containing the $key values
@@ -53,6 +63,9 @@ export class CatalogService {
         if (removed.length > 0) {
           this._catalogIDs = _.pullAll(this._catalogIDs, removed);
         }
+
+        this._catalogBS.next(this._catalogIDs);
+        this._isCatalogInitialized = true;
 
         // // FIXME how is this considering performance?
         // this._userCatalog = [];
@@ -87,9 +100,9 @@ export class CatalogService {
     );
   }
 
-  get userCatalog(): Observable<MovieResponseItem[]> {
-    return this._userCatalogSubject.filter(v => !!v);
-  }
+  // get userCatalog(): Observable<MovieResponseItem[]> {
+  //   return this._userCatalogSubject.filter(v => !!v);
+  // }
 
   getItem(id: string): FirebaseObjectObservable<MovieResponseItem> {
     return this.db.object(`/catalog/${id}`);

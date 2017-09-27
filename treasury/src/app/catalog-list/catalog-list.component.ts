@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { CatalogService } from '../services/catalog.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { environment } from '../../environments/environment';
 })
 export class CatalogListComponent implements OnInit {
 
-  catalog$: Observable<MovieResponseItem[]>;
+  //catalog$: Observable<MovieResponseItem[]>;
+  catalog$: BehaviorSubject<number[]>;
 
   constructor(private catalogService: CatalogService) {
   }
@@ -24,7 +26,8 @@ export class CatalogListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.catalog$ = this.catalogService.userCatalog;
+    //this.catalog$ = this.catalogService.userCatalog;
+    this.catalog$ = this.catalogService.catalogBS;
   }
 
 }
