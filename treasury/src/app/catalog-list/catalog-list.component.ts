@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class CatalogListComponent implements OnInit {
 
   //catalog$: Observable<MovieResponseItem[]>;
-  catalog$: BehaviorSubject<number[]>;
+  catalogItemIDs$: BehaviorSubject<number[]>;
 
   constructor(private catalogService: CatalogService) {
   }
@@ -27,7 +27,7 @@ export class CatalogListComponent implements OnInit {
 
   ngOnInit() {
     //this.catalog$ = this.catalogService.userCatalog;
-    this.catalog$ = this.catalogService.catalogBS;
+    this.catalogItemIDs$ = this.catalogService.catalogItemIDsBS;
   }
 
 }

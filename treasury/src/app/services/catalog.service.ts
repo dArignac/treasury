@@ -20,16 +20,14 @@ export class CatalogService {
 
   private _catalogDB: Subscription;
 
-  private _userCatalog: MovieResponseItem[] = [];
-  //private _userCatalogSubject: BehaviorSubject<MovieResponseItem[]> = new BehaviorSubject([]);
-  private _catalogBS: BehaviorSubject<number[]> = new BehaviorSubject([]);
+  private _catalogItemIDsBS: BehaviorSubject<number[]> = new BehaviorSubject([]);
 
-  private _catalogIDs: number[] = []; // stores all ID of the elements in catalog (equivalent to the firebase catalog list of the user)
+  private _catalogItemIDs: number[] = []; // stores all ID of the elements in catalog (equivalent to the firebase catalog list of the user)
   private _catalogItems: MovieResponseItem[] = [];
   private _isCatalogInitialized = false;
 
-  get catalogBS(): BehaviorSubject<number[]> {
-    return this._catalogBS;
+  get catalogItemIDsBS(): BehaviorSubject<number[]> {
+    return this._catalogItemIDsBS;
   }
 
   get isCatalogInitialized(): boolean {
@@ -47,24 +45,24 @@ export class CatalogService {
 
         // FIXME remove consoles
         console.log('firebaseIDs', firebaseIDs);
-        console.log('catalogIDs',  this._catalogIDs);
+        console.log('catalogIDs',  this._catalogItemIDs);
 
 
         // calculate the difference between the IDs in firebase and our _catalogIDs
-        let added = _.difference(firebaseIDs, this._catalogIDs);
-        let removed = _.difference(this._catalogIDs, firebaseIDs);
+        let added = _.difference(firebaseIDs, this._catalogItemIDs);
+        let removed = _.difference(this._catalogItemIDs, firebaseIDs);
         // FIXME remove consoles
         console.log('added', added);
         console.log('removed', removed);
 
         if (added.length > 0) {
-          this._catalogIDs = this._catalogIDs.concat(added);
+          this._catalogItemIDs = this._catalogItemIDs.concat(added);
         }
         if (removed.length > 0) {
-          this._catalogIDs = _.pullAll(this._catalogIDs, removed);
+          this._catalogItemIDs = _.pullAll(this._catalogItemIDs, removed);
         }
 
-        this._catalogBS.next(this._catalogIDs);
+        this._catalogItemIDsBS.next(this._catalogItemIDs);
         this._isCatalogInitialized = true;
 
         // // FIXME how is this considering performance?
@@ -87,7 +85,7 @@ export class CatalogService {
         // }
         // FIXME remove consoles
         console.log('--------------------------------------------------------------------------');
-        console.log('catalog is', this._catalogIDs);
+        console.log('catalog is', this._catalogItemIDs);
         console.log('###########################################################################');
       },
       // FIXME handle at least error

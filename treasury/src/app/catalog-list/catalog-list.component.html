@@ -27,7 +27,7 @@
 <!--</section>-->
 
 <div *ngIf="catalogService.isCatalogInitialized; else loading">
-  <ng-container *ngIf="catalog$ | async as catalog">
+  <ng-container *ngIf="catalogItemIDs$ | async as catalog">
     <ng-container *ngIf="catalog?.length > 0; else noItems">
       <div *ngFor="let item of catalog">{{item}}</div>
     </ng-container>
