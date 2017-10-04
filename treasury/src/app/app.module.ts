@@ -48,9 +48,9 @@ export class RavenErrorHandler implements ErrorHandler {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,

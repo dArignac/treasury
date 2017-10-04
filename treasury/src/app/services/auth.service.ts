@@ -47,9 +47,9 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
-        this.db.object(`/users/${response.user.uid}`)
+        this.db.object(`/users/${response.user.uid}`).valueChanges()
           .subscribe(user => {
-            if (!user.$exists()) {
+            if (user == null) {
               // data from firebase
               let {displayName, email, emailVerified, photoURL, uid} = response.user;
               // our custom initial data

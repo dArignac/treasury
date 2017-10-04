@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 
 import 'rxjs/add/operator/first';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './auth.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
 import { UserService } from './user.service';
-
 
 
 @Injectable()
@@ -35,22 +34,25 @@ export class CatalogService {
   }
 
   constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
-    this._catalogDB = db.list(`/users/${this.authService.id}/catalog`).subscribe(
+    this._catalogDB = db.list(`/users/${this.authService.id}/items`).snapshotChanges().map(
+      // dehydrate the sent items collection to an array only containing the key
+      // FIXME we could store <key>:<key> instead of <key>:true to the /items tree and skip this and use valueChanges() without .map()
       items => {
+        return _.flatMap(items, item => { return Number(item.key); });
+      }
+    ).subscribe(
+      itemKeys => {
         // FIXME if items are added, save their IDs. If they are removed, remove the ids - base everything on that
         // FIXME on addition/removal update a separate list with MovieResponseItems
 
-        // dehydrate the sent items collection to an array only containing the $key values
-        let firebaseIDs: number[] = _.flatMap(items, item => { return item.$key });
-
         // FIXME remove consoles
-        console.log('firebaseIDs', firebaseIDs);
+        console.log('itemKeys', itemKeys);
         console.log('catalogIDs',  this._catalogItemIDs);
 
-
         // calculate the difference between the IDs in firebase and our _catalogIDs
-        let added = _.difference(firebaseIDs, this._catalogItemIDs);
-        let removed = _.difference(this._catalogItemIDs, firebaseIDs);
+        let added = _.difference(itemKeys, this._catalogItemIDs);
+        let removed = _.difference(this._catalogItemIDs, itemKeys);
+
         // FIXME remove consoles
         console.log('added', added);
         console.log('removed', removed);
@@ -102,9 +104,10 @@ export class CatalogService {
   //   return this._userCatalogSubject.filter(v => !!v);
   // }
 
-  getItem(id: string): FirebaseObjectObservable<MovieResponseItem> {
-    return this.db.object(`/catalog/${id}`);
-  }
+  // FIXME do something
+  // getItem(id: string): FirebaseObjectObservable<MovieResponseItem> {
+  //   return this.db.object(`/catalog/${id}`);
+  // }
 
   /**
    * Adds the given movie to the global catalog and to the current user's catalog.
@@ -113,10 +116,10 @@ export class CatalogService {
    */
   addMovie(movie: MovieResponseItem): Promise<boolean> {
     let promise = new Promise<boolean>((resolve, reject) => {
-      this.db.object(`/catalog/${movie.id}`).subscribe(item => {
+      this.db.object(`/items/${movie.id}`).valueChanges().subscribe(item => {
         // if item does not exists in the global catalog, add it
-        if (!item.$exists()) {
-          this.db.object(`/catalog/${movie.id}`).set(movie);
+        if (item == null) {
+          this.db.object(`/items/${movie.id}`).set(movie);
         } else {
           // FIXME maybe update the existing item?
         }

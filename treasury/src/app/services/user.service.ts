@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 
 import { AuthService } from './auth.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
@@ -8,7 +8,7 @@ import { MovieResponseItem } from '../themoviedb/movie-response-item';
 @Injectable()
 export class UserService {
 
-  userRecord: FirebaseObjectObservable<any>;
+  userRecord: AngularFireObject<any>;
 
   // private userRecordSubscription: any;
 
@@ -41,10 +41,10 @@ export class UserService {
    */
   addMovieToCatalog(movie: MovieResponseItem): Promise<boolean> {
     let promise = new Promise((resolve, reject) => {
-      this.db.object(`/users/${this.authService.id}/catalog/${movie.id}`).subscribe(item => {
-        if (!item.$exists()) {
-          // this.db.list(`/users/${this.authService.id}/catalog`).push({movie_id: true});
-          this.db.object(`/users/${this.authService.id}/catalog/${movie.id}`).set(true);
+      this.db.object(`/users/${this.authService.id}/items/${movie.id}`).valueChanges().subscribe(item => {
+        if (item == null) {
+          // this.db.list(`/users/${this.authService.id}/items`).push({movie_id: true});
+          this.db.object(`/users/${this.authService.id}/items/${movie.id}`).set(true);
           resolve(true);
         } else {
           resolve(false);
