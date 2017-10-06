@@ -53,11 +53,11 @@ export class AuthService {
           email: response.user.email,
           isEmailVerified: response.user.emailVerified,
           photoURL: response.user.photoURL,
-          isCatalogPublic: false
+          isCatalogPublic: false,
+          items: {}
         };
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {
-            console.log('user was set');
             this.router.navigate(['/catalog']);
           },
           (error) => {
