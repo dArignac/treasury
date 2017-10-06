@@ -9,7 +9,7 @@ import { ErrorHandler, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -19,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { CatalogListComponent } from './catalog-list/catalog-list.component';
-import { CatalogService } from './services/catalog.service';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -49,7 +48,7 @@ export class RavenErrorHandler implements ErrorHandler {
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     AngularFireAuthModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
@@ -60,7 +59,6 @@ export class RavenErrorHandler implements ErrorHandler {
   providers: [
     AuthService,
     AuthGuard,
-    CatalogService,
     TheMovieDbService,
     UserService,
     {provide: ErrorHandler, useClass: RavenErrorHandler}

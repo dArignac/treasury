@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
-import { CatalogService } from '../services/catalog.service';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -15,10 +17,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class CatalogListComponent implements OnInit {
 
-  //catalog$: Observable<MovieResponseItem[]>;
-  catalogItemIDs$: BehaviorSubject<number[]>;
+  private movieCollection: AngularFirestoreCollection<MovieResponseItem>;
+  private movies$: Observable<MovieResponseItem[]>;
 
-  constructor(private catalogService: CatalogService) {
+  constructor(private userService: UserService, private authService: AuthService, private afs: AngularFirestore) {
   }
 
   getPostImage(item: MovieResponseItem): string {
@@ -26,8 +28,8 @@ export class CatalogListComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.catalog$ = this.catalogService.userCatalog;
-    this.catalogItemIDs$ = this.catalogService.catalogItemIDsBS;
+    this.movieCollection = this.userService.getMovieCollection();
+    this.movies$ = this.movieCollection.valueChanges();
   }
 
 }

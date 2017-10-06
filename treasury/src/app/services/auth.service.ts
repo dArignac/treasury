@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-
 import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs/Subject';
 
 import * as firebase from 'firebase/app';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore';
+
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +16,7 @@ export class AuthService {
   private _user: firebase.User = null;
   isAuthenticated: Subject<boolean>;
 
-  constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
     this.isAuthenticated = new Subject();
     this.isAuthenticated.next(false);
     afAuth.authState.subscribe(user => {
@@ -47,25 +49,22 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
-        this.db.object(`/users/${response.user.uid}`).valueChanges()
-          .subscribe(user => {
-            if (user == null) {
-              // data from firebase
-              let {displayName, email, emailVerified, photoURL, uid} = response.user;
-              // our custom initial data
-              let isCatalogPublic = false;
-              // store to db
-              this.db.object(`/users/${response.user.uid}`).set({
-                displayName,
-                email,
-                emailVerified,
-                photoURL,
-                uid,
-                isCatalogPublic
-              })
-            }
-          });
-        this.router.navigate(['/catalog']);
+        let currentUser = <User>{
+          displayName: response.user.displayName,
+          email: response.user.email,
+          isEmailVerified: response.user.emailVerified,
+          photoURL: response.user.photoURL,
+          isCatalogPublic: false
+        };
+        this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
+          () => {
+            this.router.navigate(['/catalog']);
+          },
+          (error) => {
+            // FIXME error handling
+            console.log('error occurred', error);
+          }
+        );
       }
     );
   }

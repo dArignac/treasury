@@ -1,57 +1,42 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { AuthService } from './auth.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
+import { User } from './user';
 
 @Injectable()
 export class UserService {
 
-  userRecord: AngularFireObject<any>;
-
-  // private userRecordSubscription: any;
-
-  constructor(private authService: AuthService, private db: AngularFireDatabase) {
-    authService.isAuthenticated.subscribe(
-      authenticated => {
-        if (authenticated) {
-          this.userRecord = db.object('/users/' + authService.id);
-          // FIXME do we need a subscription on the user data?
-          // this.userRecordSubscription = this.userRecord.subscribe(data => this.checkAndInitializeUserRecord(data));
-        } else {
-          // this.userRecordSubscription.unsubscribe();
-        }
-      }
-    );
-  }
-
-  setCatalogPublic() {
-    this.userRecord.update({isCatalogPublic: true});
-  }
-
-  setCatalogPrivate() {
-    this.userRecord.update({isCatalogPublic: false});
+  constructor(private authService: AuthService, private afs: AngularFirestore) {
   }
 
   /**
-   * Adds the given movie to the catalog of the user.
+   * Adds the given movie to the global catalog and to the current user's catalog.
    * @param {MovieResponseItem} movie
-   * @returns {Promise<boolean>} if the movie was added, if not, it already exists
+   * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
-  addMovieToCatalog(movie: MovieResponseItem): Promise<boolean> {
+  addMovie(movie: MovieResponseItem): Promise<boolean> {
     let promise = new Promise((resolve, reject) => {
-      this.db.object(`/users/${this.authService.id}/items/${movie.id}`).valueChanges().subscribe(item => {
-        if (item == null) {
-          // this.db.list(`/users/${this.authService.id}/items`).push({movie_id: true});
-          this.db.object(`/users/${this.authService.id}/items/${movie.id}`).set(true);
-          resolve(true);
-        } else {
-          resolve(false);
+      this.afs.collection<User>('users').doc(this.authService.id).collection('movies').doc(String(movie.id)).set(movie).then(
+        () => {
+          // FIXME handle addition properly
+          resolve();
+        },
+        (error) => {
+          // FIXME add error handling
+          console.log('error upon user item addition', error);
+          reject();
         }
-      });
+      );
     });
+
     return promise;
+  }
+
+  getMovieCollection(): AngularFirestoreCollection<MovieResponseItem> {
+    return this.afs.collection<User>('users').doc(this.authService.id).collection('movies');
   }
 
 }

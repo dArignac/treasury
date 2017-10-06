@@ -19,7 +19,7 @@ const appRoutes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'add',
+    path: 'add-movie',
     component: FormAddComponent,
     canActivate: [AuthGuard]
   },
