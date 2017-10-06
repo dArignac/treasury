@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AuthService } from '../services/auth.service';
 
-import * as firebase from 'firebase/app';
-
 import { User } from '../services/user';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,7 +13,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authService: AuthService, private afs: AngularFirestore) { }
+  constructor(private authService: AuthService, private afs: AngularFirestore) {
+  }
 
   private userCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
@@ -33,14 +32,27 @@ export class HomeComponent implements OnInit {
   buttonClicked() {
     console.log('button clicked');
     const id = this.afs.createId();
-    let u = <User>{id: id, displayName: 'Anna'};
+    // let u = <User>{id: id, displayName: 'Anna'};
     // this.itemDoc.update(u).then(() => {
     //   console.log('user was updated');
     // });
-    this.userCollection.add(u).then(a => {
-      console.log('user addition to collection done');
-      console.log(a);
-    });
+    let u = <User>{
+      id: this.authService.id,
+      displayName: this.authService.user.displayName,
+      email: this.authService.user.email,
+      isEmailVerified: this.authService.user.emailVerified,
+      photoURL: this.authService.user.photoURL,
+      isCatalogPublic: false
+    };
+    this.userCollection.add(u).then(
+      (fulfilled) => {
+        console.log('user addition to collection done');
+        console.log(fulfilled);
+      },
+      (error) => {
+        console.log('error occured');
+        console.log(error);
+      });
     console.log('button clicked, done');
   }
 
