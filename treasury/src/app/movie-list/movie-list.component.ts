@@ -11,11 +11,11 @@ import { UserService } from '../services/user.service';
 
 
 @Component({
-  selector: 'app-catalog-list',
-  templateUrl: './catalog-list.component.html',
-  styleUrls: ['./catalog-list.component.scss']
+  selector: 'app-movie-list',
+  templateUrl: './movie-list.component.html',
+  styleUrls: ['./movie-list.component.scss']
 })
-export class CatalogListComponent implements OnInit {
+export class MovieListComponent implements OnInit {
 
   private movieCollection: AngularFirestoreCollection<Movie>;
   private movies$: Observable<Movie[]>;

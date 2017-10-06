@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
-import { CatalogListComponent } from './catalog-list/catalog-list.component';
+import { MovieListComponent } from './movie-list/movie-list.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -40,8 +40,8 @@ export class RavenErrorHandler implements ErrorHandler {
     AppComponent,
     HeaderComponent,
     FormAddComponent,
+    MovieListComponent,
     PageNotFoundComponent,
-    CatalogListComponent,
     HomeComponent
   ],
   imports: [
