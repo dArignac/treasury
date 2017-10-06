@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
@@ -48,6 +49,25 @@ export class AuthService {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
         // FIXME rewrite to Firestore
+        let currentUser = <User>{
+          displayName: response.user.displayName,
+          email: response.user.email,
+          isEmailVerified: response.user.emailVerified,
+          photoURL: response.user.photoURL,
+          isCatalogPublic: false
+        };
+        console.log(response);
+        console.log('-------------------');
+        console.log(currentUser);
+        this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
+          () => {
+            console.log('user was set');
+            this.router.navigate(['/catalog']);
+          },
+          (error) => {
+            // FIXME error handling
+            console.log('error occured', error);
+          });
         /*
         this.db.object(`/users/${response.user.uid}`).valueChanges()
           .subscribe(user => {
