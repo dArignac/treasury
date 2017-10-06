@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import * as firebase from 'firebase/app';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,7 @@ export class AuthService {
   private _user: firebase.User = null;
   isAuthenticated: Subject<boolean>;
 
-  constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
     this.isAuthenticated = new Subject();
     this.isAuthenticated.next(false);
     afAuth.authState.subscribe(user => {
@@ -47,6 +47,8 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
+        // FIXME rewrite to Firestore
+        /*
         this.db.object(`/users/${response.user.uid}`).valueChanges()
           .subscribe(user => {
             if (user == null) {
@@ -66,6 +68,7 @@ export class AuthService {
             }
           });
         this.router.navigate(['/catalog']);
+        */
       }
     );
   }

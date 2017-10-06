@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireObject } from 'angularfire2/database';
 
 import 'rxjs/add/operator/first';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -33,7 +33,9 @@ export class CatalogService {
     return this._isCatalogInitialized;
   }
 
-  constructor(private authService: AuthService, private userService: UserService, private db: AngularFireDatabase) {
+  constructor(private authService: AuthService, private userService: UserService) {
+    // FIXME rewrite to Firestore
+    /*
     this._catalogDB = db.list(`/users/${this.authService.id}/items`).snapshotChanges().map(
       // dehydrate the sent items collection to an array only containing the key
       // FIXME we could store <key>:<key> instead of <key>:true to the /items tree and skip this and use valueChanges() without .map()
@@ -98,6 +100,7 @@ export class CatalogService {
       //   console.log('COMPLETED');
       // }
     );
+    */
   }
 
   // get userCatalog(): Observable<MovieResponseItem[]> {
@@ -115,17 +118,18 @@ export class CatalogService {
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
   addMovie(movie: MovieResponseItem): Promise<boolean> {
+    // FIXME rewrite to Firestore
     let promise = new Promise<boolean>((resolve, reject) => {
-      this.db.object(`/items/${movie.id}`).valueChanges().subscribe(item => {
-        // if item does not exists in the global catalog, add it
-        if (item == null) {
-          this.db.object(`/items/${movie.id}`).set(movie);
-        } else {
-          // FIXME maybe update the existing item?
-        }
-        // add to user list of movies
-        this.userService.addMovieToCatalog(movie).then(wasAdded => resolve(wasAdded));
-      });
+      // this.db.object(`/items/${movie.id}`).valueChanges().subscribe(item => {
+      //   // if item does not exists in the global catalog, add it
+      //   if (item == null) {
+      //     this.db.object(`/items/${movie.id}`).set(movie);
+      //   } else {
+      //     // FIXME maybe update the existing item?
+      //   }
+      //   // add to user list of movies
+      //   this.userService.addMovieToCatalog(movie).then(wasAdded => resolve(wasAdded));
+      // });
     });
     return promise;
   }
