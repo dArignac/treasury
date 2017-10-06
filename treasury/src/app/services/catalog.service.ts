@@ -119,8 +119,6 @@ export class CatalogService {
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
   addMovie(movie: MovieResponseItem): Promise<boolean> {
-    // FIXME changes between movie and series? generalize!
-
     let promise = new Promise<boolean>((resolve, reject) => {
       this.afs.collection<MovieResponseItem>('items').doc(String(movie.id)).set(movie).then(
         () => {
