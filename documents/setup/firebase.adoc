@@ -1,0 +1,17 @@
+=== Firebase setup
+WARNING: TODO - how to create a proper firebase app & fill the environment values
+
+==== Firestore rules
+You have to configre the Firestore rules like so:
+
+[source, json]
+-------------------
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow write: if request.auth.uid == userId;
+      allow read: if true;
+    }
+  }
+}
+-------------------

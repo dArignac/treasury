@@ -1,8 +1,7 @@
 == Setup
 IMPORTANT: This project leverages Google Firebase as main "backend" and Angular as frontend using Angular CLI.
 
-=== Firebase setup
-WARNING: TODO - how to create a proper firebase app & fill the environment values
+include::firebase.adoc[]
 
 === TheMovieDB setup
 WARNING: TODO - how to create a proper themoviedb.org account and api & fill the environment values

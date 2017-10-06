@@ -17,5 +17,5 @@ This tool shall help you keeping track of your physical movie collection. +
 If you share movies with your friends like I do, this tool will help you.
 
 // setup
-include::setup.adoc[]
+include::setup/index.adoc[]
 include::functionality.adoc[]
