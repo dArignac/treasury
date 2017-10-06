@@ -48,7 +48,6 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
-        // FIXME rewrite to Firestore
         let currentUser = <User>{
           displayName: response.user.displayName,
           email: response.user.email,
@@ -56,9 +55,6 @@ export class AuthService {
           photoURL: response.user.photoURL,
           isCatalogPublic: false
         };
-        console.log(response);
-        console.log('-------------------');
-        console.log(currentUser);
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {
             console.log('user was set');
@@ -68,27 +64,6 @@ export class AuthService {
             // FIXME error handling
             console.log('error occured', error);
           });
-        /*
-        this.db.object(`/users/${response.user.uid}`).valueChanges()
-          .subscribe(user => {
-            if (user == null) {
-              // data from firebase
-              let {displayName, email, emailVerified, photoURL, uid} = response.user;
-              // our custom initial data
-              let isCatalogPublic = false;
-              // store to db
-              this.db.object(`/users/${response.user.uid}`).set({
-                displayName,
-                email,
-                emailVerified,
-                photoURL,
-                uid,
-                isCatalogPublic
-              })
-            }
-          });
-        this.router.navigate(['/catalog']);
-        */
       }
     );
   }
