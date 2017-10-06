@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { Movie } from '../themoviedb/movie';
 import { environment } from '../../environments/environment';
-import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 
@@ -20,7 +19,7 @@ export class MovieListComponent implements OnInit {
   private movieCollection: AngularFirestoreCollection<Movie>;
   private movies$: Observable<Movie[]>;
 
-  constructor(private userService: UserService, private authService: AuthService, private afs: AngularFirestore) {
+  constructor(private userService: UserService) {
   }
 
   getPostImage(item: Movie): string {
