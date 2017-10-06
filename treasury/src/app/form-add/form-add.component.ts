@@ -30,16 +30,16 @@ export class FormAddComponent implements OnInit {
    */
   buttonClicked(item) {
     if (!item.hasOwnProperty('error')) {
-      this.catalogService.addMovie(item).then(wasAdded => {
-        // if the movie was not added then it is already there
-        /* FIXME add a snackbar
-        let msg = wasAdded ? 'was added' : 'already exists';
-        let config = new MdSnackBarConfig();
-        config.duration = 30000;
-        config.extraClasses = wasAdded ? ['snackbar', 'ok'] : ['snackbar', 'warning'];
-        this.snackbar.open(`${item.title} ${msg}.`, undefined, config);
-        */
-      });
+      this.catalogService.addMovie(item).then(
+        () => {
+          // FIXME handle appropriately
+          console.log('item was added:', item);
+        },
+        (error) => {
+          // FIXME add error handling
+          console.log('error upon item addition', error);
+        }
+      );
     }
   }
 

@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './auth.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
 import { UserService } from './user.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 
 @Injectable()
@@ -33,7 +34,7 @@ export class CatalogService {
     return this._isCatalogInitialized;
   }
 
-  constructor(private authService: AuthService, private userService: UserService) {
+  constructor(private authService: AuthService, private userService: UserService, private afs: AngularFirestore) {
     // FIXME rewrite to Firestore
     /*
     this._catalogDB = db.list(`/users/${this.authService.id}/items`).snapshotChanges().map(
@@ -118,18 +119,23 @@ export class CatalogService {
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
   addMovie(movie: MovieResponseItem): Promise<boolean> {
-    // FIXME rewrite to Firestore
+    // FIXME changes between movie and series? generalize!
+
     let promise = new Promise<boolean>((resolve, reject) => {
-      // this.db.object(`/items/${movie.id}`).valueChanges().subscribe(item => {
-      //   // if item does not exists in the global catalog, add it
-      //   if (item == null) {
-      //     this.db.object(`/items/${movie.id}`).set(movie);
-      //   } else {
-      //     // FIXME maybe update the existing item?
-      //   }
-      //   // add to user list of movies
-      //   this.userService.addMovieToCatalog(movie).then(wasAdded => resolve(wasAdded));
-      // });
+      this.afs.collection<MovieResponseItem>('items').doc(String(movie.id)).set(movie).then(
+        () => {
+          this.userService.addMovieToCatalog(movie).then(
+            () => {
+              resolve();
+            }
+          );
+        },
+        (error) => {
+          // FIXME error handling
+          console.log('error occurred', error);
+          reject();
+        }
+      );
     });
     return promise;
   }
