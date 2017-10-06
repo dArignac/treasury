@@ -7,6 +7,25 @@
       <p>
         todo add some general info stuff or public catalogs list
       </p>
+      <p>
+        <button (click)="buttonClicked()">ADD</button>
+      </p>
+
+      <p>the list</p>
+
+      <ul>
+        <li *ngFor="let user of users | async">
+          {{ user.displayName }}
+        </li>
+      </ul>
+
+      <p>
+        the item
+      </p>
+      <div>
+      {{ (item | async)?.displayName }}
+    </div>
+
     </div>
   </div>
 </div>
