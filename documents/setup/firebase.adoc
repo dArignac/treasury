@@ -11,10 +11,11 @@ service cloud.firestore {
     match /users/{userId} {
       allow write: if request.auth.uid == userId;
       allow read: if true;
-    }
-    match /items/{anyDocument} {
-      allow write: if request.auth.uid != null;
-      allow read: if true;
+
+      match /movies/{anyDocument} {
+        allow write: if request.auth.uid == userId;
+        allow read: if true;
+      }
     }
   }
 }

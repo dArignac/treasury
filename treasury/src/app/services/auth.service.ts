@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-
 import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs/Subject';
 
 import * as firebase from 'firebase/app';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
+
 import { User } from './user';
 
 @Injectable()
@@ -53,8 +54,7 @@ export class AuthService {
           email: response.user.email,
           isEmailVerified: response.user.emailVerified,
           photoURL: response.user.photoURL,
-          isCatalogPublic: false,
-          items: {}
+          isCatalogPublic: false
         };
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {

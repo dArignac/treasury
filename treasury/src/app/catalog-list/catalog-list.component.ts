@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { CatalogService } from '../services/catalog.service';
 import { MovieResponseItem } from '../themoviedb/movie-response-item';
 import { environment } from '../../environments/environment';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -17,12 +17,10 @@ import { environment } from '../../environments/environment';
 })
 export class CatalogListComponent implements OnInit {
 
-  //catalog$: Observable<MovieResponseItem[]>;
-  // catalogItemIDs$: BehaviorSubject<number[]>;
   private movieCollection: AngularFirestoreCollection<MovieResponseItem>;
   private movies$: Observable<MovieResponseItem[]>;
 
-  constructor(private catalogService: CatalogService, private afs: AngularFirestore) {
+  constructor(private userService: UserService, private authService: AuthService, private afs: AngularFirestore) {
   }
 
   getPostImage(item: MovieResponseItem): string {
@@ -30,10 +28,7 @@ export class CatalogListComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.catalog$ = this.catalogService.userCatalog;
-    // this.catalogItemIDs$ = this.catalogService.catalogItemIDsBS;
-    // FIXME this does not use the user's movies
-    this.movieCollection = this.afs.collection<MovieResponseItem>('items');
+    this.movieCollection = this.userService.getMovieCollection();
     this.movies$ = this.movieCollection.valueChanges();
   }
 

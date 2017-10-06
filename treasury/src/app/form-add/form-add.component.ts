@@ -6,7 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
-import { CatalogService } from '../services/catalog.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class FormAddComponent implements OnInit {
   resultList: Observable<any>;
   movieControl: FormControl;
 
-  constructor(private theMovieDbService: TheMovieDbService, private catalogService: CatalogService) {
+  constructor(private theMovieDbService: TheMovieDbService, private userService: UserService) {
     this.movieControl = new FormControl();
     this.resultList = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
   }
@@ -30,7 +30,7 @@ export class FormAddComponent implements OnInit {
    */
   buttonClicked(item) {
     if (!item.hasOwnProperty('error')) {
-      this.catalogService.addMovie(item).then(
+      this.userService.addMovie(item).then(
         () => {
           // FIXME handle appropriately
           console.log('item was added:', item);

@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
-    "@types/lodash": "^4.14.76",
     "angular-bootstrap-md": "^4.3.5",
     "angularfire2": "^5.0.0-rc.1",
     "chart.js": "^2.5.0",

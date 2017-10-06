@@ -4,5 +4,4 @@ export interface User {
   isEmailVerified: boolean;
   photoURL: string;
   isCatalogPublic: boolean;
-  items: object;
 }
