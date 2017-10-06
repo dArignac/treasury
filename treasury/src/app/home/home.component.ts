@@ -25,17 +25,12 @@ export class HomeComponent implements OnInit {
     this.userCollection = this.afs.collection<User>('users');
     this.users = this.userCollection.valueChanges();
 
-    // this.itemDoc = this.afs.doc<User>('users/1');
+    // this.itemDoc = this.afs.doc<User>(`users/${this.authService.id}`);
     // this.item = this.itemDoc.valueChanges();
   }
 
   buttonClicked() {
     console.log('button clicked');
-    const id = this.afs.createId();
-    // let u = <User>{id: id, displayName: 'Anna'};
-    // this.itemDoc.update(u).then(() => {
-    //   console.log('user was updated');
-    // });
     let u = <User>{
       id: this.authService.id,
       displayName: this.authService.user.displayName,
@@ -44,10 +39,10 @@ export class HomeComponent implements OnInit {
       photoURL: this.authService.user.photoURL,
       isCatalogPublic: false
     };
-    this.userCollection.add(u).then(
-      (fulfilled) => {
+    this.userCollection.doc(this.authService.id).set(u).then(
+    // this.userCollection.add(u).then(
+      () => {
         console.log('user addition to collection done');
-        console.log(fulfilled);
       },
       (error) => {
         console.log('error occured');
