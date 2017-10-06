@@ -58,7 +58,7 @@ export class AuthService {
         };
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {
-            this.router.navigate(['/catalog']);
+            this.router.navigate(['/movies']);
           },
           (error) => {
             // FIXME error handling

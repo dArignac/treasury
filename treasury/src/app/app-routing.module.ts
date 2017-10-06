@@ -10,7 +10,7 @@ import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   {
-    path: 'catalog',
+    path: 'movies',
     component: CatalogListComponent,
     canActivate: [AuthGuard]
   },
