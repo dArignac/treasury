@@ -63,7 +63,8 @@ export class AuthService {
           (error) => {
             // FIXME error handling
             console.log('error occurred', error);
-          });
+          }
+        );
       }
     );
   }
