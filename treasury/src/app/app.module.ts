@@ -9,7 +9,7 @@ import { ErrorHandler, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -49,7 +49,7 @@ export class RavenErrorHandler implements ErrorHandler {
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule,
     AngularFireAuthModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
