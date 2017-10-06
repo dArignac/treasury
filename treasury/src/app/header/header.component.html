@@ -10,8 +10,8 @@
       <li class="nav-item waves-light" [class.active]="router.url == '/catalog'" mdbRippleRadius *ngIf="authService.authenticated">
         <a class="nav-link" (click)="gotoPage('catalog')">Catalog <span class="sr-only" *ngIf="router.url == '/catalog'">(current)</span></a>
       </li>
-      <li class="nav-item waves-light" [class.active]="router.url == '/add'" mdbRippleRadius *ngIf="authService.authenticated">
-        <a class="nav-link" (click)="gotoPage('add')">Add item <span class="sr-only" *ngIf="router.url == '/add'">(current)</span></a>
+      <li class="nav-item waves-light" [class.active]="router.url == '/add-movie'" mdbRippleRadius *ngIf="authService.authenticated">
+        <a class="nav-link" (click)="gotoPage('add-movie')">Add movie <span class="sr-only" *ngIf="router.url == '/add-movie'">(current)</span></a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto nav-flex-icons">
