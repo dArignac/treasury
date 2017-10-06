@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { AuthService } from './auth.service';
-import { MovieResponseItem } from '../themoviedb/movie-response-item';
+import { Movie } from '../themoviedb/movie';
 import { User } from './user';
 
 @Injectable()
@@ -14,10 +14,10 @@ export class UserService {
 
   /**
    * Adds the given movie to the global catalog and to the current user's catalog.
-   * @param {MovieResponseItem} movie
+   * @param {Movie} movie
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
-  addMovie(movie: MovieResponseItem): Promise<boolean> {
+  addMovie(movie: Movie): Promise<boolean> {
     let promise = new Promise((resolve, reject) => {
       this.afs.collection<User>('users').doc(this.authService.id).collection('movies').doc(String(movie.id)).set(movie).then(
         () => {
@@ -35,7 +35,7 @@ export class UserService {
     return promise;
   }
 
-  getMovieCollection(): AngularFirestoreCollection<MovieResponseItem> {
+  getMovieCollection(): AngularFirestoreCollection<Movie> {
     return this.afs.collection<User>('users').doc(this.authService.id).collection('movies');
   }
 

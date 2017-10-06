@@ -1,4 +1,4 @@
-export interface MovieResponseItem {
+export interface Movie {
   vote_count: number;
   id: number;
   video: boolean;

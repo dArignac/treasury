@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { MovieResponseItem } from '../themoviedb/movie-response-item';
+import { Movie } from '../themoviedb/movie';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -17,13 +17,13 @@ import { UserService } from '../services/user.service';
 })
 export class CatalogListComponent implements OnInit {
 
-  private movieCollection: AngularFirestoreCollection<MovieResponseItem>;
-  private movies$: Observable<MovieResponseItem[]>;
+  private movieCollection: AngularFirestoreCollection<Movie>;
+  private movies$: Observable<Movie[]>;
 
   constructor(private userService: UserService, private authService: AuthService, private afs: AngularFirestore) {
   }
 
-  getPostImage(item: MovieResponseItem): string {
+  getPostImage(item: Movie): string {
     return environment.themoviedb.imageBaseURL + 'w154/' + item.poster_path;
   }
 
