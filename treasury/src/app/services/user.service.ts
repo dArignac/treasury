@@ -35,8 +35,18 @@ export class UserService {
     return promise;
   }
 
+  /**
+   * Returns the movie collection of the current user.
+   * It's sorted by title.
+   * @returns {AngularFirestoreCollection<Movie>}
+   */
   getMovieCollection(): AngularFirestoreCollection<Movie> {
-    return this.afs.collection<User>('users').doc(this.authService.id).collection('movies');
+    return this.afs.collection<User>('users')
+      .doc(this.authService.id)
+      .collection(
+        'movies',
+        ref => ref.orderBy('title')
+      );
   }
 
 }
