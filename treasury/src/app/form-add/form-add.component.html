@@ -10,7 +10,8 @@
 
       <div class="list-group">
         <a class="list-group-item" *ngFor="let item of resultList | async" (click)="buttonClicked(item)">
-          {{ item.title }} <small *ngIf="item.release_date"> {{ item.release_date }} </small>
+          {{ item.title }}
+          <small *ngIf="item.release_date"> {{ item.release_date }}</small>
         </a>
       </div>
 
