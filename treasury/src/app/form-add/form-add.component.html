@@ -9,9 +9,20 @@
       </div>
 
       <div class="list-group">
-        <a class="list-group-item" *ngFor="let item of resultList | async" (click)="buttonClicked(item)">
+        <a class="list-group-item" *ngFor="let item of resultList | async">
           {{ item.title }}
           <small *ngIf="item.release_date"> {{ item.release_date }}</small>
+          <button
+            type="button"
+            [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(item.id)}"
+            class="btn btn-sm float-right"
+            (click)="buttonClicked(item)"
+            *ngIf="!addingItemsStatus.hasOwnProperty(item.id) || addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]"
+          >
+            <span *ngIf="!addingItemsStatus.hasOwnProperty(item.id)">Add</span>
+            <span *ngIf="addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]">Adding...</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-dark-green float-right" disabled *ngIf="addingItemsStatus.hasOwnProperty(item.id) && addingItemsStatus[item.id]"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
         </a>
       </div>
 

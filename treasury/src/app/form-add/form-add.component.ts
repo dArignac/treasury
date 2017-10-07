@@ -18,6 +18,7 @@ export class FormAddComponent implements OnInit {
 
   resultList: Observable<any>;
   movieControl: FormControl;
+  addingItemsStatus = {}; // will keep the id of the item and the state, false meaning it's currently added and true means it was added
 
   constructor(private theMovieDbService: TheMovieDbService, private userService: UserService) {
     this.movieControl = new FormControl();
@@ -30,10 +31,10 @@ export class FormAddComponent implements OnInit {
    */
   buttonClicked(item) {
     if (!item.hasOwnProperty('error')) {
+      this.addingItemsStatus[item.id] = false;
       this.userService.addMovie(item).then(
         () => {
-          // FIXME handle appropriately
-          console.log('item was added:', item);
+          this.addingItemsStatus[item.id] = true;
         },
         (error) => {
           // FIXME add error handling
