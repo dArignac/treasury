@@ -1,5 +1,7 @@
 === Firebase setup
-WARNING: TODO - how to create a proper firebase app & fill the environment values
+* go to the Firebase console https://console.firebase.google.com/u/0/ and create a new project
+* enable and configure authentication (treasury is developed with Google auth only - but you shouldn't care)
+* in database enable Cloud Firestore
 
 ==== Firestore rules
 You have to configre the Firestore rules like so:
@@ -20,3 +22,11 @@ service cloud.firestore {
   }
 }
 -------------------
+
+==== Firebase hosting
+If you like to host the app on Firebase, do the following:
+
+* build production version with `ng build -prod`
+* initialize firebase with `firebase init` (only needed once)
+* deploy it with `firebase deploy`
+* that's it!
