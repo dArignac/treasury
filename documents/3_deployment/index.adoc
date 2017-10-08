@@ -1,0 +1,5 @@
+== Deployment
+First copy `treasury/src/environments/environment.ts` to `treasury/src/environments/environment.prod.ts` and fill in the values as written in <<Setup>>.
+
+include::1_sentry.adoc[]
+include::2_firebase.adoc[]

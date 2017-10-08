@@ -1,6 +1,7 @@
 = Treasury
 Alexander Herrmann
 :toc:
+:toclevels: 4
 :numbered:
 :imagesdir: img
 :docversion: 1.0
@@ -10,12 +11,21 @@ Alexander Herrmann
 This is the documentation in version {docversion} of the project called "Treasury". +
 You can find this documentation under {docuri} and the whole source code under {sourcecodeuri}.
 
-IMPORTANT: I only document what I consider important for me.
+WARNING: Currently in development - do not consider this stable!
 
 == Purpose and Golden Goal
 This tool shall help you keeping track of your physical movie collection. +
 If you share movies with your friends like I do, this tool will help you.
 
+== Functionality limitations
+* search will only use movies/series found in themoviedb.org
+* manual addition of items not found in this api is not supported
+
 // setup
-include::setup/index.adoc[]
-include::functionality.adoc[]
+include::1_setup/index.adoc[]
+
+// development
+include::2_development/index.adoc[]
+
+// deployment
+include::3_deployment/index.adoc[]

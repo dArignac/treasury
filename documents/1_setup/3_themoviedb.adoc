@@ -1,0 +1,14 @@
+=== TheMovieDB setup
+* sign up for an account at https://www.themoviedb.org/account/signup
+* goto https://www.themoviedb.org/settings/api and grab the `API Key (v3 auth)`
+* add this value to `treasury/src/environments/environment.dev.ts` (and for production in `environment.prod.ts`) under `environment.themoviedb.apiKey`
+
+[source,typescript]
+-------------------
+// NOTE: other environment values are stripped
+export const environment = {
+  themoviedb: {
+    apiKey: 'YOUR-API-KEY'
+  }
+};
+-------------------

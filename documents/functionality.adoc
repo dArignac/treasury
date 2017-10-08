@@ -1,4 +1,0 @@
-== Functionality
-
-* search will only use movies/series found in themoviedb.org
-* manual addition of items not found in this api is not supported

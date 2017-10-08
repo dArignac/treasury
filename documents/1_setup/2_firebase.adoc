@@ -4,7 +4,7 @@
 * in database enable Cloud Firestore
 
 ==== Firestore rules
-You have to configre the Firestore rules like so:
+You have to configure the Firestore rules like so:
 
 [source, json]
 -------------------
@@ -23,10 +23,20 @@ service cloud.firestore {
 }
 -------------------
 
-==== Firebase hosting
-If you like to host the app on Firebase, do the following:
+==== Update environment values
+Grab the Firebase settings for Web and update `treasury/src/environments/environment.dev.ts` with it:
 
-* build production version with `ng build -prod`
-* initialize firebase with `firebase init` (only needed once)
-* deploy it with `firebase deploy`
-* that's it!
+[source,typescript]
+-------------------
+// NOTE other environment settings are stripped
+export const environment = {
+  firebase: {
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: ''
+  }
+};
+-------------------
