@@ -11,21 +11,21 @@ import { UserService } from '../services/user.service';
 })
 export class SettingsComponent implements OnInit {
 
-  omdbRegionChoices: {}[] = [
+  tmdbRegionChoices: {}[] = [
     { value: 'DE', displayValue: 'German' },
     { value: 'EN', displayValue: 'English' },
   ];
-  omdbRegion: string = null;
+  tmdbRegion: string = null;
 
   constructor(private userService: UserService) {
     // if the user is already initialized, we do not enter the settings page on application loading.
     if (!isUndefined(this.userService.user)) {
-      this.omdbRegion = this.getLanguageHumanReadable(this.userService.user.omdbRegion);
+      this.tmdbRegion = this.getLanguageHumanReadable(this.userService.user.tmdbRegion);
     }
     this.userService.user$.subscribe(
       (user) => {
         if (user) {
-          this.omdbRegion = this.getLanguageHumanReadable(user.omdbRegion);
+          this.tmdbRegion = this.getLanguageHumanReadable(user.tmdbRegion);
         }
       }
     );
@@ -35,15 +35,15 @@ export class SettingsComponent implements OnInit {
   }
 
   /**
-   * Sets the OMDB region value of the user to the given value.
+   * Sets the TMDB region value of the user to the given value.
    * @param {string} identifier language value as ISO-3166-1 code
    */
-  setOMDBRegion(identifier: string) {
-    this.userService.setUserProperty('omdbRegion', identifier).then(
+  setTMDBRegion(identifier: string) {
+    this.userService.setUserProperty('tmdbRegion', identifier).then(
       () => {},
       (error) => {
         // FIXME handle error
-        console.log('error upon updating omdbRegion of user happened');
+        console.log('error upon updating tmdbRegion of user happened');
         console.log(error);
       }
     );

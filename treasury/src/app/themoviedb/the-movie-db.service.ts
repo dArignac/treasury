@@ -24,11 +24,11 @@ export class TheMovieDbService {
   getMovieSearchParams(title: string): HttpParams {
     let p = new HttpParams();
     p = p.append('api_key', environment.themoviedb.apiKey);
-    p = p.append('language', this.userService.user.omdbRegion.toLowerCase() || 'en');
+    p = p.append('language', this.userService.user.tmdbRegion.toLowerCase() || 'en');
     p = p.append('query', title);
     p = p.append('page', '1');
     p = p.append('include_adult', 'false');
-    p = p.append('region', this.userService.user.omdbRegion || '');
+    p = p.append('region', this.userService.user.tmdbRegion || '');
     return p;
   }
 

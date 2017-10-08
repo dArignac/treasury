@@ -20,8 +20,8 @@
               Movie/TV Language
             </button>
             <div class="dropdown-menu dropdown-primary">
-              <ng-container *ngFor="let lang of omdbRegionChoices">
-                <a href="javascript:;;" class="dropdown-item" (click)="setOMDBRegion(lang.value)">{{ lang.displayValue }}</a>
+              <ng-container *ngFor="let lang of tmdbRegionChoices">
+                <a href="javascript:;;" class="dropdown-item" (click)="setTMDBRegion(lang.value)">{{ lang.displayValue }}</a>
               </ng-container>
             </div>
           </div>
@@ -31,7 +31,7 @@
           If you add an already added movie again with a new region, it gets updated to the new region.
         </div>
         <div class="col-3">
-          {{ omdbRegion }}
+          {{ tmdbRegion }}
         </div>
       </div>
     </div>
