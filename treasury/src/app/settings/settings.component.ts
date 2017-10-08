@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -12,14 +16,39 @@ export class SettingsComponent implements OnInit {
     { value: 'en', displayValue: 'English' },
   ];
 
-  constructor() {
+  currentLanguage$: Observable<string> = null;
+  currentLanguageObserver: Observer<string>;
+
+  constructor(private userService: UserService) {
+    this.currentLanguage$ = new Observable<string>((observer: Observer<string>) => {
+      this.currentLanguageObserver = observer;
+    });
   }
 
   ngOnInit() {
   }
 
-  setLanguage(value: string) {
-    console.log('language was set to ', value);
+  /**
+   * Sets the movie language of the user to the given value.
+   * @param {string} identifier language value as ISO-3166-1 code
+   */
+  setLanguage(identifier: string) {
+    this.userService.setLanguage(identifier).then((success) => {
+      if (success) {
+        // update the observer with the value
+        this.currentLanguageObserver.next(identifier);
+      }
+    });
+  }
+
+  getLanguageHumanReadable(identifier: string) {
+    switch (identifier) {
+      case 'de':
+        return 'German';
+      case 'en':
+        return 'English';
+    }
+    return 'unknown';
   }
 
 }

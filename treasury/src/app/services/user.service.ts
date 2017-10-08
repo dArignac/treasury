@@ -49,4 +49,11 @@ export class UserService {
       );
   }
 
+  setLanguage(identifier: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      // FIXME implement
+      resolve(true);
+    });
+  }
+
 }
