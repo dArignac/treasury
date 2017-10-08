@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+
+import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from './auth.service';
 import { Movie } from '../themoviedb/movie';
@@ -9,7 +11,18 @@ import { User } from './user';
 @Injectable()
 export class UserService {
 
+  private userDoc: AngularFirestoreDocument<User>;
+  user$: Observable<User>;
+
   constructor(private authService: AuthService, private afs: AngularFirestore) {
+    this.authService.isAuthenticated.subscribe(
+      (isAuthenticated) => {
+        if (isAuthenticated) {
+          this.userDoc = this.afs.collection<User>('users').doc(this.authService.id);
+          this.user$ = this.userDoc.valueChanges();
+        }
+      }
+    );
   }
 
   /**
@@ -19,7 +32,7 @@ export class UserService {
    */
   addMovie(movie: Movie): Promise<boolean> {
     let promise = new Promise<boolean>((resolve, reject) => {
-      this.afs.collection<User>('users').doc(this.authService.id).collection('movies').doc(String(movie.id)).set(movie).then(
+      this.userDoc.collection('movies').doc(String(movie.id)).set(movie).then(
         () => {
           // FIXME handle addition properly
           resolve();
