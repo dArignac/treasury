@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { MovieResponse } from './movie-response';
+import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
+
+import { environment } from '../../environments/environment';
+import { MovieResponse } from './movie-response';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class TheMovieDbService {
 
   private apiBaseURL;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     this.apiBaseURL = 'https://api.themoviedb.org/3/search/';
   }
 
@@ -22,10 +24,11 @@ export class TheMovieDbService {
   getMovieSearchParams(title: string): HttpParams {
     let p = new HttpParams();
     p = p.append('api_key', environment.themoviedb.apiKey);
-    p = p.append('language', 'en-US');
+    p = p.append('language', this.userService.user.omdbRegion.toLowerCase() || 'en');
     p = p.append('query', title);
     p = p.append('page', '1');
     p = p.append('include_adult', 'false');
+    p = p.append('region', this.userService.user.omdbRegion || '');
     return p;
   }
 
@@ -68,6 +71,7 @@ export class TheMovieDbService {
   }
 
   private handleErrorPromise(error: Response | any) {
+    // FIXME handle error
     console.error(error.message || error);
     return Promise.reject(error.message || error);
   }

@@ -12,8 +12,8 @@ import { UserService } from '../services/user.service';
 export class SettingsComponent implements OnInit {
 
   omdbRegionChoices: {}[] = [
-    { value: 'de', displayValue: 'German' },
-    { value: 'en', displayValue: 'English' },
+    { value: 'DE', displayValue: 'German' },
+    { value: 'EN', displayValue: 'English' },
   ];
   omdbRegion: string = null;
 
@@ -51,9 +51,9 @@ export class SettingsComponent implements OnInit {
 
   getLanguageHumanReadable(identifier: string) {
     switch (identifier) {
-      case 'de':
+      case 'DE':
         return 'German';
-      case 'en':
+      case 'EN':
         return 'English';
     }
     return 'unknown';

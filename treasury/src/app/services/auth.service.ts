@@ -56,7 +56,7 @@ export class AuthService {
           isEmailVerified: response.user.emailVerified,
           photoURL: response.user.photoURL,
           isCatalogPublic: false,
-          omdbRegion: 'en'
+          omdbRegion: 'EN'
         };
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {
