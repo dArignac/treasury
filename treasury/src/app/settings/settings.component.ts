@@ -1,3 +1,5 @@
+import { isUndefined } from 'util';
+
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../services/user.service';
@@ -16,6 +18,10 @@ export class SettingsComponent implements OnInit {
   omdbRegion: string = null;
 
   constructor(private userService: UserService) {
+    // if the user is already initialized, we do not enter the settings page on application loading.
+    if (!isUndefined(this.userService.user)) {
+      this.omdbRegion = this.getLanguageHumanReadable(this.userService.user.omdbRegion);
+    }
     this.userService.user$.subscribe(
       (user) => {
         if (user) {
