@@ -7,6 +7,7 @@ Alexander Herrmann
 :docversion: 1.0
 :docuri: https://darignac.github.io/treasury/
 :sourcecodeuri: https://github.com/dArignac/treasury
+:source-highlighter: prettify
 
 This is the documentation in version {docversion} of the project called "Treasury". +
 You can find this documentation under {docuri} and the whole source code under {sourcecodeuri}.

@@ -6,7 +6,7 @@
 ==== Firestore rules
 You have to configure the Firestore rules like so:
 
-[source, json]
+[source,json]
 -------------------
 service cloud.firestore {
   match /databases/{database}/documents {
