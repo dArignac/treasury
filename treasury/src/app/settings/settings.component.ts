@@ -11,21 +11,27 @@ import { Observer } from 'rxjs/Observer';
 })
 export class SettingsComponent implements OnInit {
 
-  languages: {}[] = [
+  movieLanguageChoices: {}[] = [
     { value: 'de', displayValue: 'German' },
     { value: 'en', displayValue: 'English' },
   ];
 
-  currentLanguage$: Observable<string> = null;
-  currentLanguageObserver: Observer<string>;
+  movieLanguage$: Observable<string> = null;
+  movieLanguageObserver: Observer<string>;
 
   constructor(private userService: UserService) {
-    this.currentLanguage$ = new Observable<string>((observer: Observer<string>) => {
-      this.currentLanguageObserver = observer;
+    this.movieLanguage$ = new Observable<string>((observer: Observer<string>) => {
+      this.movieLanguageObserver = observer;
+      this.getLanguage();
     });
   }
 
   ngOnInit() {
+  }
+
+  getLanguage(): string {
+    // FIXME implement getting lang from Firestore
+    return '';
   }
 
   /**
@@ -36,7 +42,7 @@ export class SettingsComponent implements OnInit {
     this.userService.setLanguage(identifier).then((success) => {
       if (success) {
         // update the observer with the value
-        this.currentLanguageObserver.next(identifier);
+        this.movieLanguageObserver.next(identifier);
       }
     });
   }

@@ -20,7 +20,7 @@
               Movie/TV Language
             </button>
             <div class="dropdown-menu dropdown-primary">
-              <ng-container *ngFor="let lang of languages">
+              <ng-container *ngFor="let lang of movieLanguageChoices">
                 <a href="javascript:;;" class="dropdown-item" (click)="setLanguage(lang.value)">{{ lang.displayValue }}</a>
               </ng-container>
             </div>
@@ -30,7 +30,7 @@
           This applies to the added movies or tv shows. Their title and images will be saved in the set language. Does not apply to currently added elements.
         </div>
         <div class="col-3">
-          {{ getLanguageHumanReadable(currentLanguage$ | async) }}
+          {{ getLanguageHumanReadable(movieLanguage$ | async) }}
         </div>
       </div>
     </div>
