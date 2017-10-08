@@ -18,7 +18,6 @@ export class SettingsComponent implements OnInit {
   constructor(private userService: UserService) {
     this.userService.user$.subscribe(
       (user) => {
-        console.log(user);
         if (user) {
           this.omdbRegion = this.getLanguageHumanReadable(user.omdbRegion);
         }
