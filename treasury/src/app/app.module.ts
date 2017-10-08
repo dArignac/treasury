@@ -25,6 +25,7 @@ import { HomeComponent } from './home/home.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserService } from './services/user.service';
+import { SettingsComponent } from './settings/settings.component';
 
 
 if (environment.sentryDSN.length > 0) Raven.config(environment.sentryDSN).install();
@@ -42,7 +43,8 @@ export class RavenErrorHandler implements ErrorHandler {
     FormAddComponent,
     MovieListComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
