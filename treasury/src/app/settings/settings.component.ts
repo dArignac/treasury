@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  languages: {}[] = [
+    { value: 'de', displayValue: 'German' },
+    { value: 'en', displayValue: 'English' },
+  ];
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  setLanguage(value: string) {
+    console.log('language was set to ', value);
   }
 
 }
