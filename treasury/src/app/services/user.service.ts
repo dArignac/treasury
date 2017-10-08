@@ -18,7 +18,7 @@ export class UserService {
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
   addMovie(movie: Movie): Promise<boolean> {
-    let promise = new Promise((resolve, reject) => {
+    let promise = new Promise<boolean>((resolve, reject) => {
       this.afs.collection<User>('users').doc(this.authService.id).collection('movies').doc(String(movie.id)).set(movie).then(
         () => {
           // FIXME handle addition properly
