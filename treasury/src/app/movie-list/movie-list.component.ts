@@ -17,7 +17,7 @@ import { UserService } from '../services/user.service';
 export class MovieListComponent implements OnInit {
 
   private movieCollection: AngularFirestoreCollection<Movie>;
-  private movies$: Observable<Movie[]>;
+  public movies$: Observable<Movie[]>;
 
   constructor(private userService: UserService) {
   }
