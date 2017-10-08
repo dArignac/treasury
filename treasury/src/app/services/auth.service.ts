@@ -49,12 +49,14 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
+        // FIXME move this to UserService
         let currentUser = <User>{
           displayName: response.user.displayName,
           email: response.user.email,
           isEmailVerified: response.user.emailVerified,
           photoURL: response.user.photoURL,
-          isCatalogPublic: false
+          isCatalogPublic: false,
+          language: 'en'
         };
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {
