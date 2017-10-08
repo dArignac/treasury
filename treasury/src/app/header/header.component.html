@@ -15,6 +15,9 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item waves-light" [class.active]="router.url == '/settings'" mdbRippleRadius *ngIf="authService.authenticated">
+        <a class="nav-link" (click)="gotoPage('settings')">Settings <span class="sr-only" *ngIf="router.url == '/settings'">(current)</span></a>
+      </li>
       <li class="nav-item waves-light" mdbRippleRadius>
         <a class="nav-link" (click)="authService.login()" *ngIf="!authService.authenticated">Login</a>
         <a class="nav-link" (click)="authService.logout()" *ngIf="authService.authenticated">Logout</a>
