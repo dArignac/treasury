@@ -13,6 +13,7 @@ export class UserService {
 
   private userDoc: AngularFirestoreDocument<User>;
   user$: Observable<User>;
+  user: User;
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
     this.authService.isAuthenticated.subscribe(
@@ -20,6 +21,7 @@ export class UserService {
         if (isAuthenticated) {
           this.userDoc = this.afs.collection<User>('users').doc(this.authService.id);
           this.user$ = this.userDoc.valueChanges();
+          this.user$.subscribe(user => this.user = user);
         }
       }
     );
@@ -62,10 +64,21 @@ export class UserService {
       );
   }
 
-  setLanguage(identifier: string): Promise<boolean> {
+  setUserProperty(key: string, value: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      // FIXME implement
-      resolve(true);
+      let user = this.user;
+      user[key] = value;
+      this.userDoc.update(user).then(
+        () => {
+          resolve();
+        },
+        (error) => {
+          // FIXME handle error
+          console.log('error upon setting property ' + key + ' with value ' + value + ' to user document.');
+          console.log(error);
+          reject();
+        }
+      )
     });
   }
 

@@ -20,8 +20,8 @@
               Movie/TV Language
             </button>
             <div class="dropdown-menu dropdown-primary">
-              <ng-container *ngFor="let lang of movieLanguageChoices">
-                <a href="javascript:;;" class="dropdown-item" (click)="setLanguage(lang.value)">{{ lang.displayValue }}</a>
+              <ng-container *ngFor="let lang of omdbRegionChoices">
+                <a href="javascript:;;" class="dropdown-item" (click)="setOMDBRegion(lang.value)">{{ lang.displayValue }}</a>
               </ng-container>
             </div>
           </div>
@@ -30,7 +30,7 @@
           This applies to the added movies or tv shows. Their title and images will be saved in the set language. Does not apply to currently added elements.
         </div>
         <div class="col-3">
-          {{ getLanguageHumanReadable(movieLanguage$ | async) }}
+          {{ omdbRegion }}
         </div>
       </div>
     </div>

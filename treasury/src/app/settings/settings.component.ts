@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../services/user.service';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 
 @Component({
   selector: 'app-settings',
@@ -11,40 +9,39 @@ import { Observer } from 'rxjs/Observer';
 })
 export class SettingsComponent implements OnInit {
 
-  movieLanguageChoices: {}[] = [
+  omdbRegionChoices: {}[] = [
     { value: 'de', displayValue: 'German' },
     { value: 'en', displayValue: 'English' },
   ];
-
-  movieLanguage$: Observable<string> = null;
-  movieLanguageObserver: Observer<string>;
+  omdbRegion: string = null;
 
   constructor(private userService: UserService) {
-    this.movieLanguage$ = new Observable<string>((observer: Observer<string>) => {
-      this.movieLanguageObserver = observer;
-      this.getLanguage();
-    });
+    this.userService.user$.subscribe(
+      (user) => {
+        console.log(user);
+        if (user) {
+          this.omdbRegion = this.getLanguageHumanReadable(user.omdbRegion);
+        }
+      }
+    );
   }
 
   ngOnInit() {
   }
 
-  getLanguage(): string {
-    // FIXME implement getting lang from Firestore
-    return '';
-  }
-
   /**
-   * Sets the movie language of the user to the given value.
+   * Sets the OMDB region value of the user to the given value.
    * @param {string} identifier language value as ISO-3166-1 code
    */
-  setLanguage(identifier: string) {
-    this.userService.setLanguage(identifier).then((success) => {
-      if (success) {
-        // update the observer with the value
-        this.movieLanguageObserver.next(identifier);
+  setOMDBRegion(identifier: string) {
+    this.userService.setUserProperty('omdbRegion', identifier).then(
+      () => {},
+      (error) => {
+        // FIXME handle error
+        console.log('error upon updating omdbRegion of user happened');
+        console.log(error);
       }
-    });
+    );
   }
 
   getLanguageHumanReadable(identifier: string) {
