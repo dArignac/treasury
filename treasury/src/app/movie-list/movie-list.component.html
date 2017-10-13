@@ -7,7 +7,18 @@
             <div class="item view overlay hm-black-strong">
               <img class="z-depth-2" [src]="getPostImage(item)" alt="{{item.title}}">
               <div class="mask flex-center waves-effect waves-light">
-                <p class="white-text">TODO<br>details<br>remove</p>
+                <div class="container white-text">
+                  <div class="row">
+                    <div class="col text-center">
+                      <strong>{{item.title}}</strong>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col text-center">
+                      <button type="button" class="btn btn-block btn-sm btn-danger waves-light" mdbRippleRadius>Remove</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -15,10 +26,10 @@
       </ng-container>
       <ng-template #noItems>
         <div class="row">
-        <div class="col">
-          No movies in collection.
+          <div class="col">
+            No movies in collection.
+          </div>
         </div>
-      </div>
       </ng-template>
     </div>
     <ng-template #loading>
