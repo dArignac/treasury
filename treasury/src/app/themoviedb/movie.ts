@@ -1,3 +1,5 @@
+import { isNull } from 'util';
+
 import { environment } from '../../environments/environment';
 import { IMovie } from './imovie';
 
@@ -21,20 +23,25 @@ export class Movie implements IMovie {
   vote_average: number;
   vote_count: number;
 
-  /*
-  Poster sizes are (currently)
-  "w92",
-  "w154",
-  "w185",
-  "w342",
-  "w500",
-  "w780",
-  "original"
+  /**
+   * Returns the URL to the smallest poster image.
+   * @returns {string}
    */
-
-  // FIXME handle if there is no image
   getPosterImageSmall(): string {
-    return environment.themoviedb.imageBaseURL + 'w92/' + this.poster_path;
+    return this.getPosterImage('w92');
+  }
+
+  /**
+   * Generic function for different poster variants. Returns the URL to the poster image.
+   * Poster variants are (currently): w92, w154, w185, w342, w500, w780, original
+   * @param {string} variant
+   * @returns {string}
+   */
+  private getPosterImage(variant: string): string {
+    if (!isNull(this.poster_path)) {
+      return environment.themoviedb.imageBaseURL + variant + '/' + this.poster_path;
+    }
+    return null;
   }
 
   /**
