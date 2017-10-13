@@ -16,13 +16,13 @@ import { UserService } from '../services/user.service';
 })
 export class FormAddComponent implements OnInit {
 
-  resultList: Observable<any>;
+  results$: Observable<any>;
   movieControl: FormControl;
   addingItemsStatus = {}; // will keep the id of the item and the state, false meaning it's currently added and true means it was added
 
   constructor(private theMovieDbService: TheMovieDbService, private userService: UserService) {
     this.movieControl = new FormControl();
-    this.resultList = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
+    this.results$ = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
   }
 
   /**

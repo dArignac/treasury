@@ -2,35 +2,39 @@
   <div class="row">
     <div class="col">
       <h1>Add movie(s):</h1>
-
       <div class="md-form">
         <input mdbActive type="text" id="form1" class="form-control" [formControl]="movieControl">
         <label for="form1" class="">Enter a movie title (click it to add)</label>
       </div>
-
-      <div class="list-group">
-        <a class="list-group-item" *ngFor="let item of resultList | async">
-          {{ item.title }}
-          <small *ngIf="item.release_date"> {{ item.release_date }}</small>
-          <ng-container *ngIf="!item.error">
-            <button
-              type="button"
-              [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(item.id)}"
-              class="btn btn-sm float-right"
-              (click)="buttonClicked(item)"
-              *ngIf="!addingItemsStatus.hasOwnProperty(item.id) || addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]"
-            >
-              <span *ngIf="!addingItemsStatus.hasOwnProperty(item.id)">Add</span>
-              <span *ngIf="addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]">Adding...</span>
-            </button>
-            <button type="button" class="btn btn-sm btn-dark-green float-right" disabled
-                    *ngIf="addingItemsStatus.hasOwnProperty(item.id) && addingItemsStatus[item.id]"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-            </button>
-          </ng-container>
-        </a>
-      </div>
-
     </div>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let item of results$ | async">
+      <div class="col-2">
+
+      </div>
+      <div class="col-8">
+        {{item.title}}
+        <small *ngIf="item.release_date"> {{ item.release_date }}</small>
+      </div>
+      <div class="col-2">
+        <ng-container *ngIf="!item.error">
+          <button
+            type="button"
+            [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(item.id)}"
+            class="btn btn-sm float-right"
+            (click)="buttonClicked(item)"
+            *ngIf="!addingItemsStatus.hasOwnProperty(item.id) || addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]"
+          >
+            <span *ngIf="!addingItemsStatus.hasOwnProperty(item.id)">Add</span>
+            <span *ngIf="addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]">Adding...</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-dark-green float-right" disabled
+                  *ngIf="addingItemsStatus.hasOwnProperty(item.id) && addingItemsStatus[item.id]"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 </div>
 <router-outlet></router-outlet>
