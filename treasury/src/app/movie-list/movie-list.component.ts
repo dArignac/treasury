@@ -22,8 +22,13 @@ export class MovieListComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
-  getPostImage(item: Movie): string {
-    return environment.themoviedb.imageBaseURL + 'w154/' + item.poster_path;
+  /**
+   * Returns the poster image of the given movie.
+   * @param {Movie} movie
+   * @returns {string}
+   */
+  getPosterImage(movie: Movie): string {
+    return environment.themoviedb.imageBaseURL + 'w154/' + movie.poster_path;
   }
 
   /**
