@@ -10,12 +10,12 @@
                 <div class="container white-text">
                   <div class="row">
                     <div class="col text-center">
-                      <strong>{{item.title}}</strong>
+                      <strong mdbTooltip="TMDB ID: {{item.id}}" placement="bottom">{{item.title}}</strong>
                     </div>
                   </div>
                   <div class="row mt-3">
                     <div class="col text-center">
-                      <button type="button" class="btn btn-block btn-sm btn-danger waves-light" mdbRippleRadius>Remove</button>
+                      <button type="button" class="btn btn-block btn-sm btn-danger waves-light" mdbRippleRadius (click)="remove(item)">Remove</button>
                     </div>
                   </div>
                 </div>

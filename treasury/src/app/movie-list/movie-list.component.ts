@@ -26,6 +26,15 @@ export class MovieListComponent implements OnInit {
     return environment.themoviedb.imageBaseURL + 'w154/' + item.poster_path;
   }
 
+  /**
+   * Removes the given movie from the user's collection.
+   * @param {Movie} movie
+   */
+  remove(movie: Movie) {
+    // we do not handle the promise here as the element is removed immediately from the movie list that is observedś
+    this.userService.removeMovie(movie);
+  }
+
   ngOnInit() {
     this.movieCollection = this.userService.getMovieCollection();
     this.movies$ = this.movieCollection.valueChanges();

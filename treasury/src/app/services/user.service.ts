@@ -33,7 +33,7 @@ export class UserService {
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
   addMovie(movie: Movie): Promise<boolean> {
-    let promise = new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
       this.userDoc.collection('movies').doc(String(movie.id)).set(movie).then(
         () => {
           // FIXME handle addition properly
@@ -46,8 +46,26 @@ export class UserService {
         }
       );
     });
+  }
 
-    return promise;
+  /**
+   * Removes the given movie from the user's collection.
+   * @param {Movie} movie
+   * @returns {Promise<boolean>}
+   */
+  removeMovie(movie: Movie): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.userDoc.collection('movies').doc(String(movie.id)).delete().then(
+        () => {
+          resolve();
+        },
+        (error) => {
+          // FIXME add error handling
+          console.log('error upon user item removal', error);
+          reject();
+        }
+      );
+    });
   }
 
   /**
