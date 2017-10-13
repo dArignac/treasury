@@ -8,6 +8,7 @@ import * as Raven from 'raven-js';
 import { environment } from '../../environments/environment';
 import { MovieResponse } from './movie-response';
 import { UserService } from '../services/user.service';
+import { Movie } from './movie';
 
 @Injectable()
 export class TheMovieDbService {
@@ -59,8 +60,13 @@ export class TheMovieDbService {
   extractData(response: MovieResponse) {
     if (response.total_results > 0) {
 
+      let results = [];
+      for (let item of response.results) {
+        results.push(Movie.fromResponse(item));
+      }
+
       // sort by titles
-      let results = response.results.sort(
+      results = results.sort(
         (n1, n2) => {
           if (n1.title > n2.title) {
             return 1;

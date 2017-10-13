@@ -18,7 +18,7 @@
         <small *ngIf="item.release_date"> {{ item.release_date }}</small>
       </div>
       <div class="col-2">
-        <ng-container *ngIf="!item.error">
+        <ng-container *ngIf="item.error == 200">
           <button
             type="button"
             [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(item.id)}"
