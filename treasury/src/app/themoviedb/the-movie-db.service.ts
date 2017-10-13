@@ -44,7 +44,7 @@ export class TheMovieDbService {
       .then(
         (response) => this.extractData(response),
         () => {
-          return [{error: 500, title: 'Unable to communicate properly with The Movie DB API...'}];
+          return [{error: 500, title: 'Unable to communicate properly with The IMovie DB API...'}];
         }
       )
       .catch(this.handleErrorPromise);

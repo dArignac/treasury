@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { Movie } from '../themoviedb/movie';
+import { IMovie } from '../themoviedb/imovie';
 import { environment } from '../../environments/environment';
 import { UserService } from '../services/user.service';
 
@@ -16,26 +16,26 @@ import { UserService } from '../services/user.service';
 })
 export class MovieListComponent implements OnInit {
 
-  private movieCollection: AngularFirestoreCollection<Movie>;
-  public movies$: Observable<Movie[]>;
+  private movieCollection: AngularFirestoreCollection<IMovie>;
+  public movies$: Observable<IMovie[]>;
 
   constructor(private userService: UserService) {
   }
 
   /**
    * Returns the poster image of the given movie.
-   * @param {Movie} movie
+   * @param {IMovie} movie
    * @returns {string}
    */
-  getPosterImage(movie: Movie): string {
+  getPosterImage(movie: IMovie): string {
     return environment.themoviedb.imageBaseURL + 'w154/' + movie.poster_path;
   }
 
   /**
    * Removes the given movie from the user's collection.
-   * @param {Movie} movie
+   * @param {IMovie} movie
    */
-  remove(movie: Movie) {
+  remove(movie: IMovie) {
     // we do not handle the promise here as the element is removed immediately from the movie list that is observedś
     this.userService.removeMovie(movie);
   }
