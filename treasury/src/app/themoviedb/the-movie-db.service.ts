@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
 
+import * as Raven from 'raven-js';
+
 import { environment } from '../../environments/environment';
 import { MovieResponse } from './movie-response';
 import { UserService } from '../services/user.service';
@@ -39,7 +41,12 @@ export class TheMovieDbService {
    */
   async getMovies(title: string): Promise<any> {
     const response = await this.http.get<MovieResponse>(this.apiBaseURL + 'movie', {params: this.getMovieSearchParams(title)}).toPromise()
-      .then(this.extractData)
+      .then(
+        (response) => this.extractData(response),
+        () => {
+          return [{error: 500, title: 'Unable to communicate properly with The Movie DB API...'}];
+        }
+      )
       .catch(this.handleErrorPromise);
     return response;
   }
@@ -71,8 +78,7 @@ export class TheMovieDbService {
   }
 
   private handleErrorPromise(error: Response | any) {
-    // FIXME handle error
-    console.error(error.message || error);
+    Raven.captureException(error); // send error to sentry - maybe is already covered through default error handler?
     return Promise.reject(error.message || error);
   }
 
