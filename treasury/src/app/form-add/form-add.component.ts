@@ -31,9 +31,12 @@ export class FormAddComponent implements OnInit {
    */
   buttonClicked(item) {
     if (!item.hasOwnProperty('error')) {
+      // mark item as currently being added - we wait for the firebase reply soon
       this.addingItemsStatus[item.id] = false;
+      // now we wait...
       this.userService.addMovie(item).then(
         () => {
+          // we got an answer and it was added, mark the item as added
           this.addingItemsStatus[item.id] = true;
         },
         (error) => {
