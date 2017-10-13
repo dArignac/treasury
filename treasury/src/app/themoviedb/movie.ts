@@ -1,9 +1,13 @@
+import { environment } from '../../environments/environment';
 import { IMovie } from './imovie';
 
+/**
+ * Class representing a Movie.
+ */
 export class Movie implements IMovie {
   adult: boolean;
   backdrop_path: string;
-  error: number;
+  error: number; // values like HTTP error codes
   genre_ids: number[];
   id: number;
   title: string;
@@ -17,6 +21,21 @@ export class Movie implements IMovie {
   vote_average: number;
   vote_count: number;
 
+  /*
+  Poster sizes are (currently)
+  "w92",
+  "w154",
+  "w185",
+  "w342",
+  "w500",
+  "w780",
+  "original"
+   */
+
+  // FIXME handle if there is no image
+  getPosterImageSmall(): string {
+    return environment.themoviedb.imageBaseURL + 'w92/' + this.poster_path;
+  }
 
   /**
    * Creates an instance of Movie from the given value that usually is returned from TheMovieDB API.

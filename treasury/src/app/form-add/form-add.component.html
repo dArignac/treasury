@@ -9,28 +9,28 @@
     </div>
   </div>
   <div class="row">
-    <ng-container *ngFor="let item of results$ | async">
+    <ng-container *ngFor="let movie of results$ | async">
       <div class="col-2">
-
+        <img [src]="movie.getPosterImageSmall()" alt="{{movie.title}}">
       </div>
       <div class="col-8">
-        {{item.title}}
-        <small *ngIf="item.release_date"> {{ item.release_date }}</small>
+        {{movie.title}}
+        <small *ngIf="movie.release_date"> {{ movie.release_date }}</small>
       </div>
       <div class="col-2">
-        <ng-container *ngIf="item.error == 200">
+        <ng-container *ngIf="movie.error == 200">
           <button
             type="button"
-            [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(item.id)}"
+            [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(movie.id)}"
             class="btn btn-sm float-right"
-            (click)="buttonClicked(item)"
-            *ngIf="!addingItemsStatus.hasOwnProperty(item.id) || addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]"
+            (click)="buttonClicked(movie)"
+            *ngIf="!addingItemsStatus.hasOwnProperty(movie.id) || addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]"
           >
-            <span *ngIf="!addingItemsStatus.hasOwnProperty(item.id)">Add</span>
-            <span *ngIf="addingItemsStatus.hasOwnProperty(item.id) && !addingItemsStatus[item.id]">Adding...</span>
+            <span *ngIf="!addingItemsStatus.hasOwnProperty(movie.id)">Add</span>
+            <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]">Adding...</span>
           </button>
           <button type="button" class="btn btn-sm btn-dark-green float-right" disabled
-                  *ngIf="addingItemsStatus.hasOwnProperty(item.id) && addingItemsStatus[item.id]"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+                  *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
           </button>
         </ng-container>
       </div>
