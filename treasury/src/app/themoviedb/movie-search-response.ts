@@ -1,6 +1,6 @@
 import { IMovie } from './imovie';
 
-export interface MovieResponse {
+export interface MovieSearchResponse {
   page: number;
   total_results: number;
   total_pages: number;

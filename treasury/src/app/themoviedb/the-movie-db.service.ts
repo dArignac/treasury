@@ -7,7 +7,8 @@ import * as Raven from 'raven-js';
 
 import { environment } from '../../environments/environment';
 import { Movie } from './movie';
-import { MovieResponse } from './movie-response';
+import { MovieCreditsResponse } from './credits/movie-credits-response';
+import { MovieSearchResponse } from './movie-search-response';
 import { UserService } from '../services/user.service';
 
 @Injectable()
@@ -21,14 +22,17 @@ export class TheMovieDbService {
   /**
    * Returns the appropriate URL for the given section.
    * @param {string} section
+   * @param id {number} id
    * @returns {string}
    */
-  private getURL(section: string): string {
+  private getURL(section: string, id?: number): string {
     let segment = '';
     switch (section) {
       case 'search_movie':
         segment = 'search/movie';
         break;
+      case 'movie_credits':
+        segment = 'movie/' + id + '/credits';
     }
     return this.apiBaseURL + segment;
   }
@@ -63,11 +67,11 @@ export class TheMovieDbService {
    * @param {string} title
    * @returns {Promise<any>}
    */
-  async getMovies(title: string): Promise<any> {
-    const response = await this.http.get<MovieResponse>(this.getURL('search_movie'),{params: this.getMovieSearchQueryParams(title)})
+  public async getMovies(title: string): Promise<any> {
+    const response = await this.http.get<MovieSearchResponse>(this.getURL('search_movie'),{params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
-        (response) => this.extractData(response),
+        (response) => this.extractMovies(response),
         () => {
           return [{error: 500, title: 'Unable to communicate properly with The IMovie DB API...'}];
         }
@@ -77,11 +81,11 @@ export class TheMovieDbService {
   }
 
   /**
-   * Extracts the relevant data from the returned response.
-   * @param {MovieResponse} response
+   * Extracts the Movies from the returned response.
+   * @param {MovieSearchResponse} response
    * @returns {any}
    */
-  extractData(response: MovieResponse) {
+  private extractMovies(response: MovieSearchResponse) {
     if (response.total_results > 0) {
 
       let results = response.results.map(Movie.fromJSON);
@@ -103,6 +107,17 @@ export class TheMovieDbService {
       return results;
     }
     return [{error: 404, title: 'No results found'}];
+  }
+
+  /**
+   * Queries for the credits of the movie with the given id.
+   * @param {number} id
+   * @returns {Promise<any>}
+   */
+  public async getMovieCredits(id: number): Promise<any> {
+    const response = await this.http.get<MovieCreditsResponse>(this.getURL('movie_credits', id),{params: this.getBasicQueryParams()})
+      .toPromise()
+    return response;
   }
 
   private handleErrorPromise(error: Response | any) {
