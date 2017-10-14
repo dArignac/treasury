@@ -10,51 +10,61 @@
   </div>
   <div class="row movie-results">
     <!-- TODO maybe list a single result as 6 column, depends on additional information UI -->
-    <ng-container *ngFor="let movie of results$ | async">
-      <div class="col-2">
-        <ng-container *ngIf="movie.getPosterImage('w92') as poster; else noPoster">
-          <img [src]="poster" alt="{{movie.title}}"/>
-        </ng-container>
-        <ng-template #noPoster>
-          <div class="no-poster text-center img-thumbnail pt-3">No image available</div>
-        </ng-template>
-      </div>
-      <div class="col-8">
-        <div class="row">
-          <div class="col-12">
-            <strong>{{movie.title}}</strong>
+    <ng-container *ngIf="results$ | async as movies">
+      <ng-container *ngIf="movies.length > 0; else empty">
+        <ng-container *ngFor="let movie of movies">
+          <div class="col-2">
+            <ng-container *ngIf="movie.getPosterImage('w92') as poster; else noPoster">
+              <img [src]="poster" alt="{{movie.title}}"/>
+            </ng-container>
+            <ng-template #noPoster>
+              <div class="no-poster text-center img-thumbnail pt-3">No image available</div>
+            </ng-template>
           </div>
-        </div>
-        <div class="row" *ngIf="movie.release_date">
-          <div class="col-3 label">Release date:</div>
-          <div class="col-9">{{ movie.release_date }}</div>
-        </div>
-        <div class="row" *ngIf="movie.credits_actresses.length > 0">
-          <div class="col-3 label">Starring:</div>
-          <div class="col-9">{{ movie.credits_actresses }}</div>
-        </div>
-        <div class="row" *ngIf="movie.credits_directors.length > 0">
-          <div class="col-3 label">Directed by:</div>
-          <div class="col-9">{{ movie.credits_directors }}</div>
-        </div>
-      </div>
-      <div class="col-2">
-        <ng-container *ngIf="movie.error == 200">
-          <button
-            type="button"
-            [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(movie.id)}"
-            class="btn btn-sm float-right"
-            (click)="addMovie(movie)"
-            *ngIf="!addingItemsStatus.hasOwnProperty(movie.id) || addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]"
-          >
-            <span *ngIf="!addingItemsStatus.hasOwnProperty(movie.id)">Add</span>
-            <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]">Adding...</span>
-          </button>
-          <button type="button" class="btn btn-sm btn-dark-green float-right" disabled
-                  *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-          </button>
+          <div class="col-8">
+            <div class="row">
+              <div class="col-12">
+                <strong>{{movie.title}}</strong>
+              </div>
+            </div>
+            <div class="row" *ngIf="movie.release_date">
+              <div class="col-3 label">Release date:</div>
+              <div class="col-9">{{ movie.release_date }}</div>
+            </div>
+            <div class="row" *ngIf="movie.credits_actresses.length > 0">
+              <div class="col-3 label">Starring:</div>
+              <div class="col-9">{{ movie.credits_actresses }}</div>
+            </div>
+            <div class="row" *ngIf="movie.credits_directors.length > 0">
+              <div class="col-3 label">Directed by:</div>
+              <div class="col-9">{{ movie.credits_directors }}</div>
+            </div>
+          </div>
+          <div class="col-2">
+            <ng-container *ngIf="movie.error == 200">
+              <button
+                type="button"
+                [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(movie.id)}"
+                class="btn btn-sm float-right"
+                (click)="addMovie(movie)"
+                *ngIf="!addingItemsStatus.hasOwnProperty(movie.id) || addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]"
+              >
+                <span *ngIf="!addingItemsStatus.hasOwnProperty(movie.id)">Add</span>
+                <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]">Adding...</span>
+              </button>
+              <button type="button" class="btn btn-sm btn-dark-green float-right" disabled
+                      *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]"><i class="fa fa-check-circle fa-lg"
+                                                                                                           aria-hidden="true"></i>
+              </button>
+            </ng-container>
+          </div>
         </ng-container>
-      </div>
+      </ng-container>
+      <ng-template #empty>
+        <div class="col">
+          No results found.
+        </div>
+      </ng-template>
     </ng-container>
   </div>
 </div>

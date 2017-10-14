@@ -81,7 +81,7 @@ export class TheMovieDbService {
         }
       )
       .then(
-        (movies) => { return this.queryAdditionals(movies) },
+        (movies) => this.queryAdditionals(movies),
         () => {
           return [{error: 500, title: 'Unable to communicate properly with The Movie DB API (2)'}];
         }
@@ -99,22 +99,27 @@ export class TheMovieDbService {
     let original_count = movies.length;
     let current_count = 0;
     return new Promise((resolve, reject) => {
-      for (let movie of movies) {
-        this.getMovieCredits(movie.id).then(
-          (credits) => {
-            movie.credits_actresses = this.getActresses(credits.cast);
-            movie.credits_directors = this.getDirectors(credits.crew);
-            current_count++;
-            if (current_count == original_count) {
-              resolve(movies);
+      if (movies.length > 0) {
+        for (let movie of movies) {
+          this.getMovieCredits(movie.id).then(
+            (credits) => {
+              movie.credits_actresses = this.getActresses(credits.cast);
+              movie.credits_directors = this.getDirectors(credits.crew);
+              current_count++;
+              if (current_count == original_count) {
+                resolve(movies);
+              }
+            },
+            (error) => {
+              // FIXME handle that?
+              console.log('error upon querying movie credits', error);
+              reject();
             }
-          },
-          (error) => {
-            // FIXME handle that?
-            console.log('error upon querying movie credits', error);
-            reject();
-          }
-        );
+          );
+        }
+      } else {
+        // no search results, just return the empty list
+        resolve(movies);
       }
     });
   }
@@ -124,7 +129,7 @@ export class TheMovieDbService {
    * @param {MovieSearchResponse} response
    * @returns {any}
    */
-  private extractMoviesFromSearch(response: MovieSearchResponse) {
+  private extractMoviesFromSearch(response: MovieSearchResponse): any[] {
     if (response.total_results > 0) {
 
       let results = response.results.map(Movie.fromTMDBMovieSearchResult);
@@ -145,7 +150,7 @@ export class TheMovieDbService {
 
       return results;
     }
-    return [{error: 404, title: 'No results found'}];
+    return [];
   }
 
   /**
