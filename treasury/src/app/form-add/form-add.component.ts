@@ -28,7 +28,7 @@ export class FormAddComponent implements OnInit {
 
   /**
    * When a found movie was clicked, try to add it to the global and the user catalog.
-   * @param item
+   * @param {Movie} movie
    */
   addMovie(movie: Movie) {
     // mark item as currently being added - we wait for the firebase reply soon

@@ -79,13 +79,13 @@ export class Movie implements IMovie {
 
   /**
    * Creates a Movie instance from the given data that is coming from a TMDB query.
-   * In comparison to Movie.fromFirebaseObject this method additionally queries data that is not included in the result object.
+   * In comparison to Movie.fromFirebaseObject after calling this method the TheMovieDBService additionally queries data that is not included in the result
+   * object.
    * @param {IMovie} result
    * @returns {Movie}
    */
   public static fromTMDBMovieSearchResult(result: IMovie): Movie {
     return Movie.fromObject(result);
-    // TODO query additional
   }
 
   /**

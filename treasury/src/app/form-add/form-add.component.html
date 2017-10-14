@@ -20,8 +20,10 @@
         </ng-template>
       </div>
       <div class="col-8">
-        {{movie.title}}
-        <small *ngIf="movie.release_date"> {{ movie.release_date }}</small>
+        {{movie.title}}<br />
+        <span *ngIf="movie.release_date">{{ movie.release_date }}</span><br />
+        {{ movie.credits_actresses }}<br />
+        {{ movie.credits_directors }}
       </div>
       <div class="col-2">
         <ng-container *ngIf="movie.error == 200">

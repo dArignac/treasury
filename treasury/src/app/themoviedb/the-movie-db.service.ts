@@ -5,11 +5,15 @@ import 'rxjs/add/operator/toPromise';
 
 import * as Raven from 'raven-js';
 
+import * as _ from 'lodash';
+
 import { environment } from '../../environments/environment';
 import { Movie } from './movie';
 import { MovieCreditsResponse } from './credits/movie-credits-response';
 import { MovieSearchResponse } from './movie-search-response';
 import { UserService } from '../services/user.service';
+import { MovieCreditsCrewResponse } from './credits/movie-credits-crew-response';
+import { MovieCreditsCastResponse } from './credits/movie-credits-cast-response';
 
 @Injectable()
 export class TheMovieDbService {
@@ -68,12 +72,18 @@ export class TheMovieDbService {
    * @returns {Promise<any>}
    */
   public async getMovies(title: string): Promise<any> {
-    const response = await this.http.get<MovieSearchResponse>(this.getURL('search_movie'),{params: this.getMovieSearchQueryParams(title)})
+    const response = await this.http.get<MovieSearchResponse>(this.getURL('search_movie'), {params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
-        (response) => this.extractMovies(response),
+        (response) => this.extractMoviesFromSearch(response),
         () => {
-          return [{error: 500, title: 'Unable to communicate properly with The IMovie DB API...'}];
+          return [{error: 500, title: 'Unable to communicate properly with The Movie DB API (1)'}];
+        }
+      )
+      .then(
+        (movies) => { return this.queryAdditionals(movies) },
+        () => {
+          return [{error: 500, title: 'Unable to communicate properly with The Movie DB API (2)'}];
         }
       )
       .catch(this.handleErrorPromise);
@@ -81,11 +91,40 @@ export class TheMovieDbService {
   }
 
   /**
+   * Queries additional data for the given movies and returns the updated movie instance list.
+   * @param {any[]} movies
+   * @returns {Promise<any>}
+   */
+  private queryAdditionals(movies: any[]) {
+    let original_count = movies.length;
+    let current_count = 0;
+    return new Promise((resolve, reject) => {
+      for (let movie of movies) {
+        this.getMovieCredits(movie.id).then(
+          (credits) => {
+            movie.credits_actresses = this.getActresses(credits.cast);
+            movie.credits_directors = this.getDirectors(credits.crew);
+            current_count++;
+            if (current_count == original_count) {
+              resolve(movies);
+            }
+          },
+          (error) => {
+            // FIXME handle that?
+            console.log('error upon querying movie credits', error);
+            reject();
+          }
+        );
+      }
+    });
+  }
+
+  /**
    * Extracts the Movies from the returned response.
    * @param {MovieSearchResponse} response
    * @returns {any}
    */
-  private extractMovies(response: MovieSearchResponse) {
+  private extractMoviesFromSearch(response: MovieSearchResponse) {
     if (response.total_results > 0) {
 
       let results = response.results.map(Movie.fromTMDBMovieSearchResult);
@@ -114,10 +153,51 @@ export class TheMovieDbService {
    * @param {number} id
    * @returns {Promise<any>}
    */
-  public async getMovieCredits(id: number): Promise<any> {
-    const response = await this.http.get<MovieCreditsResponse>(this.getURL('movie_credits', id),{params: this.getBasicQueryParams()})
+  private async getMovieCredits(id: number): Promise<any> {
+    const response = await this.http.get<MovieCreditsResponse>(this.getURL('movie_credits', id), {params: this.getBasicQueryParams()})
       .toPromise()
     return response;
+  }
+
+  /**
+   * Extracts the top three actresses from the response object.
+   * @param {MovieCreditsCastResponse[]} cast
+   * @returns {string}
+   */
+  private getActresses(cast: MovieCreditsCastResponse[]): string {
+    // grab only the first 3 actresses
+    return _.join(
+      _.map(
+        _.filter(
+          cast,
+          function (human: MovieCreditsCastResponse) {
+            return human.order < 3;
+          }
+        ),
+        'name'
+      ),
+      ', '
+    );
+  }
+
+  /**
+   * Extracts the directors from the response object.
+   * @param {MovieCreditsCrewResponse[]} crew
+   * @returns {string}
+   */
+  private getDirectors(crew: MovieCreditsCrewResponse[]) {
+    return _.join(
+      _.map(
+        _.filter(
+          crew,
+          function (human: MovieCreditsCrewResponse) {
+            return human.department == 'Directing' && human.job == 'Director'
+          }
+        ),
+        'name'
+      ),
+      ', '
+    );
   }
 
   private handleErrorPromise(error: Response | any) {
