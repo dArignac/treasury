@@ -88,7 +88,7 @@ export class TheMovieDbService {
   private extractMovies(response: MovieSearchResponse) {
     if (response.total_results > 0) {
 
-      let results = response.results.map(Movie.fromJSON);
+      let results = response.results.map(Movie.fromTMDBMovieSearchResult);
 
       // sort by titles
       // FIXME maybe we create our own implementation of the Movie list and implement the sorting there

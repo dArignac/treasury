@@ -43,7 +43,7 @@ export class MovieListComponent implements OnInit {
 
   ngOnInit() {
     this.movieCollection = this.userService.getMovieCollection();
-    this.movies$ = this.movieCollection.valueChanges().map(Movie.fromJSONList);
+    this.movies$ = this.movieCollection.valueChanges().map(Movie.fromFirebaseCollection);
   }
 
 }

@@ -10,6 +10,10 @@ export class Movie implements IMovie {
   // persisted properties
   adult: boolean;
   backdrop_path: string;
+  // store actresses and directors as string only, we currently do not want to search for them and find their movies, instead we only use them as additional
+  // static readonly data
+  credits_actresses: string;
+  credits_directors: string;
   genre_ids: number[];
   id: number;
   title: string;
@@ -40,26 +44,44 @@ export class Movie implements IMovie {
   }
 
   /**
-   * Creates a list of Movie from the given JSON list.
-   * Is used directly with TheMovieDB data as well as with Firebase collections.
-   * @param jsonList
+   * Creates a list of Movie from the Firebase collection.
+   * @param collection
    * @returns {Movie[]}
    */
-  public static fromJSONList(jsonList): Movie[] {
-    return jsonList.map(Movie.fromJSON);
+  public static fromFirebaseCollection(collection): Movie[] {
+    return collection.map(Movie.fromFirebaseObject);
   }
 
   /**
-   * Creates a Movie instance from the given JSON data.
-   * @param json
+   * Create a movie instance from the given Firebase data.
+   * It is assumed, that the returned data is complete. Meaning that we do not additionally query for additional data as in Movie.fromTMDBMovieSearchResult.
+   * @param obj
    * @returns {Movie}
    */
-  public static fromJSON(json): Movie {
+  public static fromFirebaseObject(obj): Movie {
     let m = new Movie();
     m.error = 200;
-    for (let key of Object.getOwnPropertyNames(json)) {
-      m[key] = json[key];
+    // this will set all keys and values coming in through the object
+    for (let key of Object.getOwnPropertyNames(obj)) {
+      m[key] = obj[key];
     }
+    return m;
+  }
+
+  /**
+   * Creates a Movie instance from the given data that is coming from a TMDB query.
+   * In comparison to Movie.fromFirebaseObject this method additionally queries data that is not included in the result object.
+   * @param {IMovie} result
+   * @returns {Movie}
+   */
+  public static fromTMDBMovieSearchResult(result: IMovie): Movie {
+    let m = new Movie();
+    m.error = 200;
+    // this will set all keys and values coming in through the result object
+    for (let key of Object.getOwnPropertyNames(result)) {
+      m[key] = result[key];
+    }
+    // TODO query additional
     return m;
   }
 
