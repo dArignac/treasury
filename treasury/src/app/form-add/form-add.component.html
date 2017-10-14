@@ -8,7 +8,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row movie-results">
     <!-- TODO maybe list a single result as 6 column, depends on additional information UI -->
     <ng-container *ngFor="let movie of results$ | async">
       <div class="col-2">
@@ -20,10 +20,23 @@
         </ng-template>
       </div>
       <div class="col-8">
-        {{movie.title}}<br />
-        <span *ngIf="movie.release_date">{{ movie.release_date }}</span><br />
-        {{ movie.credits_actresses }}<br />
-        {{ movie.credits_directors }}
+        <div class="row">
+          <div class="col-12">
+            <strong>{{movie.title}}</strong>
+          </div>
+        </div>
+        <div class="row" *ngIf="movie.release_date">
+          <div class="col-3 label">Release date:</div>
+          <div class="col-9">{{ movie.release_date }}</div>
+        </div>
+        <div class="row" *ngIf="movie.credits_actresses.length > 0">
+          <div class="col-3 label">Starring:</div>
+          <div class="col-9">{{ movie.credits_actresses }}</div>
+        </div>
+        <div class="row" *ngIf="movie.credits_directors.length > 0">
+          <div class="col-3 label">Directed by:</div>
+          <div class="col-9">{{ movie.credits_directors }}</div>
+        </div>
       </div>
       <div class="col-2">
         <ng-container *ngIf="movie.error == 200">
