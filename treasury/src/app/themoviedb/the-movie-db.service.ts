@@ -6,17 +6,31 @@ import 'rxjs/add/operator/toPromise';
 import * as Raven from 'raven-js';
 
 import { environment } from '../../environments/environment';
+import { Movie } from './movie';
 import { MovieResponse } from './movie-response';
 import { UserService } from '../services/user.service';
-import { Movie } from './movie';
 
 @Injectable()
 export class TheMovieDbService {
 
-  private apiBaseURL;
+  private apiBaseURL = 'https://api.themoviedb.org/3/';
 
   constructor(private http: HttpClient, private userService: UserService) {
-    this.apiBaseURL = 'https://api.themoviedb.org/3/search/';
+  }
+
+  /**
+   * Returns the appropriate URL for the given section.
+   * @param {string} section
+   * @returns {string}
+   */
+  private getURL(section: string): string {
+    let segment = '';
+    switch (section) {
+      case 'search_movie':
+        segment = 'search/movie';
+        break;
+    }
+    return this.apiBaseURL + segment;
   }
 
   /**
@@ -24,7 +38,7 @@ export class TheMovieDbService {
    * @param {string} title
    * @returns {HttpParams}
    */
-  getMovieSearchParams(title: string): HttpParams {
+  private getMovieSearchParams(title: string): HttpParams {
     let p = new HttpParams();
     p = p.append('api_key', environment.themoviedb.apiKey);
     p = p.append('language', this.userService.user.tmdbRegion.toLowerCase() || 'en');
@@ -41,7 +55,8 @@ export class TheMovieDbService {
    * @returns {Promise<any>}
    */
   async getMovies(title: string): Promise<any> {
-    const response = await this.http.get<MovieResponse>(this.apiBaseURL + 'movie', {params: this.getMovieSearchParams(title)}).toPromise()
+    const response = await this.http.get<MovieResponse>(this.getURL('search_movie'),{params: this.getMovieSearchParams(title)})
+      .toPromise()
       .then(
         (response) => this.extractData(response),
         () => {
