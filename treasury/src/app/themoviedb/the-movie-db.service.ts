@@ -34,13 +34,22 @@ export class TheMovieDbService {
   }
 
   /**
-   * Prepare the API HTTP query.
+   * Returns the basic query params necessary for every API call.
+   * @returns {HttpParams}
+   */
+  private getBasicQueryParams(): HttpParams {
+    let p = new HttpParams();
+    p = p.append('api_key', environment.themoviedb.apiKey);
+    return p;
+  }
+
+  /**
+   * Returns the query params for searching movies.
    * @param {string} title
    * @returns {HttpParams}
    */
-  private getMovieSearchParams(title: string): HttpParams {
-    let p = new HttpParams();
-    p = p.append('api_key', environment.themoviedb.apiKey);
+  private getMovieSearchQueryParams(title: string): HttpParams {
+    let p = this.getBasicQueryParams();
     p = p.append('language', this.userService.user.tmdbRegion.toLowerCase() || 'en');
     p = p.append('query', title);
     p = p.append('page', '1');
@@ -55,7 +64,7 @@ export class TheMovieDbService {
    * @returns {Promise<any>}
    */
   async getMovies(title: string): Promise<any> {
-    const response = await this.http.get<MovieResponse>(this.getURL('search_movie'),{params: this.getMovieSearchParams(title)})
+    const response = await this.http.get<MovieResponse>(this.getURL('search_movie'),{params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
         (response) => this.extractData(response),
