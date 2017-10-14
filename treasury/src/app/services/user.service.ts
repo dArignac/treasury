@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from './auth.service';
+import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { User } from './user';
 
@@ -34,7 +35,7 @@ export class UserService {
    */
   addMovie(movie: Movie): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.userDoc.collection('movies').doc(String(movie.id)).set(movie).then(
+      this.userDoc.collection('movies').doc(String(movie.id)).set(movie.toJSON()).then(
         () => {
           // FIXME handle addition properly
           resolve();
@@ -50,10 +51,10 @@ export class UserService {
 
   /**
    * Removes the given movie from the user's collection.
-   * @param {Movie} movie
+   * @param {IMovie} movie
    * @returns {Promise<boolean>}
    */
-  removeMovie(movie: Movie): Promise<boolean> {
+  removeMovie(movie: IMovie): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.userDoc.collection('movies').doc(String(movie.id)).delete().then(
         () => {
@@ -71,9 +72,9 @@ export class UserService {
   /**
    * Returns the movie collection of the current user.
    * It's sorted by title.
-   * @returns {AngularFirestoreCollection<Movie>}
+   * @returns {AngularFirestoreCollection<IMovie>}
    */
-  getMovieCollection(): AngularFirestoreCollection<Movie> {
+  getMovieCollection(): AngularFirestoreCollection<IMovie> {
     return this.afs.collection<User>('users')
       .doc(this.authService.id)
       .collection(
