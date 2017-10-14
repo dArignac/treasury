@@ -29,7 +29,7 @@
             type="button"
             [ngClass]="{'animated pulse infinite btn-secondary': addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id], 'btn-primary': !addingItemsStatus.hasOwnProperty(movie.id)}"
             class="btn btn-sm float-right"
-            (click)="buttonClicked(movie)"
+            (click)="addMovie(movie)"
             *ngIf="!addingItemsStatus.hasOwnProperty(movie.id) || addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]"
           >
             <span *ngIf="!addingItemsStatus.hasOwnProperty(movie.id)">Add</span>

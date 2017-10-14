@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
 import { UserService } from '../services/user.service';
+import { Movie } from '../themoviedb/movie';
 
 
 @Component({
@@ -22,29 +23,27 @@ export class FormAddComponent implements OnInit {
 
   constructor(private theMovieDbService: TheMovieDbService, private userService: UserService) {
     this.movieControl = new FormControl();
-    this.results$ = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title): []);
+    this.results$ = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title) : []);
   }
 
   /**
    * When a found movie was clicked, try to add it to the global and the user catalog.
    * @param item
    */
-  buttonClicked(item) {
-    if (!item.hasOwnProperty('error')) {
-      // mark item as currently being added - we wait for the firebase reply soon
-      this.addingItemsStatus[item.id] = false;
-      // now we wait...
-      this.userService.addMovie(item).then(
-        () => {
-          // we got an answer and it was added, mark the item as added
-          this.addingItemsStatus[item.id] = true;
-        },
-        (error) => {
-          // FIXME add error handling
-          console.log('error upon item addition', error);
-        }
-      );
-    }
+  addMovie(movie: Movie) {
+    // mark item as currently being added - we wait for the firebase reply soon
+    this.addingItemsStatus[movie.id] = false;
+    // now we wait...
+    this.userService.addMovie(movie).then(
+      () => {
+        // we got an answer and it was added, mark the item as added
+        this.addingItemsStatus[movie.id] = true;
+      },
+      (error) => {
+        // FIXME add error handling
+        console.log('error upon item addition', error);
+      }
+    );
   }
 
   ngOnInit() {

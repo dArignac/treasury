@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from './auth.service';
 import { IMovie } from '../themoviedb/imovie';
+import { Movie } from '../themoviedb/movie';
 import { User } from './user';
 
 @Injectable()
@@ -29,12 +30,12 @@ export class UserService {
 
   /**
    * Adds the given movie to the global catalog and to the current user's catalog.
-   * @param {IMovie} movie
+   * @param {Movie} movie
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */
-  addMovie(movie: IMovie): Promise<boolean> {
+  addMovie(movie: Movie): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.userDoc.collection('movies').doc(String(movie.id)).set(movie).then(
+      this.userDoc.collection('movies').doc(String(movie.id)).set(movie.toJSON()).then(
         () => {
           // FIXME handle addition properly
           resolve();

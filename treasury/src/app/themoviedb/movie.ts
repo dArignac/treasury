@@ -59,4 +59,19 @@ export class Movie implements IMovie {
     }
     return m;
   }
+
+  /**
+   * Returns an object representation of the movie.
+   * This is mainly used for persisting the movie to Firebase. Here we decide, which properties will be persisted and which not.
+   * @returns {Object}
+   */
+  public toJSON(): object {
+    let o = {};
+    for (let key of Object.getOwnPropertyNames(this)) {
+      if (key != 'error') {
+        o[key] = this[key];
+      }
+    }
+    return o;
+  }
 }
