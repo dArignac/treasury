@@ -7,9 +7,9 @@ import { IMovie } from './imovie';
  * Class representing a Movie.
  */
 export class Movie implements IMovie {
+  // persisted properties
   adult: boolean;
   backdrop_path: string;
-  error: number; // values like HTTP error codes
   genre_ids: number[];
   id: number;
   title: string;
@@ -22,6 +22,9 @@ export class Movie implements IMovie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+
+  // not persisted properties
+  error: number; // values like HTTP error codes
 
   /**
    * Generic function for different poster variants. Returns the URL to the poster image.
