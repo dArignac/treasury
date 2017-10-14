@@ -29,7 +29,7 @@ export class Movie implements IMovie {
    * @param {string} variant
    * @returns {string}
    */
-  private getPosterImage(variant: string): string {
+  public getPosterImage(variant: string): string {
     if (!isNull(this.poster_path)) {
       return environment.themoviedb.imageBaseURL + variant + '/' + this.poster_path;
     }
