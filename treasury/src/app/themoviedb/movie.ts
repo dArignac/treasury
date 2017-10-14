@@ -24,14 +24,6 @@ export class Movie implements IMovie {
   vote_count: number;
 
   /**
-   * Returns the URL to the smallest poster image.
-   * @returns {string}
-   */
-  getPosterImageSmall(): string {
-    return this.getPosterImage('w92');
-  }
-
-  /**
    * Generic function for different poster variants. Returns the URL to the poster image.
    * Poster variants are (currently): w92, w154, w185, w342, w500, w780, original
    * @param {string} variant
@@ -45,15 +37,25 @@ export class Movie implements IMovie {
   }
 
   /**
-   * Creates an instance of Movie from the given value that usually is returned from TheMovieDB API.
-   * @param {IMovie} item
+   * Creates a list of Movie from the given JSON list.
+   * Is used directly with TheMovieDB data as well as with Firebase collections.
+   * @param jsonList
+   * @returns {Movie[]}
+   */
+  public static fromJSONList(jsonList): Movie[] {
+    return jsonList.map(Movie.fromJSON);
+  }
+
+  /**
+   * Creates a Movie instance from the given JSON data.
+   * @param json
    * @returns {Movie}
    */
-  public static fromResponse(item: IMovie): Movie {
+  public static fromJSON(json): Movie {
     let m = new Movie();
     m.error = 200;
-    for (let key of Object.getOwnPropertyNames(item)) {
-      m[key] = item[key];
+    for (let key of Object.getOwnPropertyNames(json)) {
+      m[key] = json[key];
     }
     return m;
   }

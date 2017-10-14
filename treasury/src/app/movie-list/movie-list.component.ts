@@ -4,8 +4,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
-import { IMovie } from '../themoviedb/imovie';
 import { environment } from '../../environments/environment';
+import { IMovie } from '../themoviedb/imovie';
+import { Movie } from '../themoviedb/movie';
 import { UserService } from '../services/user.service';
 
 
@@ -17,7 +18,7 @@ import { UserService } from '../services/user.service';
 export class MovieListComponent implements OnInit {
 
   private movieCollection: AngularFirestoreCollection<IMovie>;
-  public movies$: Observable<IMovie[]>;
+  public movies$: Observable<Movie[]>;
 
   constructor(private userService: UserService) {
   }
@@ -42,7 +43,7 @@ export class MovieListComponent implements OnInit {
 
   ngOnInit() {
     this.movieCollection = this.userService.getMovieCollection();
-    this.movies$ = this.movieCollection.valueChanges();
+    this.movies$ = this.movieCollection.valueChanges().map(Movie.fromJSONList);
   }
 
 }

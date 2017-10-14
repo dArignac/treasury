@@ -60,12 +60,10 @@ export class TheMovieDbService {
   extractData(response: MovieResponse) {
     if (response.total_results > 0) {
 
-      let results = [];
-      for (let item of response.results) {
-        results.push(Movie.fromResponse(item));
-      }
+      let results = response.results.map(Movie.fromJSON);
 
       // sort by titles
+      // FIXME maybe we create our own implementation of the Movie list and implement the sorting there
       results = results.sort(
         (n1, n2) => {
           if (n1.title > n2.title) {

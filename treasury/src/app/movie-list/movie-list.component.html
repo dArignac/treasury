@@ -5,7 +5,7 @@
         <ng-container *ngFor="let item of movies; index as i; last as isLast">
           <div class="col-auto mt-1">
             <div class="item view overlay hm-black-strong">
-              <img class="z-depth-2" [src]="getPosterImage(item)" alt="{{item.title}}">
+              <img class="z-depth-2" [src]="item.getPosterImage('w154')" alt="{{item.title}}">
               <div class="mask flex-center waves-effect waves-light">
                 <div class="container white-text">
                   <div class="row">
