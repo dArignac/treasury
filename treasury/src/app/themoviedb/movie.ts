@@ -53,12 +53,11 @@ export class Movie implements IMovie {
   }
 
   /**
-   * Create a movie instance from the given Firebase data.
-   * It is assumed, that the returned data is complete. Meaning that we do not additionally query for additional data as in Movie.fromTMDBMovieSearchResult.
+   * Creates a movie instance from the given data.
    * @param obj
    * @returns {Movie}
    */
-  public static fromFirebaseObject(obj): Movie {
+  private static fromObject(obj): Movie {
     let m = new Movie();
     m.error = 200;
     // this will set all keys and values coming in through the object
@@ -69,20 +68,24 @@ export class Movie implements IMovie {
   }
 
   /**
+   * Creates a movie instance from the given Firebase data.
+   * It is assumed, that the returned data is complete. Meaning that we do not additionally query for additional data as in Movie.fromTMDBMovieSearchResult.
+   * @param obj
+   * @returns {Movie}
+   */
+  public static fromFirebaseObject(obj): Movie {
+    return Movie.fromObject(obj);
+  }
+
+  /**
    * Creates a Movie instance from the given data that is coming from a TMDB query.
    * In comparison to Movie.fromFirebaseObject this method additionally queries data that is not included in the result object.
    * @param {IMovie} result
    * @returns {Movie}
    */
   public static fromTMDBMovieSearchResult(result: IMovie): Movie {
-    let m = new Movie();
-    m.error = 200;
-    // this will set all keys and values coming in through the result object
-    for (let key of Object.getOwnPropertyNames(result)) {
-      m[key] = result[key];
-    }
+    return Movie.fromObject(result);
     // TODO query additional
-    return m;
   }
 
   /**
