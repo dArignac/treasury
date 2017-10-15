@@ -37,7 +37,7 @@ export class BackupComponent implements OnInit {
       let ex = {
         'movies': []
       };
-      let moviesCollectionSubscription = this.userService.getMovieCollection().valueChanges().subscribe(
+      let moviesCollectionSubscription = this.userService.getMovieCollection().valueChanges().share().subscribe(
         (movies) => {
           ex['movies'] = _.map(movies, function (movie) {
             return movie.id;
