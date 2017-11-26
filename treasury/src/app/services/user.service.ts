@@ -29,7 +29,7 @@ export class UserService {
   }
 
   /**
-   * Adds the given movie to the global catalog and to the current user's catalog.
+   * Adds the given movie to the current user's catalog.
    * @param {Movie} movie
    * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
    */

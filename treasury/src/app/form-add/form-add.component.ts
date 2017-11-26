@@ -27,7 +27,7 @@ export class FormAddComponent implements OnInit {
   }
 
   /**
-   * When a found movie was clicked, try to add it to the global and the user catalog.
+   * When a found movie was clicked, try to add it to the user catalog.
    * @param {Movie} movie
    */
   addMovie(movie: Movie) {
