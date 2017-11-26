@@ -9,7 +9,8 @@ export class ErrorComponent implements OnInit {
 
   @Input('data') data: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
