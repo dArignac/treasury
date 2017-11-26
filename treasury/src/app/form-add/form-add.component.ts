@@ -19,16 +19,14 @@ import { Movie } from '../themoviedb/movie';
 })
 export class FormAddComponent implements OnInit {
 
-  @ViewChild('errorModal', { read: ViewContainerRef }) errorModal: ViewContainerRef;
+  @ViewChild('errorModal', {read: ViewContainerRef}) errorModal: ViewContainerRef;
   results$: Observable<any>;
   movieControl: FormControl;
   addingItemsStatus = {}; // will keep the id of the item and the state, false meaning it's currently added and true means it was added
 
-  constructor(
-    private theMovieDbService: TheMovieDbService,
-    private userService: UserService,
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) {
+  constructor(private theMovieDbService: TheMovieDbService,
+              private userService: UserService,
+              private componentFactoryResolver: ComponentFactoryResolver) {
     this.movieControl = new FormControl();
     this.results$ = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title) : []);
   }
