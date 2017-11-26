@@ -18,16 +18,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
-import { MovieListComponent } from './movie-list/movie-list.component';
+import { BackupComponent } from './backup/backup.component';
+import { ErrorComponent } from './error/error.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { TheMovieDbService } from './themoviedb/the-movie-db.service';
+import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { UserService } from './services/user.service';
 import { SettingsComponent } from './settings/settings.component';
-import { BackupComponent } from './backup/backup.component';
-import { ErrorComponent } from './error/error.component';
 
 
 if (environment.sentryDSN.length > 0) Raven.config(environment.sentryDSN).install();
