@@ -27,6 +27,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserService } from './services/user.service';
 import { SettingsComponent } from './settings/settings.component';
 import { BackupComponent } from './backup/backup.component';
+import { ErrorComponent } from './error/error.component';
 
 
 if (environment.sentryDSN.length > 0) Raven.config(environment.sentryDSN).install();
@@ -46,8 +47,10 @@ export class RavenErrorHandler implements ErrorHandler {
     PageNotFoundComponent,
     HomeComponent,
     SettingsComponent,
-    BackupComponent
+    BackupComponent,
+    ErrorComponent
   ],
+  entryComponents: [ErrorComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

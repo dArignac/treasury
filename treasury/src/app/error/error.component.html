@@ -1,0 +1,24 @@
+<div mdbModal #style="mdb-modal" [config]="{ show: true }" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">{{ data.title }}</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="style.hide()">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <p>{{ data.message }}</p>
+          <p>{{ data.error }}</p>
+          <p>{{ data.outro }}</p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-outline-secondary-modal" data-dismiss="modal" (click)="style.hide()" mdbRippleRadius>{{ data.button }}</a>
+      </div>
+    </div>
+  </div>
+</div>
