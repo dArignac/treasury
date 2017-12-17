@@ -30,7 +30,7 @@ export class BaseComponent implements OnInit {
     errorComponent.data = {
       'title': title,
       'message': message,
-      'error': 'The error message was: ' + error,
+      'error': 'The original error message was: ' + error,
       'outro': outro,
       'button': 'Close the dialog'
     };

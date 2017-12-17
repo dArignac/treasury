@@ -58,9 +58,7 @@ export class UserService {
           resolve();
         },
         (error) => {
-          // FIXME add error handling
-          console.log('error upon user item removal', error);
-          reject();
+          reject(error);
         }
       );
     });

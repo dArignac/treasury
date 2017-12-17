@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { environment } from '../../environments/environment';
+import { BaseComponent } from '../base/base.component';
+import { ErrorComponent } from '../error/error.component';
 import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { UserService } from '../services/user.service';
@@ -15,12 +17,16 @@ import { UserService } from '../services/user.service';
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss']
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent extends BaseComponent {
 
   private movieCollection: AngularFirestoreCollection<IMovie>;
   public movies$: Observable<Movie[]>;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {
+    super();
   }
 
   /**
@@ -37,8 +43,21 @@ export class MovieListComponent implements OnInit {
    * @param {IMovie} movie
    */
   remove(movie: IMovie) {
-    // we do not handle the promise here as the element is removed immediately from the movie list that is observedś
-    this.userService.removeMovie(movie);
+    this.userService.removeMovie(movie).then(
+      () => {
+        // we do not handle the promise here as the element is removed immediately from the movie list that is observed
+      },
+      (error) => {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
+        this.displayErrorModal(
+          componentFactory,
+          'Error upon item removal',
+          'An error occurred while removing the item. This may happened because the underlying TheMovieDB service returned an invalid response.',
+          'Please refresh the page an try again!',
+          error
+        );
+      }
+    );
   }
 
   ngOnInit() {
