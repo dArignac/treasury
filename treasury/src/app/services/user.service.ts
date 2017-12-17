@@ -37,13 +37,10 @@ export class UserService {
     return new Promise<boolean>((resolve, reject) => {
       this.userDoc.collection('movies').doc(String(movie.id)).set(movie.toJSON()).then(
         () => {
-          // FIXME handle addition properly
           resolve();
         },
         (error) => {
-          // FIXME add error handling
-          console.log('error upon user item addition', error);
-          reject();
+          reject(error);
         }
       );
     });
