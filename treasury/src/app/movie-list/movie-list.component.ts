@@ -22,10 +22,8 @@ export class MovieListComponent extends BaseComponent {
   private movieCollection: AngularFirestoreCollection<IMovie>;
   public movies$: Observable<Movie[]>;
 
-  constructor(
-    private userService: UserService,
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) {
+  constructor(private userService: UserService,
+              private componentFactoryResolver: ComponentFactoryResolver) {
     super();
   }
 
