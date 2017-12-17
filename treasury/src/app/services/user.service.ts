@@ -87,10 +87,7 @@ export class UserService {
           resolve();
         },
         (error) => {
-          // FIXME handle error
-          console.log('error upon setting property ' + key + ' with value ' + value + ' to user document.');
-          console.log(error);
-          reject();
+          reject(error);
         }
       )
     });

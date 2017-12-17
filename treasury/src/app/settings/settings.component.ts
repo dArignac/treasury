@@ -1,23 +1,28 @@
 import { isUndefined } from 'util';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 
+import { BaseComponent } from '../base/base.component';
+import { ErrorComponent } from '../error/error.component';
 import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent extends BaseComponent {
 
   tmdbRegionChoices: {}[] = [
-    { value: 'DE', displayValue: 'German' },
-    { value: 'EN', displayValue: 'English' },
+    {value: 'DE', displayValue: 'German'},
+    {value: 'EN', displayValue: 'English'},
   ];
   tmdbRegion: string = null;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private componentFactoryResolver: ComponentFactoryResolver) {
+    super();
     // if the user is already initialized, we do not enter the settings page on application loading.
     if (!isUndefined(this.userService.user)) {
       this.tmdbRegion = this.getLanguageHumanReadable(this.userService.user.tmdbRegion);
@@ -40,11 +45,17 @@ export class SettingsComponent implements OnInit {
    */
   setTMDBRegion(identifier: string) {
     this.userService.setUserProperty('tmdbRegion', identifier).then(
-      () => {},
+      () => {
+      },
       (error) => {
-        // FIXME handle error
-        console.log('error upon updating tmdbRegion of user happened');
-        console.log(error);
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
+        this.displayErrorModal(
+          componentFactory,
+          'Error upon setting user value',
+          'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid response.',
+          'Please refresh the page an try again!',
+          error
+        );
       }
     );
   }
