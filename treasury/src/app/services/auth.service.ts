@@ -50,7 +50,7 @@ export class AuthService {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
         // FIXME move this to UserService
-        let currentUser = <User>{
+        const currentUser = <User>{
           displayName: response.user.displayName,
           email: response.user.email,
           isEmailVerified: response.user.emailVerified,
