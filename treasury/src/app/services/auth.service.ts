@@ -9,6 +9,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 import { User } from './user';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
@@ -49,7 +50,6 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
-        // FIXME move this to UserService
         const currentUser = <User>{
           displayName: response.user.displayName,
           email: response.user.email,
