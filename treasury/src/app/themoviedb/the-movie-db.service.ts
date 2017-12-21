@@ -58,11 +58,11 @@ export class TheMovieDbService {
    */
   private getMovieSearchQueryParams(title: string): HttpParams {
     let p = this.getBasicQueryParams();
-    p = p.append('language', this.userService.user.tmdbRegion.toLowerCase() || 'en');
+    p = p.append('language', this.userService.userSettings.tmdbRegion.toLowerCase() || 'en');
     p = p.append('query', title);
     p = p.append('page', '1');
     p = p.append('include_adult', 'false');
-    p = p.append('region', this.userService.user.tmdbRegion || '');
+    p = p.append('region', this.userService.userSettings.tmdbRegion || '');
     return p;
   }
 

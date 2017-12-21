@@ -19,6 +19,10 @@ service cloud.firestore {
         allow read: if true;
       }
     }
+    match /settings/{userId} {
+    	allow write: if request.auth.uid == userId;
+      allow read: if true;
+    }
   }
 }
 -------------------

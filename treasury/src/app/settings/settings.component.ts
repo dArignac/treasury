@@ -25,18 +25,15 @@ export class SettingsComponent extends BaseComponent {
     super();
     // if the user is already initialized, we do not enter the settings page on application loading.
     if (!isUndefined(this.userService.user)) {
-      this.tmdbRegion = this.getLanguageHumanReadable(this.userService.user.tmdbRegion);
+      this.tmdbRegion = this.getLanguageHumanReadable(this.userService.userSettings.tmdbRegion);
     }
-    this.userService.user$.subscribe(
-      (user) => {
-        if (user) {
-          this.tmdbRegion = this.getLanguageHumanReadable(user.tmdbRegion);
+    this.userService.userSettings$.subscribe(
+      (userSettings) => {
+        if (userSettings) {
+          this.tmdbRegion = this.getLanguageHumanReadable(userSettings.tmdbRegion);
         }
       }
     );
-  }
-
-  ngOnInit() {
   }
 
   /**
@@ -44,7 +41,7 @@ export class SettingsComponent extends BaseComponent {
    * @param {string} identifier language value as ISO-3166-1 code
    */
   setTMDBRegion(identifier: string) {
-    this.userService.setUserProperty('tmdbRegion', identifier).then(
+    this.userService.setUserSetting('tmdbRegion', identifier).then(
       () => {
       },
       (error) => {

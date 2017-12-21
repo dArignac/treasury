@@ -54,9 +54,7 @@ export class AuthService {
           displayName: response.user.displayName,
           email: response.user.email,
           isEmailVerified: response.user.emailVerified,
-          photoURL: response.user.photoURL,
-          isCatalogPublic: false,
-          tmdbRegion: 'EN'
+          photoURL: response.user.photoURL
         };
         this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
           () => {

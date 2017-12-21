@@ -3,6 +3,4 @@ export interface User {
   email: string;
   isEmailVerified: boolean;
   photoURL: string;
-  isCatalogPublic: boolean;
-  tmdbRegion: string;
 }

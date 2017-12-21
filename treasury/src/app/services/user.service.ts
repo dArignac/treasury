@@ -8,13 +8,18 @@ import { AuthService } from './auth.service';
 import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { User } from './user';
+import { UserSettings } from './user-settings';
+import { isNull } from 'util';
 
 @Injectable()
 export class UserService {
 
   private userDoc: AngularFirestoreDocument<User>;
+  private userSettingsDoc: AngularFirestoreDocument<UserSettings>;
   user$: Observable<User>;
+  userSettings$: Observable<UserSettings>;
   user: User;
+  userSettings: UserSettings;
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
     this.authService.isAuthenticated.subscribe(
@@ -23,6 +28,22 @@ export class UserService {
           this.userDoc = this.afs.collection<User>('users').doc(this.authService.id);
           this.user$ = this.userDoc.valueChanges();
           this.user$.subscribe(user => this.user = user);
+
+          this.userSettingsDoc = this.afs.collection<UserSettings>('settings').doc(this.authService.id);
+          this.userSettings$ = this.userSettingsDoc.valueChanges();
+          this.userSettings$.subscribe(
+            (userSettings) => {
+              // if initial document does not exist, create it with default values
+              if (isNull(userSettings)) {
+                userSettings = {
+                  isCatalogPublic: false,
+                  tmdbRegion: 'EN'
+                };
+                this.afs.collection<UserSettings>('settings').doc(this.authService.id).set(userSettings);
+              }
+              this.userSettings = userSettings;
+            }
+          );
         }
       }
     );
@@ -78,11 +99,16 @@ export class UserService {
       );
   }
 
-  setUserProperty(key: string, value: string): Promise<boolean> {
+  /**
+   * Updates a user settings in the separate "settings" collection.
+   * @param key the key to user
+   * @param value the value to set
+   */
+  setUserSetting(key: string, value: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      const user = this.user;
-      user[key] = value;
-      this.userDoc.update(user).then(
+      const settings = this.userSettings;
+      settings[key] = value;
+      this.userSettingsDoc.update(settings).then(
         () => {
           resolve();
         },
