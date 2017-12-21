@@ -80,7 +80,7 @@ export class UserService {
 
   setUserProperty(key: string, value: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      let user = this.user;
+      const user = this.user;
       user[key] = value;
       this.userDoc.update(user).then(
         () => {
@@ -89,7 +89,7 @@ export class UserService {
         (error) => {
           reject(error);
         }
-      )
+      );
     });
   }
 
