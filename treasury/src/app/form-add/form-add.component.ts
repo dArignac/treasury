@@ -29,7 +29,7 @@ export class FormAddComponent extends BaseComponent {
               private componentFactoryResolver: ComponentFactoryResolver) {
     super();
     this.movieControl = new FormControl();
-    this.results$ = this.movieControl.valueChanges.debounceTime(1000).switchMap(title => title ? theMovieDbService.getMovies(title) : []);
+    this.results$ = this.movieControl.valueChanges.debounceTime(2000).switchMap(title => title ? theMovieDbService.getMovies(title) : []);
   }
 
   /**
