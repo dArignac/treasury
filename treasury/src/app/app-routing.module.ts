@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from '../environments/environment';
 import { AuthGuard } from './services/auth-guard.service';
+import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HomeComponent } from './home/home.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
@@ -28,6 +29,10 @@ const appRoutes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'error',
+    component: ErrorPageDefaultComponent
   },
   {
     path: '**',

@@ -19,19 +19,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { BackupComponent } from './backup/backup.component';
+import { BaseComponent } from './base/base.component';
 import { ErrorComponent } from './error/error.component';
+import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SettingsComponent } from './settings/settings.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { UserService } from './services/user.service';
-import { SettingsComponent } from './settings/settings.component';
-import { BaseComponent } from './base/base.component';
 
 
-if (environment.sentryDSN.length > 0) Raven.config(environment.sentryDSN).install();
+if (environment.sentryDSN.length > 0) {
+  Raven.config(environment.sentryDSN).install();
+}
 
 export class RavenErrorHandler implements ErrorHandler {
   handleError(err: any): void {
@@ -50,7 +53,8 @@ export class RavenErrorHandler implements ErrorHandler {
     SettingsComponent,
     BackupComponent,
     ErrorComponent,
-    BaseComponent
+    BaseComponent,
+    ErrorPageDefaultComponent
   ],
   entryComponents: [ErrorComponent],
   imports: [

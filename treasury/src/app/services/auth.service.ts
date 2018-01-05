@@ -61,8 +61,8 @@ export class AuthService {
             this.router.navigate(['/movies']);
           },
           (error) => {
-            // FIXME error handling
-            console.log('error occurred', error);
+            // redirect to default error page
+            this.router.navigate(['/error']);
           }
         );
       }
