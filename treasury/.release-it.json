@@ -1,6 +1,6 @@
 {
   "verbose": true,
-  "buildCommand": "sed -i 's/Version [0-9]\\.[0-9]\\.[0-9]/Version ${version}/g' src/app/app.component.html",
+  "buildCommand": "sed -i 's/v[0-9]\\.[0-9]\\.[0-9]/v${version}/g' src/app/app.component.html && sed -i 's/Version [0-9]\\.[0-9]\\.[0-9]/Version ${version}/g' src/app/app.component.html",
   "src": {
     "tagName": "v%s"
   },
