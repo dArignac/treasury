@@ -96,17 +96,17 @@ export class TheMovieDbService {
    * @returns {Promise<any>}
    */
   private queryAdditionals(movies: any[]) {
-    let original_count = movies.length;
+    const original_count = movies.length;
     let current_count = 0;
     return new Promise((resolve, reject) => {
       if (movies.length > 0) {
-        for (let movie of movies) {
+        for (const movie of movies) {
           this.getMovieCredits(movie.id).then(
             (credits) => {
               movie.credits_actresses = this.getActresses(credits.cast);
               movie.credits_directors = this.getDirectors(credits.crew);
               current_count++;
-              if (current_count == original_count) {
+              if (current_count === original_count) {
                 resolve(movies);
               }
             },
