@@ -158,7 +158,7 @@ export class TheMovieDbService {
    */
   private async getMovieCredits(id: number): Promise<any> {
     const response = await this.http.get<MovieCreditsResponse>(this.getURL('movie_credits', id), {params: this.getBasicQueryParams()})
-      .toPromise()
+      .toPromise();
     return response;
   }
 
@@ -194,7 +194,7 @@ export class TheMovieDbService {
         _.filter(
           crew,
           function (human: MovieCreditsCrewResponse) {
-            return human.department == 'Directing' && human.job == 'Director'
+            return human.department === 'Directing' && human.job === 'Director'
           }
         ),
         'name'
@@ -205,7 +205,7 @@ export class TheMovieDbService {
 
   private handleErrorPromise(error: Response | any) {
     Raven.captureException(error); // send error to sentry - maybe is already covered through default error handler?
-    return Promise.reject(error.message || error);
+    return Promise.reject(error.message || error || null);
   }
 
 }
