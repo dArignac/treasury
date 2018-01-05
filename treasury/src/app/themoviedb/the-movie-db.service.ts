@@ -75,7 +75,7 @@ export class TheMovieDbService {
     const response = await this.http.get<MovieSearchResponse>(this.getURL('search_movie'), {params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
-        (response) => this.extractMoviesFromSearch(response),
+        (query_response) => this.extractMoviesFromSearch(query_response),
         () => {
           return [{error: 500, title: 'Unable to communicate properly with The Movie DB API (1)'}];
         }
@@ -111,8 +111,7 @@ export class TheMovieDbService {
               }
             },
             (error) => {
-              // FIXME handle that?
-              console.log('error upon querying movie credits', error);
+              // we silently fail as this does not block the movie addition though some information is missing
               reject();
             }
           );
@@ -135,7 +134,6 @@ export class TheMovieDbService {
       let results = response.results.map(Movie.fromTMDBMovieSearchResult);
 
       // sort by titles
-      // FIXME maybe we create our own implementation of the Movie list and implement the sorting there
       results = results.sort(
         (n1, n2) => {
           if (n1.title > n2.title) {
