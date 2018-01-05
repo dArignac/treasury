@@ -1,0 +1,28 @@
+{
+  "verbose": true,
+  "src": {
+    "tagName": "v%s"
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": false
+  },
+  "dist": {
+    "github": {
+      "release": false
+    }
+  },
+  "prompt": {
+    "src": {
+      "status": true
+    },
+    "dist": {
+      "status": true,
+      "tag": true,
+      "release": true,
+      "publish": true
+    }
+  }
+}
