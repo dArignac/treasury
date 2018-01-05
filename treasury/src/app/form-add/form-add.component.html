@@ -3,7 +3,7 @@
     <div class="col">
       <h1>Add movie(s):</h1>
       <div class="md-form">
-        <input mdbActive type="text" id="form1" class="form-control" [formControl]="movieControl">
+        <input #search mdbActive type="text" id="form1" class="form-control" [formControl]="movieControl" (focus)="search.value=''">
         <label for="form1" class="">Enter a movie title...</label>
       </div>
     </div>
