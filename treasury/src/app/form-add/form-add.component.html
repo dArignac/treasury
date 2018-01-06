@@ -1,10 +1,19 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col">
+    <div class="col-12">
       <h1>Add movie(s):</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-9 col-6">
       <div class="md-form">
         <input #search mdbActive type="text" id="form1" class="form-control" [formControl]="movieControl" (focus)="search.value=''">
         <label for="form1" class="">Enter a movie title...</label>
+      </div>
+    </div>
+    <div class="col-lg-3 col-6">
+      <div class="md-form">
+        <button (click)="search.value='';search.focus()" type="button" class="btn btn-primary waves-light" mdbRippleRadius>Clear</button>
       </div>
     </div>
   </div>
