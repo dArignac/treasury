@@ -50,8 +50,6 @@
     "@types/node": "^8.0.53",
     "codelyzer": "^4.0.2",
     "cypress": "^1.4.1",
-    "firebase-admin": "^5.8.1",
-    "firebase-functions": "^0.8.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",

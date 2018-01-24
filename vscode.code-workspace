@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "documents"
+		},
+		{
+			"path": "functions"
 		}
 	],
 	"settings": {}
