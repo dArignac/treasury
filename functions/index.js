@@ -15,4 +15,14 @@ exports.createMovie = functions.firestore
 
     // perform desired operations ...
     console.log('user ' + userId + ' added the movie ' + movieId);
+    return true;
+});
+
+exports.deleteMovie = functions.firestore
+  .document('users/{userId}/movies/{movieId}')
+  .onDelete(event => {
+    var userId = event.params.userId;
+    var movieId = event.params.movieId;
+    console.log('user ' + userId + ' deleted the movie ' + movieId);
+    return true;
 });
