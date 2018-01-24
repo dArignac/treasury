@@ -6,7 +6,7 @@ Docs build through TravisCI [![Build Status](https://travis-ci.org/dArignac/trea
 
 ## Sneak Peak
 Movie list as of 2017-10-08 (Region: DE)
-![Movie list 2017-10-08](https://github.com/dArignac/treasury/raw/master/documents/img/movies-20171008.png "Movie list 2017-10-08")
+![Movie list v1](https://github.com/dArignac/treasury/raw/master/documents/img/movies-v1.png "Movie list for version 1.x")
 
 Movie search in different widths as of 2017-10-14 (Region: DE)
 ![Movie search xl 2017-10-14](https://github.com/dArignac/treasury/raw/master/documents/img/movie-search-xl-20171014.png "Movie search xl 2017-10-14")
