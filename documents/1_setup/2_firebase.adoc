@@ -2,30 +2,7 @@
 * go to the Firebase console https://console.firebase.google.com/u/0/ and create a new project
 * enable and configure authentication (treasury is developed with Google auth only - but you shouldn't care)
 * in database enable Cloud Firestore
-
-==== Firestore rules
-You have to configure the Firestore rules like so:
-
-[source,json]
--------------------
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow write: if request.auth.uid == userId;
-      allow read: if true;
-
-      match /movies/{anyDocument} {
-        allow write: if request.auth.uid == userId;
-        allow read: if true;
-      }
-    }
-    match /settings/{userId} {
-    	allow write: if request.auth.uid == userId;
-      allow read: if true;
-    }
-  }
-}
--------------------
+* enable Functions
 
 ==== Update environment values
 Grab the Firebase settings for Web and update `treasury/src/environments/environment.dev.ts` with it:
@@ -55,3 +32,8 @@ npm install -g firebase-tools firebase
 --------
 
 Then initialize firebase with `firebase init`.
+You should select `Firestore` and `Functions`. If you want to host also select `Hosting`.
+
+image::../img/firebase-setup.png
+
+The `firebase.json` of the treasury project is already set up, after your setup steps the file shouldn't have changed. The setup will create an additional `.firebaserc` file that will contain your Firebase project name identifier.
