@@ -44,3 +44,14 @@ export const environment = {
   }
 };
 -------------------
+
+==== Setup local enviroment
+First, install firebase and firebase-tools globally (if not yet done):
+
+[source]
+--------
+npm install firebase-functions@latest firebase-admin@latest --save-dev
+npm install -g firebase-tools firebase
+--------
+
+Then initialize firebase with `firebase init`.
