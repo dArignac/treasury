@@ -1,5 +1,5 @@
 === Installation
-* clone the source
+* clone the source, got into the `treasury` directory
 * `npm install -g @angular/cli`
 * `npm install`
 * copy `treasury/src/environments/environment.ts` to `treasury/src/environments/environment.dev.ts` and fill in your values (see next steps)

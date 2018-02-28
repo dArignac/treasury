@@ -7,8 +7,11 @@
 -------------------
 // NOTE: other environment values are stripped
 export const environment = {
+  ...
   themoviedb: {
-    apiKey: 'YOUR-API-KEY'
+    apiKey: 'YOUR-API-KEY',
+    ...
   }
+  ...
 };
 -------------------

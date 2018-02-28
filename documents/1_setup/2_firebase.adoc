@@ -28,7 +28,7 @@ service cloud.firestore {
 -------------------
 
 ==== Update environment values
-Grab the Firebase settings for Web and update `treasury/src/environments/environment.dev.ts` with it:
+Go to the "Project Overview" and click "Add Firebase to my WebApp", grab the Firebase settings and update `treasury/src/environments/environment.dev.ts` with it:
 
 [source,typescript]
 -------------------
