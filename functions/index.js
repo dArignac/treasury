@@ -10,6 +10,7 @@ admin.initializeApp(functions.config().firebase);
 const firestore = admin.firestore();
 
 
+// triggered when a movie is created
 exports.createMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onCreate(event => {
@@ -41,13 +42,25 @@ exports.createMovie = functions.firestore
     });
 });
 
-/* FIXME disabled for now
+// triggered when a movie is deleted
 exports.deleteMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onDelete(event => {
-    var userId = event.params.userId;
-    var movieId = event.params.movieId;
-    console.log('user ' + userId + ' deleted the movie ' + movieId);
-    return true;
+    // get the counting document reference for the current user
+    const countsRef = firestore.doc(`counts/${event.params.userId}`);
+
+    // encapsulate into transaction
+    return firestore.runTransaction(transaction => {
+      return transaction.get(countsRef).then(countsDoc => {
+        // decrement the counter
+        var movieCount = countsDoc.data()['movieCount'] - 1;
+        // update the counts doc with the new movie count
+        return transaction.update(
+          countsRef,
+          {
+            movieCount: movieCount
+          }
+        );
+      });
+    });
 });
-*/
