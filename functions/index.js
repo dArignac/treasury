@@ -30,9 +30,12 @@ exports.createMovie = functions.firestore
             }
           );
         } else {
-          // FIXME how can we create the doc?
-          console.log('countsDoc for user ' + events.params.userId + ' is not existent');
-          return false;
+          return transaction.set(
+            countsRef,
+            {
+              movieCount: 1
+            }
+          );
         }
       });
     });
