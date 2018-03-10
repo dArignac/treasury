@@ -3,7 +3,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow write: if request.auth.uid == userId;
       allow read: if true;
-
+      
       match /movies/{anyDocument} {
         allow write: if request.auth.uid == userId;
         allow read: if true;
@@ -11,6 +11,10 @@ service cloud.firestore {
     }
     match /settings/{userId} {
     	allow write: if request.auth.uid == userId;
+      allow read: if true;
+    }
+    match /counts/{userId} {
+      allow write: if true;
       allow read: if true;
     }
   }

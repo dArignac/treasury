@@ -1,23 +1,44 @@
+const admin = require('firebase-admin');
 const functions = require('firebase-functions')
+
+
+admin.initializeApp(functions.config().firebase);
+
+// Since this code will be running in the Cloud Functions enviornment
+// we call initialize Firestore without any arguments because it
+// detects authentication from the environment.
+const firestore = admin.firestore();
+
 
 exports.createMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onCreate(event => {
-    // Get an object representing the document
-    // e.g. {'name': 'Marie', 'age': 66}
-    //var newValue = event.data.data();
+    // get the counting document reference for the current user
+    const countsRef = firestore.doc(`counts/${event.params.userId}`);
 
-    var userId = event.params.userId;
-    var movieId = event.params.movieId;
-
-    // access a particular field as you would any JS property
-    //var name = newValue.name;
-
-    // perform desired operations ...
-    console.log('user ' + userId + ' added the movie ' + movieId);
-    return true;
+    // encapsulate into transaction
+    return firestore.runTransaction(transaction => {
+      return transaction.get(countsRef).then(countsDoc => {
+        if (countsDoc.exists) {
+          // if the movie count property does not exist, we set it to 1. Else we increment.
+          var movieCount = !('movieCount' in countsDoc.data()) ? 1 : countsDoc.data()['movieCount'] + 1;
+          // update the counts doc with the new movie count
+          return transaction.update(
+            countsRef,
+            {
+              movieCount: movieCount
+            }
+          );
+        } else {
+          // FIXME how can we create the doc?
+          console.log('countsDoc for user ' + events.params.userId + ' is not existent');
+          return false;
+        }
+      });
+    });
 });
 
+/* FIXME disabled for now
 exports.deleteMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onDelete(event => {
@@ -26,3 +47,4 @@ exports.deleteMovie = functions.firestore
     console.log('user ' + userId + ' deleted the movie ' + movieId);
     return true;
 });
+*/
