@@ -9,6 +9,7 @@ import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { User } from './user';
 import { UserSettings } from './user-settings';
+import { UserCounters } from './user-counters';
 import { isNull } from 'util';
 
 @Injectable()
@@ -16,19 +17,24 @@ export class UserService {
 
   private userDoc: AngularFirestoreDocument<User>;
   private userSettingsDoc: AngularFirestoreDocument<UserSettings>;
+  public userCountersDoc: AngularFirestoreDocument<UserCounters>;
   user$: Observable<User>;
   userSettings$: Observable<UserSettings>;
+  userCounters$: Observable<UserCounters>;
   user: User;
   userSettings: UserSettings;
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
     this.authService.isAuthenticated.subscribe(
       (isAuthenticated) => {
+        // if authenticated successfully...
         if (isAuthenticated) {
+          // ...subscribe to the user document
           this.userDoc = this.afs.collection<User>('users').doc(this.authService.id);
           this.user$ = this.userDoc.valueChanges();
           this.user$.subscribe(user => this.user = user);
 
+          // ...subscribe to the user settings document
           this.userSettingsDoc = this.afs.collection<UserSettings>('settings').doc(this.authService.id);
           this.userSettings$ = this.userSettingsDoc.valueChanges();
           this.userSettings$.subscribe(
@@ -44,6 +50,12 @@ export class UserService {
               this.userSettings = userSettings;
             }
           );
+
+          // ..subscribe to the user counter document
+          // FIXME decide where we'll display the value. It has then to be initialized and updated. Has to work when coming back to the page with the count.
+          // best would be in header but the service is not yet available there
+          this.userCountersDoc = this.afs.collection<UserCounters>('counters').doc(this.authService.id);
+          this.userCounters$ = this.userCountersDoc.valueChanges();
         }
       }
     );
