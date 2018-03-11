@@ -15,7 +15,7 @@ exports.createMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onCreate(event => {
     // get the counting document reference for the current user
-    const counterRef = firestore.doc(`counter/${event.params.userId}`);
+    const counterRef = firestore.doc(`counters/${event.params.userId}`);
 
     // encapsulate into transaction
     return firestore.runTransaction(transaction => {
@@ -47,7 +47,7 @@ exports.deleteMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onDelete(event => {
     // get the counting document reference for the current user
-    const counterRef = firestore.doc(`counter/${event.params.userId}`);
+    const counterRef = firestore.doc(`counters/${event.params.userId}`);
 
     // encapsulate into transaction
     return firestore.runTransaction(transaction => {
