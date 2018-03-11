@@ -15,26 +15,26 @@ exports.createMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onCreate(event => {
     // get the counting document reference for the current user
-    const countsRef = firestore.doc(`counts/${event.params.userId}`);
+    const counterRef = firestore.doc(`counter/${event.params.userId}`);
 
     // encapsulate into transaction
     return firestore.runTransaction(transaction => {
-      return transaction.get(countsRef).then(countsDoc => {
-        if (countsDoc.exists) {
+      return transaction.get(counterRef).then(counterDoc => {
+        if (counterDoc.exists) {
           // if the movie count property does not exist, we set it to 1. Else we increment.
-          var movieCount = !('movieCount' in countsDoc.data()) ? 1 : countsDoc.data()['movieCount'] + 1;
+          var movies = !('movies' in counterDoc.data()) ? 1 : counterDoc.data()['movies'] + 1;
           // update the counts doc with the new movie count
           return transaction.update(
-            countsRef,
+            counterRef,
             {
-              movieCount: movieCount
+              movies: movies
             }
           );
         } else {
           return transaction.set(
-            countsRef,
+            counterRef,
             {
-              movieCount: 1
+              movies: 1
             }
           );
         }
@@ -47,18 +47,18 @@ exports.deleteMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
   .onDelete(event => {
     // get the counting document reference for the current user
-    const countsRef = firestore.doc(`counts/${event.params.userId}`);
+    const counterRef = firestore.doc(`counter/${event.params.userId}`);
 
     // encapsulate into transaction
     return firestore.runTransaction(transaction => {
-      return transaction.get(countsRef).then(countsDoc => {
+      return transaction.get(counterRef).then(counterDoc => {
         // decrement the counter
-        var movieCount = countsDoc.data()['movieCount'] - 1;
+        var movies = counterDoc.data()['movies'] - 1;
         // update the counts doc with the new movie count
         return transaction.update(
-          countsRef,
+          counterRef,
           {
-            movieCount: movieCount
+            movies: movies
           }
         );
       });

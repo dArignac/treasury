@@ -13,7 +13,7 @@ service cloud.firestore {
     	allow write: if request.auth.uid == userId;
       allow read: if true;
     }
-    match /counts/{userId} {
+    match /counter/{userId} {
       allow write: if true;
       allow read: if true;
     }
