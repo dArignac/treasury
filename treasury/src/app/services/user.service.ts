@@ -23,6 +23,7 @@ export class UserService {
   userCounters$: Observable<UserCounters>;
   user: User;
   userSettings: UserSettings;
+  userCounters: UserCounters;
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
     this.authService.isAuthenticated.subscribe(
@@ -52,10 +53,9 @@ export class UserService {
           );
 
           // ..subscribe to the user counter document
-          // FIXME decide where we'll display the value. It has then to be initialized and updated. Has to work when coming back to the page with the count.
-          // best would be in header but the service is not yet available there
           this.userCountersDoc = this.afs.collection<UserCounters>('counters').doc(this.authService.id);
           this.userCounters$ = this.userCountersDoc.valueChanges();
+          this.userCounters$.subscribe(counters => this.userCounters = counters);
         }
       }
     );
