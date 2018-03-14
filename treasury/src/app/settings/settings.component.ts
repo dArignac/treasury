@@ -5,6 +5,7 @@ import { Component, ComponentFactoryResolver } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ErrorComponent } from '../error/error.component';
 import { UserService } from '../services/user.service';
+import { IRegion } from '../themoviedb/iregion';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { UserService } from '../services/user.service';
 })
 export class SettingsComponent extends BaseComponent {
 
-  tmdbRegionChoices: {}[] = [
+  tmdbRegionChoices: IRegion[] = [
     {value: 'DE', displayValue: 'German'},
     {value: 'EN', displayValue: 'English'},
   ];
