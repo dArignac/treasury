@@ -1,5 +1,10 @@
 <section id="movies" class="mt-3">
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+          Movies in your collection: {{userService.userCounters.movies}}
+      </div>
+    </div>
     <div class="row" *ngIf="movies$ | async as movies; else loading">
       <ng-container *ngIf="movies.length > 0; else noItems">
         <ng-container *ngFor="let item of movies; index as i; last as isLast">
