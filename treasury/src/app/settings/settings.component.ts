@@ -20,6 +20,7 @@ export class SettingsComponent extends BaseComponent {
     {value: 'EN', displayValue: 'English'},
   ];
   tmdbRegion: string = null;
+  isCatalogPublic = false;
 
   constructor(private userService: UserService,
               private componentFactoryResolver: ComponentFactoryResolver) {
@@ -32,7 +33,29 @@ export class SettingsComponent extends BaseComponent {
       (userSettings) => {
         if (userSettings) {
           this.tmdbRegion = this.getLanguageHumanReadable(userSettings.tmdbRegion);
+          this.isCatalogPublic = userSettings.isCatalogPublic;
         }
+      }
+    );
+  }
+
+  // FIXME refactor to general method
+  /**
+   * Toggles the catalog visibility.
+   */
+  toggleCatalogVisibility() {
+    console.log('setting catalog to ' + !this.isCatalogPublic);
+    this.userService.setUserSetting('isCatalogPublic', !this.isCatalogPublic).then(
+      () => {},
+      (error) => {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
+        this.displayErrorModal(
+          componentFactory,
+          'Error upon setting user value',
+          'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid response.',
+          'Please refresh the page an try again!',
+          error
+        );
       }
     );
   }
@@ -43,8 +66,7 @@ export class SettingsComponent extends BaseComponent {
    */
   setTMDBRegion(identifier: string) {
     this.userService.setUserSetting('tmdbRegion', identifier).then(
-      () => {
-      },
+      () => {},
       (error) => {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
         this.displayErrorModal(

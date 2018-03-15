@@ -14,7 +14,7 @@
         </div>
       </div>
       <!-- language for TMDB -->
-      <div class="row">
+      <div class="row mb-5">
         <div class="col-6 col-sm-3">
           <div class="btn-group" dropdown>
             <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle waves-light" mdbRippleRadius>
@@ -34,6 +34,21 @@
         </div>
         <div class="col-6 col-sm-3">
           {{ tmdbRegion }}
+        </div>
+      </div>
+      <!-- toggle catalog visibility -->
+      <div class="row mb-5">
+        <div class="col-6 col-sm-3">
+          <button type="button" class="btn btn-primary waves-light" (click)="toggleCatalogVisibility()" mdbRippleRadius>
+            Set <span *ngIf="isCatalogPublic">invisible</span><span *ngIf="!isCatalogPublic">visible</span>
+          </button>
+        </div>
+        <div class="hidden-xs col-sm-6">
+          Sets your whole catalog visible / invisible to the public internet. Requires setting a nickname.
+        </div>
+        <div class="col-6 col-sm-3">
+          <span *ngIf="isCatalogPublic">Visible</span>
+          <span *ngIf="!isCatalogPublic">Invisible</span>
         </div>
       </div>
     </div>
