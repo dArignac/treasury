@@ -25,10 +25,6 @@ export class SettingsComponent extends BaseComponent {
   constructor(private userService: UserService,
               private componentFactoryResolver: ComponentFactoryResolver) {
     super();
-    // if the user is already initialized, we do not enter the settings page on application loading.
-    if (!isUndefined(this.userService.user)) {
-      this.tmdbRegion = this.getLanguageHumanReadable(this.userService.userSettings.tmdbRegion);
-    }
     this.userService.userSettings$.subscribe(
       (userSettings) => {
         if (userSettings) {
