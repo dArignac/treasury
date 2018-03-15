@@ -23,7 +23,9 @@ export class UserService {
   userCounters$: Observable<UserCounters>;
   user: User;
   userSettings: UserSettings;
-  userCounters: UserCounters;
+  userCounters: UserCounters = {
+    'movies': 0
+  };
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
     this.authService.isAuthenticated.subscribe(
