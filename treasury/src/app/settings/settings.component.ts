@@ -39,25 +39,11 @@ export class SettingsComponent extends BaseComponent {
     );
   }
 
-  // FIXME refactor to general method
   /**
    * Toggles the catalog visibility.
    */
   toggleCatalogVisibility() {
-    console.log('setting catalog to ' + !this.isCatalogPublic);
-    this.userService.setUserSetting('isCatalogPublic', !this.isCatalogPublic).then(
-      () => {},
-      (error) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
-        this.displayErrorModal(
-          componentFactory,
-          'Error upon setting user value',
-          'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid response.',
-          'Please refresh the page an try again!',
-          error
-        );
-      }
-    );
+   this.setUserSetting('isCatalogPublic', !this.isCatalogPublic);
   }
 
   /**
@@ -65,7 +51,16 @@ export class SettingsComponent extends BaseComponent {
    * @param {string} identifier language value as ISO-3166-1 code
    */
   setTMDBRegion(identifier: string) {
-    this.userService.setUserSetting('tmdbRegion', identifier).then(
+   this.setUserSetting('tmdbRegion', identifier);
+  }
+
+  /**
+   * Sets a user setting with the provided values to the settings document of the current user.
+   * @param {string} key the settings key
+   * @param {string|boolean} value the value to set
+   */
+  private setUserSetting(key: string, value: string|boolean) {
+    this.userService.setUserSetting(key, value).then(
       () => {},
       (error) => {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
