@@ -116,7 +116,7 @@ export class UserService {
    * @param key the key to user
    * @param value the value to set
    */
-  setUserSetting(key: string, value: string): Promise<boolean> {
+  setUserSetting(key: string, value: string|boolean): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       const settings = this.userSettings;
       settings[key] = value;

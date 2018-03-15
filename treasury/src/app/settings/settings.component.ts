@@ -20,6 +20,7 @@ export class SettingsComponent extends BaseComponent {
     {value: 'EN', displayValue: 'English'},
   ];
   tmdbRegion: string = null;
+  isCatalogPublic = false;
 
   constructor(private userService: UserService,
               private componentFactoryResolver: ComponentFactoryResolver) {
@@ -32,9 +33,17 @@ export class SettingsComponent extends BaseComponent {
       (userSettings) => {
         if (userSettings) {
           this.tmdbRegion = this.getLanguageHumanReadable(userSettings.tmdbRegion);
+          this.isCatalogPublic = userSettings.isCatalogPublic;
         }
       }
     );
+  }
+
+  /**
+   * Toggles the catalog visibility.
+   */
+  toggleCatalogVisibility() {
+   this.setUserSetting('isCatalogPublic', !this.isCatalogPublic);
   }
 
   /**
@@ -42,9 +51,17 @@ export class SettingsComponent extends BaseComponent {
    * @param {string} identifier language value as ISO-3166-1 code
    */
   setTMDBRegion(identifier: string) {
-    this.userService.setUserSetting('tmdbRegion', identifier).then(
-      () => {
-      },
+   this.setUserSetting('tmdbRegion', identifier);
+  }
+
+  /**
+   * Sets a user setting with the provided values to the settings document of the current user.
+   * @param {string} key the settings key
+   * @param {string|boolean} value the value to set
+   */
+  private setUserSetting(key: string, value: string|boolean) {
+    this.userService.setUserSetting(key, value).then(
+      () => {},
       (error) => {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
         this.displayErrorModal(
