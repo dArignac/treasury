@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as fs from 'file-saver';
 import * as _ from 'lodash';
 
+import { share } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -37,7 +38,7 @@ export class BackupComponent implements OnInit {
       let ex = {
         'movies': []
       };
-      let moviesCollectionSubscription = this.userService.getMovieCollection().valueChanges().share().subscribe(
+      let moviesCollectionSubscription = this.userService.getMovieCollection().valueChanges().pipe(share()).subscribe(
         (movies) => {
           ex['movies'] = _.map(movies, function (movie) {
             return movie.id;
