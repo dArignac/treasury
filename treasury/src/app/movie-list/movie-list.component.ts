@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 

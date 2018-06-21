@@ -1,9 +1,9 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+
+
+import { Observable } from 'rxjs';
 
 import { BaseComponent } from '../base/base.component';
 import { ErrorComponent } from '../error/error.component';
