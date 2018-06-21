@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions')
 
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
 
 // Since this code will be running in the Cloud Functions enviornment
 // we call initialize Firestore without any arguments because it
@@ -13,9 +13,9 @@ const firestore = admin.firestore();
 // triggered when a movie is created
 exports.createMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
-  .onCreate(event => {
+  .onCreate((data, context) => {
     // get the counting document reference for the current user
-    const counterRef = firestore.doc(`counters/${event.params.userId}`);
+    const counterRef = firestore.doc(`counters/${context.params.userId}`);
 
     // encapsulate into transaction
     return firestore.runTransaction(transaction => {
@@ -45,9 +45,9 @@ exports.createMovie = functions.firestore
 // triggered when a movie is deleted
 exports.deleteMovie = functions.firestore
   .document('users/{userId}/movies/{movieId}')
-  .onDelete(event => {
+  .onDelete((data, context) => {
     // get the counting document reference for the current user
-    const counterRef = firestore.doc(`counters/${event.params.userId}`);
+    const counterRef = firestore.doc(`counters/${context.params.userId}`);
 
     // encapsulate into transaction
     return firestore.runTransaction(transaction => {
