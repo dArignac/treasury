@@ -2,6 +2,10 @@
 There is no time line and no real plan. I work on this project whenever I'm in the mood and have the time. It's done, when it's done.
 However, if you like to contribute, please get in touch through Github's issue section.
 
+=== Workflows
+* use `ng update` to update Angular stuff
+* use `npm outdated` to find outdated packages
+
 === Development insights
 * https://github.com/angular/angularfire2 for Angular-Firebase bindings
 * https://mdbootstrap.com/ for Bootstrap & Material Design bindings in Angular
