@@ -33,7 +33,7 @@
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
     "normalize.css": "^8.0.0",
-    "raven-js": "^3.21.0",
+    "raven-js": "^3.26.3",
     "rxjs": "^6.2.1",
     "zone.js": "^0.8.26"
   },
