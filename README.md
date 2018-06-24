@@ -1,8 +1,8 @@
 # Treasury
 
-Please see the documentation at https://darignac.github.io/treasury/.
+Please see the documentation at https://darignac.github.io/treasury/ (build through TravisCI [![Build Status](https://travis-ci.org/dArignac/treasury.svg?branch=master)](https://travis-ci.org/dArignac/treasury))
 
-Docs build through TravisCI [![Build Status](https://travis-ci.org/dArignac/treasury.svg?branch=master)](https://travis-ci.org/dArignac/treasury)
+Changelog: https://github.com/dArignac/treasury/CHANGELOG.md
 
 ## Sneak Peak
 Movie list as of 2017-10-08 (Region: DE)
