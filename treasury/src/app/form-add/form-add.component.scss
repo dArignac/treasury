@@ -18,3 +18,18 @@
     font-style: italic;
   }
 }
+
+.md-form {
+  /* fix the styles for "data-success" to the default input focus styles */
+  /* seems like this is triggered because of the [formControl]="movieControl" binding in the form-add input */
+  input.counter-success {
+    box-shadow: 0 1px 0 0 #4285f4 !important;
+    border-bottom: 1px solid #4285f4 !important;
+  }
+
+  .inputVal.text-danger,
+  .inputVal.text-success {
+    display: none !important;
+  }
+
+}
