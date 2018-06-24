@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - catalog can be set/unset to public visibility [#55]
 ### Changed
 - [migrated to Angular 6](https://github.com/dArignac/treasury/projects/3)
-    - fixed deprecated mdb properties [#64]
+    - fixed deprecated mdb properties [#64] [#73]
     - fixed layout of movie addition input search field [#68]
     - introduced changelog file [#72]
     - fixed broken movie addition [#63]
@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Unreleased]: https://github.com/darignac/treasury/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#73]: https://github.com/dArignac/treasury/pull/73
 [#72]: https://github.com/dArignac/treasury/issues/72
 [#68]: https://github.com/dArignac/treasury/issues/68
 [#66]: https://github.com/dArignac/treasury/issues/66
