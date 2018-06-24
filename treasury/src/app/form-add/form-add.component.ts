@@ -1,10 +1,8 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-
-
 import { Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 import { BaseComponent } from '../base/base.component';
 import { ErrorComponent } from '../error/error.component';
@@ -29,9 +27,11 @@ export class FormAddComponent extends BaseComponent {
               private userService: UserService,
               private componentFactoryResolver: ComponentFactoryResolver) {
     super();
-    // FIXME reimplement
-    //this.movieControl = new FormControl();
-    //this.results$ = this.movieControl.valueChanges.debounceTime(2000).switchMap(title => title ? theMovieDbService.getMovies(title) : []);
+    this.movieControl = new FormControl();
+    this.results$ = this.movieControl.valueChanges.pipe(
+      debounceTime(2000),
+      switchMap(title => title ? theMovieDbService.getMovies(title) : [])
+    );
   }
 
   /**
