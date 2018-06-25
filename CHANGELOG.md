@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - updated all other libs than Angular to most current usable version [#66]
     - updated Angular itself [#58]
 - migrated Firebase Cloud Functions to version 1 [#59]
+### Removed
+- remove storing of user profile data coming from social profile [#57]
 
 
 ## [1.0.1] - 2018-01-06

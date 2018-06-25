@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
-import { User } from './user';
 import { UserSettings } from './user-settings';
 import { UserCounters } from './user-counters';
 import { isNull } from 'util';
@@ -15,13 +14,11 @@ import { isNull } from 'util';
 @Injectable()
 export class UserService {
 
-  private userDoc: AngularFirestoreDocument<User>;
+  private userDoc: AngularFirestoreDocument<{}>;
   private userSettingsDoc: AngularFirestoreDocument<UserSettings>;
   public userCountersDoc: AngularFirestoreDocument<UserCounters>;
-  user$: Observable<User>;
   userSettings$: Observable<UserSettings>;
   userCounters$: Observable<UserCounters>;
-  user: User;
   userSettings: UserSettings;
   userCounters: UserCounters = {
     'movies': 0
@@ -32,10 +29,8 @@ export class UserService {
       (isAuthenticated) => {
         // if authenticated successfully...
         if (isAuthenticated) {
-          // ...subscribe to the user document
-          this.userDoc = this.afs.collection<User>('users').doc(this.authService.id);
-          this.user$ = this.userDoc.valueChanges();
-          this.user$.subscribe(user => this.user = user);
+          // ...reference to the user document
+          this.userDoc = this.afs.collection<{}>('users').doc(this.authService.id);
 
           // ...subscribe to the user settings document
           this.userSettingsDoc = this.afs.collection<UserSettings>('settings').doc(this.authService.id);
@@ -105,7 +100,7 @@ export class UserService {
    * @returns {AngularFirestoreCollection<IMovie>}
    */
   getMovieCollection(): AngularFirestoreCollection<IMovie> {
-    return this.afs.collection<User>('users')
+    return this.afs.collection<{}>('users')
       .doc(this.authService.id)
       .collection(
         'movies',

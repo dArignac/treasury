@@ -8,7 +8,6 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { User } from './user';
 import { UserService } from './user.service';
 
 @Injectable()
@@ -50,13 +49,7 @@ export class AuthService {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       response => {
-        const currentUser = <User>{
-          displayName: response.user.displayName,
-          email: response.user.email,
-          isEmailVerified: response.user.emailVerified,
-          photoURL: response.user.photoURL
-        };
-        this.afs.collection<User>('users').doc(response.user.uid).set(currentUser).then(
+        this.afs.collection<{}>('users').doc(response.user.uid).set({}).then(
           () => {
             this.router.navigate(['/movies']);
           },
