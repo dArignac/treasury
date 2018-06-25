@@ -15,6 +15,9 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item waves-light" [class.active]="router.url == '/privacy-policy'" mdbWavesEffect>
+        <a class="nav-link" (click)="gotoPage('data-privacy')">Privacy Policy <span class="sr-only" *ngIf="router.url == '/privacy-policy'">(current)</span></a>
+      </li>
       <li class="nav-item waves-light" [class.active]="router.url == '/settings'" mdbWavesEffect>
         <a class="nav-link" (click)="gotoPage('settings')">Settings <span class="sr-only" *ngIf="router.url == '/settings'">(current)</span></a>
       </li>
@@ -35,6 +38,9 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item waves-light" [class.active]="router.url == '/privacy-policy'" mdbWavesEffect>
+        <a class="nav-link" (click)="gotoPage('data-privacy')">Privacy Policy <span class="sr-only" *ngIf="router.url == '/privacy-policy'">(current)</span></a>
+      </li>
       <li class="nav-item waves-light" mdbWavesEffect>
         <a class="nav-link" (click)="authService.login()">Login</a>
       </li>

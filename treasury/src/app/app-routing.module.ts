@@ -8,6 +8,7 @@ import { FormAddComponent } from './form-add/form-add.component';
 import { HomeComponent } from './home/home.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
@@ -29,6 +30,10 @@ const appRoutes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'data-privacy',
+    component: PrivacyPolicyComponent
   },
   {
     path: 'error',

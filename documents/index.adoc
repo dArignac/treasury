@@ -33,6 +33,6 @@ include::3_deployment/index.adoc[]
 
 == History
 * 1.1
-    * adjusted Firebase setup and moved rules to code
-    * add development workflows
+** adjusted Firebase setup and moved rules to code
+** add development workflows
 * 1.0 initial release

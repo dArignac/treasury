@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- added privacy policy [#57] [#77]
 - added display of number of movies in collection [#53]
 - catalog can be set/unset to public visibility [#55]
 ### Changed
@@ -25,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - updated all other libs than Angular to most current usable version [#66]
     - updated Angular itself [#58]
 - migrated Firebase Cloud Functions to version 1 [#59]
+### Removed
+- remove storing of user profile data coming from social profile [#57] [#77]
 
 
 ## [1.0.1] - 2018-01-06
@@ -47,6 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Unreleased]: https://github.com/darignac/treasury/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#77]: https://github.com/dArignac/treasury/pull/77
 [#73]: https://github.com/dArignac/treasury/pull/73
 [#72]: https://github.com/dArignac/treasury/issues/72
 [#68]: https://github.com/dArignac/treasury/issues/68
@@ -56,5 +60,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [#63]: https://github.com/dArignac/treasury/issues/63
 [#59]: https://github.com/dArignac/treasury/issues/59
 [#58]: https://github.com/dArignac/treasury/issues/58
+[#57]: https://github.com/dArignac/treasury/issues/57
 [#55]: https://github.com/dArignac/treasury/pull/55
 [#53]: https://github.com/dArignac/treasury/pull/53
