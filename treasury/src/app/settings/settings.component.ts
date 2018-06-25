@@ -5,6 +5,7 @@ import { Component, ComponentFactoryResolver } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ErrorComponent } from '../error/error.component';
 import { UserService } from '../services/user.service';
+import { UserSettings } from '../services/user-settings';
 import { IRegion } from '../themoviedb/iregion';
 
 
@@ -28,11 +29,25 @@ export class SettingsComponent extends BaseComponent {
     this.userService.userSettings$.subscribe(
       (userSettings) => {
         if (userSettings) {
-          this.tmdbRegion = this.getLanguageHumanReadable(userSettings.tmdbRegion);
-          this.isCatalogPublic = userSettings.isCatalogPublic;
+          this.setSettings(userSettings);
         }
       }
     );
+
+    // if app was already initialized and called again, the subscription above does nothing (it just is trigger if something changes)
+    // so we just grab the values from the UserService
+    if (this.userService.userSettings) {
+      this.setSettings(this.userService.userSettings);
+    }
+  }
+
+  /**
+   * Sets the given user settings into the component.
+   * @param settings UserSettings the user settings object
+   */
+  setSettings(settings: UserSettings) {
+    this.tmdbRegion = this.getLanguageHumanReadable(settings.tmdbRegion);
+    this.isCatalogPublic = settings.isCatalogPublic;
   }
 
   /**
