@@ -4,7 +4,7 @@ Alexander Herrmann
 :toclevels: 4
 :numbered:
 :imagesdir: img
-:docversion: 1.0
+:docversion: 1.1
 :docuri: https://darignac.github.io/treasury/
 :sourcecodeuri: https://github.com/dArignac/treasury
 :source-highlighter: prettify
@@ -30,3 +30,9 @@ include::2_development/index.adoc[]
 
 // deployment
 include::3_deployment/index.adoc[]
+
+== History
+* 1.1
+    * adjusted Firebase setup and moved rules to code
+    * add development workflows
+* 1.0 initial release
