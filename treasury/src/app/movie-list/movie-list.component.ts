@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, share } from 'rxjs/operators';
 
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
@@ -22,7 +23,7 @@ export class MovieListComponent extends BaseComponent {
   private movieCollection: AngularFirestoreCollection<IMovie>;
   public movies$: Observable<Movie[]>;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private componentFactoryResolver: ComponentFactoryResolver) {
     super();
   }
@@ -60,7 +61,10 @@ export class MovieListComponent extends BaseComponent {
 
   ngOnInit() {
     this.movieCollection = this.userService.getMovieCollection();
-    this.movies$ = this.movieCollection.valueChanges().map(Movie.fromFirebaseCollection).share();
+    this.movies$ = this.movieCollection.valueChanges().pipe(
+      map(Movie.fromFirebaseCollection),
+      share()
+    );
   }
 
 }

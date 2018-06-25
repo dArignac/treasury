@@ -1,3 +1,7 @@
+branches:
+  only:
+    - master
+
 sudo: required
 
 services:
@@ -7,7 +11,7 @@ before_install:
   - docker pull darignac/asciidoctor
 
 script:
-  - docker run --rm -v $TRAVIS_BUILD_DIR:/documents/ --name asciidoc-to-html darignac/asciidoctor asciidoctor -r asciidoctor-diagram documents/index.adoc
+  - make documentation
 
 after_error:
   - docker logs asciidoc-to-html

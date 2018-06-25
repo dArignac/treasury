@@ -1,9 +1,8 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 import { BaseComponent } from '../base/base.component';
 import { ErrorComponent } from '../error/error.component';
@@ -29,7 +28,10 @@ export class FormAddComponent extends BaseComponent {
               private componentFactoryResolver: ComponentFactoryResolver) {
     super();
     this.movieControl = new FormControl();
-    this.results$ = this.movieControl.valueChanges.debounceTime(2000).switchMap(title => title ? theMovieDbService.getMovies(title) : []);
+    this.results$ = this.movieControl.valueChanges.pipe(
+      debounceTime(2000),
+      switchMap(title => title ? theMovieDbService.getMovies(title) : [])
+    );
   }
 
   /**

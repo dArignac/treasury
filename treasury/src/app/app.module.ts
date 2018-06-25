@@ -22,6 +22,7 @@ import { BackupComponent } from './backup/backup.component';
 import { BaseComponent } from './base/base.component';
 import { ErrorComponent } from './error/error.component';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
+import { FooterComponent } from './footer/footer.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -54,7 +55,8 @@ export class RavenErrorHandler implements ErrorHandler {
     BackupComponent,
     ErrorComponent,
     BaseComponent,
-    ErrorPageDefaultComponent
+    ErrorPageDefaultComponent,
+    FooterComponent
   ],
   entryComponents: [ErrorComponent],
   imports: [

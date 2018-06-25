@@ -5,6 +5,8 @@ import { Component, ComponentFactoryResolver } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { ErrorComponent } from '../error/error.component';
 import { UserService } from '../services/user.service';
+import { UserSettings } from '../services/user-settings';
+import { IRegion } from '../themoviedb/iregion';
 
 
 @Component({
@@ -14,26 +16,45 @@ import { UserService } from '../services/user.service';
 })
 export class SettingsComponent extends BaseComponent {
 
-  tmdbRegionChoices: {}[] = [
+  tmdbRegionChoices: IRegion[] = [
     {value: 'DE', displayValue: 'German'},
     {value: 'EN', displayValue: 'English'},
   ];
   tmdbRegion: string = null;
+  isCatalogPublic = false;
 
   constructor(private userService: UserService,
               private componentFactoryResolver: ComponentFactoryResolver) {
     super();
-    // if the user is already initialized, we do not enter the settings page on application loading.
-    if (!isUndefined(this.userService.user)) {
-      this.tmdbRegion = this.getLanguageHumanReadable(this.userService.userSettings.tmdbRegion);
-    }
     this.userService.userSettings$.subscribe(
       (userSettings) => {
         if (userSettings) {
-          this.tmdbRegion = this.getLanguageHumanReadable(userSettings.tmdbRegion);
+          this.setSettings(userSettings);
         }
       }
     );
+
+    // if app was already initialized and called again, the subscription above does nothing (it just is trigger if something changes)
+    // so we just grab the values from the UserService
+    if (this.userService.userSettings) {
+      this.setSettings(this.userService.userSettings);
+    }
+  }
+
+  /**
+   * Sets the given user settings into the component.
+   * @param settings UserSettings the user settings object
+   */
+  setSettings(settings: UserSettings) {
+    this.tmdbRegion = this.getLanguageHumanReadable(settings.tmdbRegion);
+    this.isCatalogPublic = settings.isCatalogPublic;
+  }
+
+  /**
+   * Toggles the catalog visibility.
+   */
+  toggleCatalogVisibility() {
+   this.setUserSetting('isCatalogPublic', !this.isCatalogPublic);
   }
 
   /**
@@ -41,9 +62,17 @@ export class SettingsComponent extends BaseComponent {
    * @param {string} identifier language value as ISO-3166-1 code
    */
   setTMDBRegion(identifier: string) {
-    this.userService.setUserSetting('tmdbRegion', identifier).then(
-      () => {
-      },
+   this.setUserSetting('tmdbRegion', identifier);
+  }
+
+  /**
+   * Sets a user setting with the provided values to the settings document of the current user.
+   * @param {string} key the settings key
+   * @param {string|boolean} value the value to set
+   */
+  private setUserSetting(key: string, value: string|boolean) {
+    this.userService.setUserSetting(key, value).then(
+      () => {},
       (error) => {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
         this.displayErrorModal(
