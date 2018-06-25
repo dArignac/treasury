@@ -2,7 +2,7 @@
 ifeq ($(TRAVIS_BUILD_DIR),)
 	export TRAVIS_BUILD_DIR=`pwd`
 endif
-export PRIVACY_FILE=treasury/src/app/data-privacy/data-privacy.component.html
+export PRIVACY_FILE=treasury/src/app/privacy-policy/privacy-policy.component.html
 
 documentation:
 	@echo "Creating asciidoc documentation..."
@@ -12,5 +12,5 @@ documentation:
 update-data-privacy:
 	@echo "Updating the content of data privacy module with current content of DATA-PRIVACY.md"
 	echo "<div class=\"m-4\">" > $(PRIVACY_FILE)
-	markdown DATA-PRIVACY.md >> $(PRIVACY_FILE)
+	markdown PRIVACY-POLICY.md >> $(PRIVACY_FILE)
 	echo "</div>" >> $(PRIVACY_FILE)

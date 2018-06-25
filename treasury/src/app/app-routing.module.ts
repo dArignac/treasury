@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from '../environments/environment';
 import { AuthGuard } from './services/auth-guard.service';
-import { DataPrivacyComponent } from './data-privacy/data-privacy.component';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HomeComponent } from './home/home.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
@@ -33,7 +33,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'data-privacy',
-    component: DataPrivacyComponent
+    component: PrivacyPolicyComponent
   },
   {
     path: 'error',

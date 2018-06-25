@@ -28,10 +28,10 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { UserService } from './services/user.service';
-import { DataPrivacyComponent } from './data-privacy/data-privacy.component';
 
 
 if (environment.sentryDSN.length > 0) {
@@ -58,7 +58,7 @@ export class RavenErrorHandler implements ErrorHandler {
     BaseComponent,
     ErrorPageDefaultComponent,
     FooterComponent,
-    DataPrivacyComponent
+    PrivacyPolicyComponent
   ],
   entryComponents: [ErrorComponent],
   imports: [
