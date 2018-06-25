@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { environment } from '../environments/environment';
 import { AuthGuard } from './services/auth-guard.service';
+import { DataPrivacyComponent } from './data-privacy/data-privacy.component';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +30,10 @@ const appRoutes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'data-privacy',
+    component: DataPrivacyComponent
   },
   {
     path: 'error',

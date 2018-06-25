@@ -5,6 +5,7 @@ However, if you like to contribute, please get in touch through Github's issue s
 === Workflows
 * use `ng update` to update Angular stuff
 * use `npm outdated` to find outdated packages
+* use `make update-data-privacy` from the root directory to update the HTML of the `DataPrivacyComponent` from the contents of `DATA-PRIVACY.md`
 
 === Development insights
 * https://github.com/angular/angularfire2 for Angular-Firebase bindings

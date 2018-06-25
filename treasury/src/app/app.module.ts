@@ -31,6 +31,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { SettingsComponent } from './settings/settings.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
 import { UserService } from './services/user.service';
+import { DataPrivacyComponent } from './data-privacy/data-privacy.component';
 
 
 if (environment.sentryDSN.length > 0) {
@@ -56,7 +57,8 @@ export class RavenErrorHandler implements ErrorHandler {
     ErrorComponent,
     BaseComponent,
     ErrorPageDefaultComponent,
-    FooterComponent
+    FooterComponent,
+    DataPrivacyComponent
   ],
   entryComponents: [ErrorComponent],
   imports: [
