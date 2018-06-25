@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- added data privacy guideline [#57]
 - added display of number of movies in collection [#53]
 - catalog can be set/unset to public visibility [#55]
 ### Changed
@@ -56,5 +57,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [#63]: https://github.com/dArignac/treasury/issues/63
 [#59]: https://github.com/dArignac/treasury/issues/59
 [#58]: https://github.com/dArignac/treasury/issues/58
+[#57]: https://github.com/dArignac/treasury/issues/57
 [#55]: https://github.com/dArignac/treasury/pull/55
 [#53]: https://github.com/dArignac/treasury/pull/53
