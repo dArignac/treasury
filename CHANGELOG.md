@@ -17,11 +17,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - catalog can be set/unset to public visibility [#55]
 ### Changed
 - [migrated to Angular 6](https://github.com/dArignac/treasury/projects/3)
+    - fixed initialization of settings page [#67]
     - fixed deprecated mdb properties [#64] [#73]
     - fixed layout of movie addition input search field [#68]
     - introduced changelog file [#72]
     - fixed broken movie addition [#63]
     - updated all other libs than Angular to most current usable version [#66]
+    - updated Angular itself [#58]
 - migrated Firebase Cloud Functions to version 1 [#59]
 
 
@@ -48,9 +50,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [#73]: https://github.com/dArignac/treasury/pull/73
 [#72]: https://github.com/dArignac/treasury/issues/72
 [#68]: https://github.com/dArignac/treasury/issues/68
+[#67]: https://github.com/dArignac/treasury/issues/67
 [#66]: https://github.com/dArignac/treasury/issues/66
 [#64]: https://github.com/dArignac/treasury/issues/64
 [#63]: https://github.com/dArignac/treasury/issues/63
 [#59]: https://github.com/dArignac/treasury/issues/59
+[#58]: https://github.com/dArignac/treasury/issues/58
 [#55]: https://github.com/dArignac/treasury/pull/55
 [#53]: https://github.com/dArignac/treasury/pull/53
