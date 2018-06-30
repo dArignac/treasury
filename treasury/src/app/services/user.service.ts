@@ -9,7 +9,7 @@ import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { UserSettings } from './user-settings';
 import { UserCounters } from './user-counters';
-import { isNull } from 'util';
+import { isNullOrUndefined } from 'util';
 
 @Injectable()
 export class UserService {
@@ -38,7 +38,7 @@ export class UserService {
           this.userSettings$.subscribe(
             (userSettings) => {
               // if initial document does not exist, create it with default values
-              if (isNull(userSettings)) {
+              if (isNullOrUndefined(userSettings)) {
                 userSettings = {
                   isCatalogPublic: false,
                   tmdbRegion: 'EN'
@@ -52,7 +52,18 @@ export class UserService {
           // ..subscribe to the user counter document
           this.userCountersDoc = this.afs.collection<UserCounters>('counters').doc(this.authService.id);
           this.userCounters$ = this.userCountersDoc.valueChanges();
-          this.userCounters$.subscribe(counters => this.userCounters = counters);
+          this.userCounters$.subscribe(
+            (userCounters) => {
+              // if initial document does not exist, create it with default values
+              if (isNullOrUndefined(userCounters)) {
+                userCounters = {
+                  movies: 0
+                };
+                this.afs.collection<UserCounters>('counters').doc(this.authService.id).set(userCounters);
+              }
+              this.userCounters = userCounters;
+            }
+          );
         }
       }
     );
