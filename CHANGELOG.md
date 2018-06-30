@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - migrated Firebase Cloud Functions to version 1 [#59]
 ### Removed
 - remove storing of user profile data coming from social profile [#57] [#77]
+### Fixed
+- fixed initial Cloud Firestore document creation for new users [#76]
 
 
 ## [1.0.1] - 2018-01-06
@@ -51,6 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]: https://github.com/darignac/treasury/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
 [#77]: https://github.com/dArignac/treasury/pull/77
+[#76]: https://github.com/dArignac/treasury/issues/76
 [#73]: https://github.com/dArignac/treasury/pull/73
 [#72]: https://github.com/dArignac/treasury/issues/72
 [#68]: https://github.com/dArignac/treasury/issues/68
