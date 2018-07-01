@@ -1,5 +1,5 @@
 === TheMovieDB setup
-* sign up for an account at https://www.themoviedb.org/account/signup
+* sign up for an account at https://www.themoviedb.org/account/signup[The Movie DB] or https://www.themoviedb.org/login[log into an existing one]
 * goto https://www.themoviedb.org/settings/api and grab the `API Key (v3 auth)`
 * add this value to `treasury/src/environments/environment.dev.ts` (and for production in `environment.prod.ts`) under `environment.themoviedb.apiKey`
 

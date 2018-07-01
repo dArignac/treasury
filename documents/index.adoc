@@ -32,6 +32,8 @@ include::2_development/index.adoc[]
 include::3_deployment/index.adoc[]
 
 == History
+* TBA
+** fixed some phrases and links
 * 1.1
 ** adjusted Firebase setup and moved rules to code
 ** add development workflows
