@@ -6,9 +6,9 @@ import { AuthGuard } from './services/auth-guard.service';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FormAddComponent } from './form-add/form-add.component';
 import { HomeComponent } from './home/home.component';
+import { ImprintComponent } from './imprint/imprint.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
@@ -32,8 +32,8 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'data-privacy',
-    component: PrivacyPolicyComponent
+    path: 'imprint',
+    component: ImprintComponent
   },
   {
     path: 'error',
