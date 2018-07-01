@@ -7,6 +7,7 @@ However, if you like to contribute, please get in touch through https://github.c
 
 === Workflows
 * use `ng update` to update Angular stuff
+* use `ng generate component --project=treasury` to create a new component
 * use `npm outdated` to find outdated packages
 * use `make update-data-privacy` from the root directory to update the HTML of the `DataPrivacyComponent` from the contents of `DATA-PRIVACY.md`
 

@@ -22,6 +22,15 @@ Copy `treasury/src/environments/environment.ts` to
 * `treasury/src/environments/environment.prod.ts` for *production* environment (on how to deploy, see chapter <<Deployment>>)
 ** adjust the value of `production` from `false` to `true`
 
+==== Add an imprint and data privacy document
+If you live in Germany than you need to add an imprint if you host this application publically. As European Union citizen you also need a data privacy declaration. I don't know how it applies to other countries.
+
+*The content of the imprint and data privacy document is in your own responsibility!*
+
+_Treasury_ has a document describing which user data and external tools are used. You should incorporate this into your data privacy content: https://github.com/dArignac/treasury/blob/master/PRIVACY-POLICY.md
+
+Anyway, _treasury_ has prepared an imprint component for both imprint and data privacy. To enable it, change the value of `enableImprint` to `true`. Then copy the file `treasury/src/app/imprint/imprint.component.tmpl` to `treasury/src/app/imprint/imprint.component.html` and add your imprint and data privacy text into it (between the `div` tags).
+
 === Firebase project setup
 * go to the https://console.firebase.google.com/u/0/[Firebase console] and create a new project
 * enable and configure *Authentication* (treasury is developed with Google auth only - any other auth should work but was not tested)

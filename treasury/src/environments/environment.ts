@@ -21,5 +21,10 @@ export const environment = {
     // your themoviedb.org API key, see https://www.themoviedb.org/settings/api
     apiKey: '',
     imageBaseURL: 'https://image.tmdb.org/t/p/'
-  }
+  },
+  /*
+  if you set enableImprint to true, ensure to copy the imprint template imprint.component.tmpl
+  in src/app/imprint/imprint.component.html to imprint.component.html and adjust the content!
+  */
+  enableImprint: false
 };
