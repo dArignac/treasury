@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- imprint and data privacy statement component [#78] [#81]
+- added optional imprint and data privacy statement component [#78] [#81]
 - added privacy policy [#57] [#77]
 - added display of number of movies in collection [#53]
 - catalog can be set/unset to public visibility [#55]
