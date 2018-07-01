@@ -22,7 +22,7 @@ Copy `treasury/src/environments/environment.ts` to
 * `treasury/src/environments/environment.prod.ts` for *production* environment (on how to deploy, see chapter <<Deployment>>)
 ** adjust the value of `production` from `false` to `true`
 
-==== Add an imprint and data privacy document
+==== Add an imprint and data privacy statement
 If you live in Germany than you need to add an imprint if you host this application publically. As European Union citizen you also need a data privacy declaration. I don't know how it applies to other countries.
 
 *The content of the imprint and data privacy document is in your own responsibility!*
