@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- imprint and data privacy statement component [#78]
+- imprint and data privacy statement component [#78] [#81]
 - added privacy policy [#57] [#77]
 - added display of number of movies in collection [#53]
 - catalog can be set/unset to public visibility [#55]
@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Unreleased]: https://github.com/darignac/treasury/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#81]: https://github.com/dArignac/treasury/pull/81
 [#78]: https://github.com/dArignac/treasury/issues/78
 [#77]: https://github.com/dArignac/treasury/pull/77
 [#76]: https://github.com/dArignac/treasury/issues/76
