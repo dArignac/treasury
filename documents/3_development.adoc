@@ -1,6 +1,9 @@
 == Development
-There is no time line and no real plan. I work on this project whenever I'm in the mood and have the time. It's done, when it's done.
-However, if you like to contribute, please get in touch through Github's issue section.
+There is *no time line* and no real plan. I work on this project whenever I'm in the mood and have the time.
+
+*It's done, when it's done.*
+
+However, if you like to contribute, please get in touch through https://github.com/dArignac/treasury/issues[Github's issue section]. Additionally I usually track bigger changes as https://github.com/dArignac/treasury/projects[Github Project], check it to see what's going on.
 
 === Workflows
 * use `ng update` to update Angular stuff

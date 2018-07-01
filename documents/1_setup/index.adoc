@@ -1,7 +1,0 @@
-== Setup
-IMPORTANT: This project leverages Google Firebase as main "backend" and Angular as frontend with Angular CLI.
-
-include::1_installation.adoc[]
-include::2_firebase.adoc[]
-include::3_themoviedb.adoc[]
-include::4_run.adoc[]

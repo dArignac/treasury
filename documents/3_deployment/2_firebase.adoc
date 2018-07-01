@@ -1,6 +1,0 @@
-=== Firebase hosting
-If you like to host the app on Firebase, do the following:
-
-* build production version with `ng build -e prod`
-* deploy it with `firebase deploy`
-* that's it!

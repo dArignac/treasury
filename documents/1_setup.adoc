@@ -1,0 +1,101 @@
+== Setup
+IMPORTANT: This project leverages Google Firebase as main backend and Angular as frontend with Angular CLI.
+
+*A note on hosting this project:*
+The simples way to host the project is directly on Firebase. However, you can also host it on any host for yourself, but the project itself always relies on the usage of Firebase services!
+
+
+The next sub-sections will cover setting up everything required to run the project either locally or on a server:
+
+=== Clone the source
+Clone the source code and go into that folder:
+[source]
+-------------------
+git clone https://github.com/dArignac/treasury.git
+cd treasury
+-------------------
+
+=== Environment settings
+Copy `treasury/src/environments/environment.ts` to
+
+* `treasury/src/environments/environment.dev.ts` for *development* environment
+* `treasury/src/environments/environment.prod.ts` for *production* environment (on how to deploy, see chapter <<Deployment>>)
+** adjust the value of `production` from `false` to `true`
+
+=== Firebase project setup
+* go to the https://console.firebase.google.com/u/0/[Firebase console] and create a new project
+* enable and configure *Authentication* (treasury is developed with Google auth only - any other auth should work but was not tested)
+* under *Database* enable Cloud Firestore
+* enable *Functions*
+* enable *Hosting* if you want to host _treasury_ directly on Firebase
+
+=== Firebase environment settings
+Within the Firebase Console go to the _"Project Overview"_ and click _"Add Firebase to my WebApp"_, grab the displayed Firebase settings and update the development and/or production environment file you created before with it:
+
+[source,typescript]
+-------------------
+// NOTE other environment settings are stripped
+export const environment = {
+  firebase: {
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: ''
+  }
+};
+-------------------
+
+=== Firebase local setup
+To be able to push the project contents to your newly created Firebase project, you need to install the Firebase CLI on your local machine. We install it into the global npm space of your machine.
+
+Therefore run the following:
+
+[source]
+--------
+npm install -g firebase-tools firebase firebase-functions@latest firebase-admin@latest
+--------
+
+The go to the project folder (the initially cloned folder containing the folders `treasury`, `documents` and `functions`) and create a file called `.firebaserc` and add the following content (grab the `PROJECT-ID` from the Firebase Console, under `Settings`):
+
+[source]
+--------
+{
+  "projects": {
+    "default": "PROJECT-ID"
+  }
+}
+--------
+
+=== The Movie DB setup
+* sign up for an TMDB account at https://www.themoviedb.org/account/signup[The Movie DB] or https://www.themoviedb.org/login[log into an existing one]
+* goto https://www.themoviedb.org/settings/api and grab the `API Key (v3 auth)`
+* add this value to `treasury/src/environments/environment.dev.ts` (and for production in `environment.prod.ts`) under `environment.themoviedb.apiKey`
+
+[source,typescript]
+-------------------
+// NOTE: other environment values are stripped
+export const environment = {
+  ...
+  themoviedb: {
+    apiKey: 'YOUR-API-KEY',
+    ...
+  }
+  ...
+};
+-------------------
+
+=== Treasury setup
+Now that you have configured the Firebase and TMDB settings, you can install the required packages of _treasury_. Therefore go to the *treasury* folder (if you cloned the project like described before, the path is `<clone-root>/treasury/treasury`):
+
+[source]
+--------
+npm install -g @angular/cli
+npm install
+--------
+
+This installs https://cli.angular.io/[Angular CLI] in the global npm scope and installs all required packages of _treasury_ locally (and thus created the `node_modules` folder).
+
+=== Run in development mode
+For development, simply run `npm run serve` from the treasury folder and open your browser at http://localhost:4444

@@ -1,3 +1,0 @@
-=== Run it
-* run `ng serve`
-* open browser as written in `ng serve` output

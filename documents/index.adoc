@@ -4,7 +4,7 @@ Alexander Herrmann
 :toclevels: 4
 :numbered:
 :imagesdir: img
-:docversion: 1.1
+:docversion: 1.2
 :docuri: https://darignac.github.io/treasury/
 :sourcecodeuri: https://github.com/dArignac/treasury
 :source-highlighter: prettify
@@ -23,16 +23,17 @@ If you share movies with your friends like I do, this tool will help you.
 * manual addition of items not found in this api is not supported
 
 // setup
-include::1_setup/index.adoc[]
-
-// development
-include::2_development/index.adoc[]
+include::1_setup.adoc[]
 
 // deployment
-include::3_deployment/index.adoc[]
+include::2_deployment.adoc[]
+
+// development
+include::3_development.adoc[]
 
 == History
-* TBA
+* 1.2
+** rewrote everything
 ** fixed some phrases and links
 * 1.1
 ** adjusted Firebase setup and moved rules to code

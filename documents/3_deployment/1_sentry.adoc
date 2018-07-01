@@ -1,6 +1,0 @@
-=== Sentry
-* for error logging in the live environment you *can* use Sentry
-* therefore get an account at https://sentry.io/signup/
-* add your sentry DSN to `treasury/src/environments/environment.prod.ts` in `environment.sentryDSN`
-* Sentry will only be used in the `prod` environment
-
