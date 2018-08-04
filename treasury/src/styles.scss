@@ -1,5 +1,6 @@
-@import "~normalize.css/normalize.css";
+//@import "~normalize.css/normalize.css";
 
+// FIXME-40
 // FIXME should work following the docs https://mdbootstrap.com/angular/layout/bootstrap-layout/#responsive-breakpoints but does not
 // see my issue on mdbootstrap https://mdbootstrap.com/support/how-to-include-bootstrap-media-breakpoint-mixins/
 //@include media-breakpoint-up(md) {}
@@ -7,8 +8,27 @@
 //@include media-breakpoint-between(md, xl) {}
 // from _breakpoints.scss of bundled bootstrap: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
 
+/*
 @media (max-width: 576px) {
   .hidden-xs {
     display: none;
   }
 }
+*/
+
+/* Bootstrap required imports */
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+/* Bootstrap components we use */
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid";
+
+
+/* Theming of angular-mdc/web */
+$mdc-theme-primary: #1C2331;
+$mdc-theme-secondary: #212121;
+
+@import "~@angular-mdc/theme/material";
