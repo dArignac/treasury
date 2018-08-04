@@ -21,10 +21,10 @@ import { ErrorComponent } from './error/error.component';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormAddComponent } from './form-add/form-add.component';
-import { HeaderComponent } from './header/header.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
+import { MenuComponent } from './menu/menu.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -45,7 +45,6 @@ export class RavenErrorHandler implements ErrorHandler {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     FormAddComponent,
     MovieListComponent,
     PageNotFoundComponent,
@@ -56,7 +55,8 @@ export class RavenErrorHandler implements ErrorHandler {
     BaseComponent,
     ErrorPageDefaultComponent,
     FooterComponent,
-    ImprintComponent
+    ImprintComponent,
+    MenuComponent
   ],
   entryComponents: [ErrorComponent],
   imports: [
