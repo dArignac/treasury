@@ -24,11 +24,22 @@
 /* Bootstrap components we use */
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
 @import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/utilities";
 
 
 /* Theming of angular-mdc/web */
-$mdc-theme-primary: #1C2331;
-$mdc-theme-secondary: #212121;
-
+@import "variables";
 @import "~@angular-mdc/theme/material";
+
+/* General styles */
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}

@@ -1,4 +1,17 @@
+@import "../../variables";
+
 footer {
+  background: $mdc-theme-primary;
+  color: $footer-color;
+
+  a {
+    color: $footer-color;
+  }
+
+  .copyright {
+    color: $footer-color-dimmed;
+  }
+
   .title {
     text-transform: uppercase;
   }
