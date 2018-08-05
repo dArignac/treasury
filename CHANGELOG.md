@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - updated all other libs than Angular to most current usable version [#66]
     - updated Angular itself [#58]
 - migrated Firebase Cloud Functions to version 1 [#59]
+- changed layout libs to Material Design Web [#40]
 ### Removed
 - remove storing of user profile data coming from social profile [#57] [#77]
 ### Fixed
@@ -69,3 +70,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [#57]: https://github.com/dArignac/treasury/issues/57
 [#55]: https://github.com/dArignac/treasury/pull/55
 [#53]: https://github.com/dArignac/treasury/pull/53
+[#40]: https://github.com/dArignac/treasury/issues/40
