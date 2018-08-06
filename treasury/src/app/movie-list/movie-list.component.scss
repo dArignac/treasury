@@ -1,0 +1,11 @@
+.listing {
+  padding-left: 15px;
+  padding-right: 10px; /* 15px minus the margin-right of .item */
+
+  .item {
+    //height: 231px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    //width: 154px;
+  }
+}
