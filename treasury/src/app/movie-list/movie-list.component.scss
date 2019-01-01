@@ -1,3 +1,5 @@
+@import "~_variables.scss";
+
 .listing {
   padding-left: 15px;
   padding-right: 10px; /* 15px minus the margin-right of .item */
@@ -6,6 +8,23 @@
     //height: 231px;
     margin-bottom: 5px;
     margin-right: 5px;
+    position: relative;
     //width: 154px;
+
+    .overlay-effect {
+      background-color: $item-overlay-color;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      overflow:hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: .3s ease;
+    }
+
+    &:hover .overlay-effect {
+      opacity: 1;
+    }
   }
 }
