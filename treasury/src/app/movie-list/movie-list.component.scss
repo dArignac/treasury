@@ -25,6 +25,7 @@
 
       button {
         @include mdc-button-filled-accessible($color-red);
+        margin-top: 7em;
       }
     }
 

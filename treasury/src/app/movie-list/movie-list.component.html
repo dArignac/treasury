@@ -10,10 +10,8 @@
       <ng-container *ngIf="movies.length > 0">
         <ng-container *ngFor="let item of movies; index as i; last as isLast">
           <div class="item">
-            <div class="overlay-effect h-100 w-100">
-              <div class="text-center">
-                <button mdc-button raised (click)="remove(item)">Remove</button>
-              </div>
+            <div class="overlay-effect h-100 w-100 text-center">
+              <button mdc-button raised (click)="remove(item)">Remove</button>
             </div>
             <img [src]="item.getPosterImage('w154')" alt="{{item.title}}" />
           </div>
