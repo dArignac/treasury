@@ -6,15 +6,17 @@
   padding-right: 10px; /* 15px minus the margin-right of .item */
 
   .item {
-    //height: 231px;
+    height: 231px;
     margin-bottom: 5px;
     margin-right: 5px;
     position: relative;
-    //width: 154px;
+    width: 154px;
 
     .overlay-effect {
-      background-color: $color-item-overlay;
+      background-color: rgba($color-fill, 0.8);
       bottom: 0;
+      color: $color-white;
+      font-weight: bold;
       left: 0;
       opacity: 0;
       overflow:hidden;
@@ -25,7 +27,10 @@
 
       button {
         @include mdc-button-filled-accessible($color-red);
-        margin-top: 7em;
+      }
+
+      div {
+        width: 100%;
       }
     }
 

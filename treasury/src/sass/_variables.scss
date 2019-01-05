@@ -29,15 +29,13 @@ $color-fill: #1c2331;
 $color-success: #28a745;
 $color-warning: #ffc107;
 $color-red: #dc3545;
+$color-white: #fff;
 
 // footer
 $color-footer-fill: $color-fill;
 $color-footer-fill-dark: rgba(#000, 0.2);
 $color-footer-ink: #fff;
 $color-footer-ink-dimmed: rgba($color-footer-ink, 0.6);
-
-// movie list
-$color-item-overlay: rgba(#6c757d, 0.8);
 
 // @angular-mdc/web
 $mdc-theme-primary: $color-primary;
