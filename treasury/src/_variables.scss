@@ -1,5 +1,5 @@
 $mdc-theme-primary: #1C2331;
-$mdc-theme-secondary: #212121;
+$mdc-theme-secondary: #37474f;
 $footer-color: #fff;
-$footer-color-dimmed: rgba(255, 255, 255, 0.6);
-$item-overlay-color: rgba(28, 35, 49, 0.8); // same a primary
+$footer-color-dimmed: rgba($footer-color, 0.6);
+$item-overlay-color: rgba($mdc-theme-primary, 0.8); // same a primary
