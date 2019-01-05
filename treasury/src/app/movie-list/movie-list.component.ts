@@ -1,13 +1,14 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map, share } from 'rxjs/operators';
+
+import { MdcSnackbar } from '@angular-mdc/web';
 
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
-import { ErrorComponent } from '../error/error.component';
 import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { UserService } from '../services/user.service';
@@ -23,8 +24,10 @@ export class MovieListComponent extends BaseComponent {
   private movieCollection: AngularFirestoreCollection<IMovie>;
   public movies$: Observable<Movie[]>;
 
-  constructor(public userService: UserService,
-              private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(
+    public userService: UserService,
+    private snackbar: MdcSnackbar
+  ) {
     super();
   }
 
@@ -46,14 +49,13 @@ export class MovieListComponent extends BaseComponent {
       () => {
         // we do not handle the promise here as the element is removed immediately from the movie list that is observed
       },
-      (error) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
-        this.displayErrorModal(
-          componentFactory,
-          'Error upon item removal',
-          'An error occurred while removing the item. This may happened because the underlying TheMovieDB service returned an invalid response.',
-          'Please refresh the page an try again!',
-          error
+      () => {
+        // FIXME send to sentry
+        this.snackbar.show(
+          'An error occurred while removing the item. This may happened because the underlying TheMovieDB service returned an invalid response. '
+            + 'Please refresh the page an try again!',
+          'Close',
+          this.getSnackbarConfig()
         );
       }
     );

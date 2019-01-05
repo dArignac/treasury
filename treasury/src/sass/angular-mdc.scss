@@ -8,3 +8,8 @@
     @include mdc-button-container-fill-color($color-warning);
   }
 }
+
+.mdc-snackbar {
+  background: $color-danger;
+  @extend .pt-3;
+}

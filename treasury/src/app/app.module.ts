@@ -17,7 +17,6 @@ import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { BackupComponent } from './backup/backup.component';
 import { BaseComponent } from './base/base.component';
-import { ErrorComponent } from './error/error.component';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormAddComponent } from './form-add/form-add.component';
@@ -51,14 +50,12 @@ export class RavenErrorHandler implements ErrorHandler {
     HomeComponent,
     SettingsComponent,
     BackupComponent,
-    ErrorComponent,
     BaseComponent,
     ErrorPageDefaultComponent,
     FooterComponent,
     ImprintComponent,
     MenuComponent
   ],
-  entryComponents: [ErrorComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
