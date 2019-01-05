@@ -1,3 +1,4 @@
+@import "~@angular-mdc/theme/scss/button/_mixins.scss";
 @import "../../sass/variables.scss";
 
 .listing {
@@ -21,6 +22,10 @@
       right: 0;
       top: 0;
       transition: .3s ease;
+
+      button {
+        @include mdc-button-filled-accessible($color-red);
+      }
     }
 
     &:hover .overlay-effect {

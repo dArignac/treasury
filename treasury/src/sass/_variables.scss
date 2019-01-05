@@ -26,6 +26,7 @@ Colors of the old material theme
 $color-primary: #007bff;
 $color-secondary: #6c757d;
 $color-fill: #1c2331;
+$color-red: #dc3545;
 
 // footer
 $color-footer-fill: $color-fill;
@@ -34,7 +35,7 @@ $color-footer-ink: #fff;
 $color-footer-ink-dimmed: rgba($color-footer-ink, 0.6);
 
 // movie list
-$color-item-overlay: rgba(#dc3545, 0.8);
+$color-item-overlay: rgba(#6c757d, 0.8);
 
 // @angular-mdc/web
 $mdc-theme-primary: $color-primary;
