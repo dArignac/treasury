@@ -21,6 +21,7 @@ export class SettingsComponent extends BaseComponent {
     {value: 'EN', displayValue: 'English'},
   ];
   tmdbRegion: string = null;
+  tmdbRegionValue = 'EN';
   isCatalogPublic = false;
 
   constructor(private userService: UserService,
@@ -47,6 +48,7 @@ export class SettingsComponent extends BaseComponent {
    */
   setSettings(settings: UserSettings) {
     this.tmdbRegion = this.getLanguageHumanReadable(settings.tmdbRegion);
+    this.tmdbRegionValue = settings.tmdbRegion;
     this.isCatalogPublic = settings.isCatalogPublic;
   }
 
