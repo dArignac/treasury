@@ -35,10 +35,9 @@ $color-footer-fill-dark: rgba(#000, 0.2);
 $color-footer-ink: #fff;
 $color-footer-ink-dimmed: rgba($color-footer-ink, 0.6);
 
+// movie list
+$color-item-overlay: rgba(#dc3545, 0.8);
+
 // @angular-mdc/web
-// FIXME check usage, should only be declared and used here
 $mdc-theme-primary: $color-primary;
 $mdc-theme-secondary: $color-secondary;
-
-// FIXME check usage
-$item-overlay-color: rgba($mdc-theme-primary, 0.8); // same a primary
