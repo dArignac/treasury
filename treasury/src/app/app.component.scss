@@ -1,0 +1,6 @@
+@import "~@angular-mdc/theme/scss/top-app-bar/_mixins.scss";
+@import "../sass/variables.scss";
+
+.top-app-bar {
+  @include mdc-top-app-bar-fill-color($color-fill);
+}
