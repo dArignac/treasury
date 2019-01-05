@@ -1,0 +1,10 @@
+@import "~@angular-mdc/theme/scss/button/_mixins.scss";
+
+.mdc-button {
+  &.success {
+    @include mdc-button-container-fill-color($color-success);
+  }
+  &.warning {
+    @include mdc-button-container-fill-color($color-warning);
+  }
+}
