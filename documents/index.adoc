@@ -31,9 +31,7 @@ include::2_deployment.adoc[]
 // development
 include::3_development.adoc[]
 
-== History
-* TBA
-** changed Material Design library to https://github.com/trimox/angular-mdc-web[angular-mdc-web] https://github.com/dArignac/treasury/issues/40[#40]
+== History of this documentation
 * 1.2
 ** rewrote everything
 ** fixed some phrases and links

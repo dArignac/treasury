@@ -1,7 +1,9 @@
 {
   "verbose": true,
-  "buildCommand": "sed -i 's/v[0-9]\\.[0-9]\\.[0-9]/v${version}/g' src/app/app.component.html && sed -i 's/Version [0-9]\\.[0-9]\\.[0-9]/Version ${version}/g' src/app/app.component.html",
-  "src": {
+  "scripts": {
+    "beforeStage": "sed -i 's/v[0-9]\\.[0-9]\\.[0-9]/v${version}/g' src/app/footer/footer.component.html && sed -i 's/>[0-9]\\.[0-9]\\.[0-9]/>${version}/g' src/app/footer/footer.component.html"
+  },
+  "git": {
     "tagName": "v%s"
   },
   "npm": {
@@ -16,11 +18,7 @@
     }
   },
   "prompt": {
-    "src": {
-      "status": true
-    },
     "dist": {
-      "status": true,
       "tag": true,
       "release": true,
       "publish": true

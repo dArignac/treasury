@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - added display of number of movies in collection [#53]
 - catalog can be set/unset to public visibility [#55]
 ### Changed
+- switched to Material Design library [angular-mdc-web](https://github.com/trimox/angular-mdc-web) [#40]
 - [migrated to Angular 6](https://github.com/dArignac/treasury/projects/3)
     - fixed initialization of settings page [#67]
     - fixed deprecated mdb properties [#64] [#73]
@@ -27,7 +28,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - updated all other libs than Angular to most current usable version [#66]
     - updated Angular itself [#58]
 - migrated Firebase Cloud Functions to version 1 [#59]
-- changed layout libs to Material Design Web [#40]
 ### Removed
 - remove storing of user profile data coming from social profile [#57] [#77]
 ### Fixed
