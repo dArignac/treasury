@@ -2,7 +2,8 @@
 IMPORTANT: This project leverages Google Firebase as main backend and Angular as frontend with Angular CLI.
 
 *A note on hosting this project:*
-The simples way to host the project is directly on Firebase. However, you can also host it on any host for yourself, but the project itself always relies on the usage of Firebase services!
+The simplest way to host the project is directly on Firebase. However, you can also host it on any host for yourself, but the project itself always relies on
+ the usage of Firebase services!
 
 
 The next sub-sections will cover setting up everything required to run the project either locally or on a server:
