@@ -1,9 +1,8 @@
-import { isUndefined } from 'util';
+import { Component } from '@angular/core';
 
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { MdcSnackbar } from '@angular-mdc/web';
 
 import { BaseComponent } from '../base/base.component';
-import { ErrorComponent } from '../error/error.component';
 import { UserService } from '../services/user.service';
 import { UserSettings } from '../services/user-settings';
 import { IRegion } from '../themoviedb/iregion';
@@ -21,10 +20,11 @@ export class SettingsComponent extends BaseComponent {
     {value: 'EN', displayValue: 'English'},
   ];
   tmdbRegion: string = null;
+  tmdbRegionValue = 'EN';
   isCatalogPublic = false;
 
   constructor(private userService: UserService,
-              private componentFactoryResolver: ComponentFactoryResolver) {
+              private snackbar: MdcSnackbar) {
     super();
     this.userService.userSettings$.subscribe(
       (userSettings) => {
@@ -47,6 +47,7 @@ export class SettingsComponent extends BaseComponent {
    */
   setSettings(settings: UserSettings) {
     this.tmdbRegion = this.getLanguageHumanReadable(settings.tmdbRegion);
+    this.tmdbRegionValue = settings.tmdbRegion;
     this.isCatalogPublic = settings.isCatalogPublic;
   }
 
@@ -73,14 +74,13 @@ export class SettingsComponent extends BaseComponent {
   private setUserSetting(key: string, value: string|boolean) {
     this.userService.setUserSetting(key, value).then(
       () => {},
-      (error) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
-        this.displayErrorModal(
-          componentFactory,
-          'Error upon setting user value',
-          'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid response.',
-          'Please refresh the page an try again!',
-          error
+      () => {
+        // FIXME send to sentry
+        this.snackbar.show(
+          'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid '
+            + ' response. Please refresh the page an try again!',
+          'Close',
+          this.getSnackbarConfig()
         );
       }
     );

@@ -1,11 +1,12 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+
+import { MdcSnackbar } from '@angular-mdc/web';
 
 import { Observable } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
 
 import { BaseComponent } from '../base/base.component';
-import { ErrorComponent } from '../error/error.component';
 import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
 import { UserService } from '../services/user.service';
 import { Movie } from '../themoviedb/movie';
@@ -25,7 +26,7 @@ export class FormAddComponent extends BaseComponent {
 
   constructor(private theMovieDbService: TheMovieDbService,
               private userService: UserService,
-              private componentFactoryResolver: ComponentFactoryResolver) {
+              private snackbar: MdcSnackbar) {
     super();
     this.movieControl = new FormControl();
     this.results$ = this.movieControl.valueChanges.pipe(
@@ -47,20 +48,16 @@ export class FormAddComponent extends BaseComponent {
         // we got an answer and it was added, mark the item as added
         this.addingItemsStatus[movie.id] = true;
       },
-      (error) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
-        this.displayErrorModal(
-          componentFactory,
-          'Error upon item addition',
-          'An error occurred while adding the item. This may happened because the underlying TheMovieDB service returned an invalid response.',
-          'Please refresh the page an try again!',
-          error
+      () => {
+        // FIXME send to sentry
+        this.snackbar.show(
+          'An error occurred while adding the item. This may happened because the underlying TheMovieDB service returned an invalid response. '
+            + 'Please refresh the page an try again!',
+          'Close',
+          this.getSnackbarConfig()
         );
       }
     );
-  }
-
-  ngOnInit() {
   }
 
 }

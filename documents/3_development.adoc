@@ -13,5 +13,4 @@ However, if you like to contribute, please get in touch through https://github.c
 
 === Development insights
 * https://github.com/angular/angularfire2 for Angular-Firebase bindings
-* https://mdbootstrap.com/ for Bootstrap & Material Design bindings in Angular
-* http://materializecss.com for some Material Design components that are not free in mdbootstrap
+* https://github.com/trimox/angular-mdc-web for Material Design

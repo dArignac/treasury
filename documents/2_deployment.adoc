@@ -13,7 +13,7 @@ For Firebase hosting as well as custom hosting you need to compile the applicati
 [source]
 --------
 cd treasury
-ng build --prod
+npm run build
 --------
 
 This will output the application for production environment in the folder `treasury/dist`.

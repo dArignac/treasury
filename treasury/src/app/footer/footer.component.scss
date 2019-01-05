@@ -1,5 +1,24 @@
+@import "../../sass/variables";
+
 footer {
+  background: $color-footer-fill;
+  color: $color-footer-ink;
+
+  a {
+    color: $color-footer-ink;
+  }
+
+  .copyright {
+    background: $color-footer-fill-dark;
+    color: $color-footer-ink-dimmed;
+  }
+
   .title {
     text-transform: uppercase;
+  }
+
+  img {
+    height: 6em;
+    max-height: 6em;
   }
 }

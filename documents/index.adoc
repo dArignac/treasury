@@ -31,7 +31,7 @@ include::2_deployment.adoc[]
 // development
 include::3_development.adoc[]
 
-== History
+== History of this documentation
 * 1.2
 ** rewrote everything
 ** fixed some phrases and links
