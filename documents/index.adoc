@@ -32,6 +32,8 @@ include::2_deployment.adoc[]
 include::3_development.adoc[]
 
 == History
+* TBA
+** changed Material Design library
 * 1.2
 ** rewrote everything
 ** fixed some phrases and links
