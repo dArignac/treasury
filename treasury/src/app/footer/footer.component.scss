@@ -1,15 +1,16 @@
 @import "../../variables";
 
 footer {
-  background: $mdc-theme-primary;
-  color: $footer-color;
+  background: $color-footer-fill;
+  color: $color-footer-ink;
 
   a {
-    color: $footer-color;
+    color: $color-footer-ink;
   }
 
   .copyright {
-    color: $footer-color-dimmed;
+    background: $color-footer-fill-dark;
+    color: $color-footer-ink-dimmed;
   }
 
   .title {
