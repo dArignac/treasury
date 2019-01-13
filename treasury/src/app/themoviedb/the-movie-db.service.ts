@@ -130,11 +130,10 @@ export class TheMovieDbService {
    */
   private extractMoviesFromSearch(response: MovieSearchResponse): any[] {
     if (response.total_results > 0) {
-
-      let results = response.results.map(Movie.fromTMDBMovieSearchResult);
-
-      // sort by titles
-      results = results.sort(
+      return response
+        .results
+        .map(Movie.fromTMDBMovieSearchResult)
+        .sort(
         (n1, n2) => {
           if (n1.title > n2.title) {
             return 1;
@@ -145,8 +144,6 @@ export class TheMovieDbService {
           return 0;
         }
       );
-
-      return results;
     }
     return [];
   }

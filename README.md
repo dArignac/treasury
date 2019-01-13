@@ -1,10 +1,13 @@
 # Treasury
 
-Please see the documentation at https://darignac.github.io/treasury/ (build through TravisCI [![Build Status](https://travis-ci.org/dArignac/treasury.svg?branch=master)](https://travis-ci.org/dArignac/treasury))
+[![Build Status](https://travis-ci.org/dArignac/treasury.svg?branch=master)](https://travis-ci.org/dArignac/treasury)
+[![Quality Status](https://sonarcloud.io/api/project_badges/measure?project=dArignac_treasury&metric=alert_status)](https://sonarcloud.io/dashboard?id=dArignac_treasury)
+
+Find the documentation at https://darignac.github.io/treasury/
 
 Changelog: https://github.com/dArignac/treasury/CHANGELOG.md
 
-## Sneak Peak
+## Sneak Peak (outdated)
 Movie list as of 2017-10-08 (Region: DE)
 ![Movie list v1](https://github.com/dArignac/treasury/raw/master/documents/img/movies-v1.png "Movie list for version 1.x")
 

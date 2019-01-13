@@ -2,16 +2,27 @@ branches:
   only:
     - master
 
-sudo: required
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "darignac-github"
 
 services:
   - docker
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
 
 before_install:
   - docker pull darignac/asciidoctor
 
 script:
+  - git fetch --unshallow
   - make documentation
+  - npm install typescript@2.9.2
+  - NODE_PATH=$HOME/node_modules sonar-scanner
 
 after_error:
   - docker logs asciidoc-to-html
