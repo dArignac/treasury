@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [//]: # "Fixed for any bug fixes."
 [//]: # "Security in case of vulnerabilities."
 
-## [Unreleased]
+## [1.1.0]
 ### Added
 - added optional imprint and data privacy statement component [#78] [#81]
 - added privacy policy [#57] [#77]
@@ -53,7 +53,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - be able to list movies
 
 
-[Unreleased]: https://github.com/darignac/treasury/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/darignac/treasury/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
 [#81]: https://github.com/dArignac/treasury/pull/81
 [#78]: https://github.com/dArignac/treasury/issues/78
