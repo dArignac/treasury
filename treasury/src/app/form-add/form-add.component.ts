@@ -50,7 +50,7 @@ export class FormAddComponent extends BaseComponent {
       },
       () => {
         // FIXME send to sentry
-        this.snackbar.show(
+        this.snackbar.open(
           'An error occurred while adding the item. This may happened because the underlying TheMovieDB service returned an invalid response. '
             + 'Please refresh the page an try again!',
           'Close',

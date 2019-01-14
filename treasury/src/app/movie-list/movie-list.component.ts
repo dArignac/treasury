@@ -5,7 +5,7 @@ import { map, share } from 'rxjs/operators';
 
 import { MdcSnackbar } from '@angular-mdc/web';
 
-import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 import { environment } from '../../environments/environment';
 import { BaseComponent } from '../base/base.component';
@@ -51,7 +51,7 @@ export class MovieListComponent extends BaseComponent {
       },
       () => {
         // FIXME send to sentry
-        this.snackbar.show(
+        this.snackbar.open(
           'An error occurred while removing the item. This may happened because the underlying TheMovieDB service returned an invalid response. '
             + 'Please refresh the page an try again!',
           'Close',

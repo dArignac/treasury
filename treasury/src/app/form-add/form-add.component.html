@@ -2,21 +2,20 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <h2>Add movie(s):</h2>
+      <h2 class="mb-4">Add movie(s):</h2>
     </div>
   </div>
   <div class="row">
-    <div class="col d-flex justify-content-start align-items-center">
+    <div class="col d-flex justify-content-start align-items-center mb-4">
       <mdc-text-field
         #search
         class="search-input"
         label="Search value"
         [formControl]="movieControl"
-        [outline]="true"
-        [value]="search"
+        [outlined]="true"
         onfocus="search.value=null"
       ></mdc-text-field>
-      <button mdc-button primary raised (click)="search.value = null" class="ml-2">Clear</button>
+      <button mdc-button primary raised (click)="search.value = null;search.focus()" class="ml-2">Clear</button>
     </div>
   </div>
   <div class="row movie-results">

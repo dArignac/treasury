@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - added display of number of movies in collection [#53]
 - catalog can be set/unset to public visibility [#55]
 ### Changed
+- updated several libraries
 - switched to Material Design library [angular-mdc-web](https://github.com/trimox/angular-mdc-web) and changed several UI components [#40]
 - [migrated to Angular 6](https://github.com/dArignac/treasury/projects/3)
     - fixed initialization of settings page [#67]

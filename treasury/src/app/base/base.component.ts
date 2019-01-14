@@ -15,7 +15,8 @@ export class BaseComponent implements OnInit {
       align: 'start',
       dismissOnAction: true,
       multiline: true,
-      timeout: 60000,
+      stacked: true,
+      timeout: 10000,
     };
   }
 

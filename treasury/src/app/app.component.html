@@ -1,15 +1,15 @@
-<mdc-app-bar [short]="true" [shortCollapsed]="false" [fixed]="true" [fixedAdjustElement]="mainContent" class="top-app-bar">
-  <mdc-app-bar-row>
-    <mdc-app-bar-section align="start" title="Treasury" (click)="menu.open()">
-      <mdc-icon mdcAppBarNavIcon>menu</mdc-icon>
-    </mdc-app-bar-section>
-    <mdc-app-bar-section align="end" *ngIf="showImprint">
-      <mdc-icon mdcAppBarActionItem [routerLink]="['imprint']">info</mdc-icon>
-    </mdc-app-bar-section>
-  </mdc-app-bar-row>
-</mdc-app-bar>
+<mdc-top-app-bar fixed [fixedAdjustElement]="mainContent" class="top-app-bar">
+  <mdc-top-app-bar-row>
+    <mdc-top-app-bar-section align="start" title="Treasury" (click)="menu.open = !menu.open">
+      <button mdcTopAppBarNavIcon mdcIconButton icon="menu"></button>
+    </mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end" *ngIf="showImprint">
+      <button mdcTopAppBarActionItem mdc-icon-button icon="info" [routerLink]="['imprint']"></button>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>
 
-<mdc-drawer #menu drawer='temporary'>
+<mdc-drawer #menu drawer="dismissible" mdcTopAppBarFixedAdjust>
   <mdc-drawer-content>
     <mdc-list-group>
       <app-menu showImprint="showImprint"></app-menu>
@@ -17,7 +17,7 @@
   </mdc-drawer-content>
 </mdc-drawer>
 
-<div #mainContent>
+<div #mainContent mdcDrawerAppContent mdcTopAppBarFixedAdjust>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 </div>

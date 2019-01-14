@@ -76,7 +76,7 @@ export class SettingsComponent extends BaseComponent {
       () => {},
       () => {
         // FIXME send to sentry
-        this.snackbar.show(
+        this.snackbar.open(
           'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid '
             + ' response. Please refresh the page an try again!',
           'Close',

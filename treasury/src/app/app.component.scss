@@ -3,4 +3,5 @@
 
 .top-app-bar {
   @include mdc-top-app-bar-fill-color($color-fill);
+  z-index: 7;
 }
