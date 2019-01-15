@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
+- navigation drawer is now visible on big screens [#88]
 - fixed that menu drawer is not fixed [#90]
 - fixed huge top bar [#91]
 - fixed horizontal scrollbar on home page [#89]
@@ -65,6 +66,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [#91]: https://github.com/dArignac/treasury/issues/91
 [#90]: https://github.com/dArignac/treasury/issues/90
 [#89]: https://github.com/dArignac/treasury/issues/89
+[#88]: https://github.com/dArignac/treasury/issues/88
 [#81]: https://github.com/dArignac/treasury/pull/81
 [#78]: https://github.com/dArignac/treasury/issues/78
 [#77]: https://github.com/dArignac/treasury/pull/77

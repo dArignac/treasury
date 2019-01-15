@@ -10,7 +10,7 @@
 </mdc-top-app-bar>
 
 <div class="content-wrapper">
-  <mdc-drawer #menu drawer="dismissible" mdcTopAppBarFixedAdjust class="drawer">
+  <mdc-drawer #menu [open]="!isScreenSmall()" [drawer]="isScreenSmall() ? 'modal' : 'dismissible'" mdcTopAppBarFixedAdjust class="drawer">
     <mdc-drawer-content>
       <mdc-list-group>
         <app-menu showImprint="showImprint"></app-menu>
