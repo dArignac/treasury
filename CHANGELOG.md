@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [//]: # "Fixed for any bug fixes."
 [//]: # "Security in case of vulnerabilities."
 
+## [Unreleased]
+### Fixed
+- fixed horizontal scrollbar on home page [#89]
+
 ## [1.1.0]
 ### Added
 - added optional imprint and data privacy statement component [#78] [#81]
@@ -56,6 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]: https://github.com/darignac/treasury/compare/v1.1.0...HEAD
 [1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#89]: https://github.com/dArignac/treasury/issues/89
 [#81]: https://github.com/dArignac/treasury/pull/81
 [#78]: https://github.com/dArignac/treasury/issues/78
 [#77]: https://github.com/dArignac/treasury/pull/77
