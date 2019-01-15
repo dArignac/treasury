@@ -1,105 +1,105 @@
 <section id="add-form" class="mt-3">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <h2 class="mb-4">Add movie(s):</h2>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="mb-4">Add movie(s):</h2>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col d-flex justify-content-start align-items-center mb-4">
-      <mdc-text-field
-        #search
-        class="search-input"
-        label="Search value"
-        [formControl]="movieControl"
-        [outlined]="true"
-        onfocus="search.value=null"
-      ></mdc-text-field>
-      <button mdc-button primary raised (click)="search.value = null;search.focus()" class="ml-2">Clear</button>
+    <div class="row">
+      <div class="col d-flex justify-content-start align-items-center mb-4">
+        <mdc-text-field
+          #search
+          class="search-input"
+          label="Search value"
+          [formControl]="movieControl"
+          [outlined]="true"
+          onfocus="search.value=null"
+        ></mdc-text-field>
+        <button mdc-button primary raised (click)="search.value = null;search.focus()" class="ml-2">Clear</button>
+      </div>
     </div>
-  </div>
-  <div class="row movie-results">
-    <ng-container *ngIf="results$ | async as movies">
-      <ng-container *ngIf="movies.length > 0; else empty">
-        <div class="col-12 col-lg-6 mb-2" *ngFor="let movie of movies">
-          <div class="row">
+    <div class="row movie-results">
+      <ng-container *ngIf="results$ | async as movies">
+        <ng-container *ngIf="movies.length > 0; else empty">
+          <div class="col-12 col-lg-6 mb-2" *ngFor="let movie of movies">
+            <div class="row">
 
-            <div class="col-2 hidden-xs">
-              <ng-container *ngIf="movie.getPosterImage('w92') as poster; else noPoster">
-                <img [src]="poster" alt="{{movie.title}}"/>
-              </ng-container>
-              <ng-template #noPoster>
-                <div class="no-poster text-center img-thumbnail pt-3">No image available</div>
-              </ng-template>
-            </div>
-
-            <div class="col-12 col-sm-10">
-
-              <div class="row">
-                <div class="col-12">
-                  <strong>{{movie.title}}</strong>
-                </div>
+              <div class="col-2 hidden-xs">
+                <ng-container *ngIf="movie.getPosterImage('w92') as poster; else noPoster">
+                  <img [src]="poster" alt="{{movie.title}}" />
+                </ng-container>
+                <ng-template #noPoster>
+                  <div class="no-poster text-center img-thumbnail pt-3">No image available</div>
+                </ng-template>
               </div>
 
-              <div class="row">
-                <div class="col-3 hidden-xs label">Release date:</div>
-                <div class="col-9">
-                  <span *ngIf="movie.release_date">{{ movie.release_date }}</span>
-                  <span *ngIf="!movie.release_date">Unknown</span>
-                </div>
-              </div>
+              <div class="col-12 col-sm-10">
 
-              <div class="row">
-                <div class="col-3 hidden-xs label">Starring:</div>
-                <div class="col-9">
-                  <span *ngIf="movie.credits_actresses.length > 0">{{ movie.credits_actresses }}</span>
-                  <span *ngIf="movie.credits_actresses.length == 0">Unknown</span>
+                <div class="row">
+                  <div class="col-12">
+                    <strong>{{movie.title}}</strong>
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-3 hidden-xs label">Directed by:</div>
-                <div class="col-9">
-                  <span *ngIf="movie.credits_directors.length > 0">{{ movie.credits_directors }}</span>
-                  <span *ngIf="movie.credits_directors.length == 0">Unknown</span>
+                <div class="row">
+                  <div class="col-3 hidden-xs label">Release date:</div>
+                  <div class="col-9">
+                    <span *ngIf="movie.release_date">{{ movie.release_date }}</span>
+                    <span *ngIf="!movie.release_date">Unknown</span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="col-3 hidden-xs"></div>
-                <div class="col-12 col-sm-9">
-                  <button
-                    mdc-button
-                    primary
-                    raised
-                    [disabled]="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]"
-                    [ngClass]="{
+                <div class="row">
+                  <div class="col-3 hidden-xs label">Starring:</div>
+                  <div class="col-9">
+                    <span *ngIf="movie.credits_actresses.length > 0">{{ movie.credits_actresses }}</span>
+                    <span *ngIf="movie.credits_actresses.length == 0">Unknown</span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-3 hidden-xs label">Directed by:</div>
+                  <div class="col-9">
+                    <span *ngIf="movie.credits_directors.length > 0">{{ movie.credits_directors }}</span>
+                    <span *ngIf="movie.credits_directors.length == 0">Unknown</span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-3 hidden-xs"></div>
+                  <div class="col-12 col-sm-9">
+                    <button
+                      mdc-button
+                      primary
+                      raised
+                      [disabled]="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]"
+                      [ngClass]="{
                       'warning': addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id],
                       'success': addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]
                     }"
-                    (click)="addMovie(movie)"
-                  >
-                    <span *ngIf="!addingItemsStatus.hasOwnProperty(movie.id)">Add</span>
-                    <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]">Adding...</span>
-                    <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]">Added!</span>
-                  </button>
+                      (click)="addMovie(movie)"
+                    >
+                      <span *ngIf="!addingItemsStatus.hasOwnProperty(movie.id)">Add</span>
+                      <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && !addingItemsStatus[movie.id]">Adding...</span>
+                      <span *ngIf="addingItemsStatus.hasOwnProperty(movie.id) && addingItemsStatus[movie.id]">Added!</span>
+                    </button>
+                  </div>
                 </div>
+
               </div>
 
+              <ng-template #errorModal></ng-template>
+
             </div>
-
-            <ng-template #errorModal></ng-template>
-
           </div>
-        </div>
+        </ng-container>
+        <ng-template #empty>
+          <div class="col">
+            No results found.
+          </div>
+        </ng-template>
       </ng-container>
-      <ng-template #empty>
-        <div class="col">
-          No results found.
-        </div>
-      </ng-template>
-    </ng-container>
+    </div>
   </div>
-</div>
 </section>
 <router-outlet></router-outlet>
