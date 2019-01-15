@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "serve": "ng serve -c dev --port 4444",
-    "build": "ng build --prod --stats-json",
+    "build": "ng build --prod --stats-json --aot --vendor-chunk --common-chunk ---delete-output-path --build-optimizer --optimization",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
