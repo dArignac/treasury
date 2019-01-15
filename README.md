@@ -5,7 +5,7 @@
 
 Find the documentation at https://darignac.github.io/treasury/
 
-Changelog: https://github.com/dArignac/treasury/CHANGELOG.md
+Changelog: https://github.com/dArignac/treasury/blob/master/CHANGELOG.md
 
 ## Sneak Peak (outdated)
 Movie list as of 2017-10-08 (Region: DE)
