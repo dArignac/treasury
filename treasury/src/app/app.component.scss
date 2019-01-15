@@ -9,11 +9,14 @@
 .content-wrapper {
   display: flex;
   position: relative;
-  height: 100vh;
   overflow: hidden;
 
   .drawer {
     position: fixed;
+  }
+
+  .mdc-drawer-app-content {
+    width: 100%;
   }
 
   .content {
