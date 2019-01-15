@@ -4,14 +4,15 @@ const functions = require('firebase-functions')
 
 admin.initializeApp();
 
-// Since this code will be running in the Cloud Functions enviornment
+// Since this code will be running in the Cloud Functions environment
 // we call initialize Firestore without any arguments because it
 // detects authentication from the environment.
 const firestore = admin.firestore();
 
 
 // triggered when a movie is created
-exports.createMovie = functions.firestore
+exports.createMovie = functions
+  .firestore
   .document('users/{userId}/movies/{movieId}')
   .onCreate((data, context) => {
     // get the counting document reference for the current user
@@ -43,7 +44,8 @@ exports.createMovie = functions.firestore
 });
 
 // triggered when a movie is deleted
-exports.deleteMovie = functions.firestore
+exports.deleteMovie = functions
+  .firestore
   .document('users/{userId}/movies/{movieId}')
   .onDelete((data, context) => {
     // get the counting document reference for the current user

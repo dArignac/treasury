@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
+- Firebase Functions do not work [#93]
 - navigation drawer is now visible on big screens [#88]
 - fixed that menu drawer is not fixed [#90]
 - fixed huge top bar [#91]
@@ -63,6 +64,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]: https://github.com/darignac/treasury/compare/v1.1.0...HEAD
 [1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#93]: https://github.com/dArignac/treasury/issues/93
 [#91]: https://github.com/dArignac/treasury/issues/91
 [#90]: https://github.com/dArignac/treasury/issues/90
 [#89]: https://github.com/dArignac/treasury/issues/89
