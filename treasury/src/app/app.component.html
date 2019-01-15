@@ -9,15 +9,19 @@
   </mdc-top-app-bar-row>
 </mdc-top-app-bar>
 
-<mdc-drawer #menu drawer="dismissible" mdcTopAppBarFixedAdjust>
-  <mdc-drawer-content>
-    <mdc-list-group>
-      <app-menu showImprint="showImprint"></app-menu>
-    </mdc-list-group>
-  </mdc-drawer-content>
-</mdc-drawer>
+<div class="content-wrapper">
+  <mdc-drawer #menu drawer="dismissible" mdcTopAppBarFixedAdjust class="drawer">
+    <mdc-drawer-content>
+      <mdc-list-group>
+        <app-menu showImprint="showImprint"></app-menu>
+      </mdc-list-group>
+    </mdc-drawer-content>
+  </mdc-drawer>
 
-<div #mainContent mdcDrawerAppContent mdcTopAppBarFixedAdjust>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <div #mainContent mdcDrawerAppContent mdcTopAppBarFixedAdjust>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
 </div>

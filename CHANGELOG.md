@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
+- fixed that menu drawer is not fixed [#90]
 - fixed huge top bar [#91]
 - fixed horizontal scrollbar on home page [#89]
 
@@ -62,6 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
 [#91]: https://github.com/dArignac/treasury/issues/91
+[#90]: https://github.com/dArignac/treasury/issues/90
 [#89]: https://github.com/dArignac/treasury/issues/89
 [#81]: https://github.com/dArignac/treasury/pull/81
 [#78]: https://github.com/dArignac/treasury/issues/78
