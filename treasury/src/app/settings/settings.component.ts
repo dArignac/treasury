@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import { MdcSnackbar } from '@angular-mdc/web';
+import { MdcSnackbar, MdcSwitchChange } from '@angular-mdc/web';
 
 import { BaseComponent } from '../base/base.component';
+import { BackupService } from '../services/backup.service';
 import { UserService } from '../services/user.service';
 import { UserSettings } from '../services/user-settings';
 import { IRegion } from '../themoviedb/iregion';
@@ -24,6 +25,7 @@ export class SettingsComponent extends BaseComponent {
   isCatalogPublic = false;
 
   constructor(private userService: UserService,
+              private backupService: BackupService,
               private snackbar: MdcSnackbar) {
     super();
     this.userService.userSettings$.subscribe(
@@ -54,8 +56,8 @@ export class SettingsComponent extends BaseComponent {
   /**
    * Toggles the catalog visibility.
    */
-  toggleCatalogVisibility() {
-   this.setUserSetting('isCatalogPublic', !this.isCatalogPublic);
+  toggleCatalogVisibility(event: MdcSwitchChange) {
+    this.setUserSetting('isCatalogPublic', event.checked);
   }
 
   /**
@@ -94,6 +96,10 @@ export class SettingsComponent extends BaseComponent {
         return 'English';
     }
     return 'unknown';
+  }
+
+  backupData() {
+    this.backupService.createAndServeExport();
   }
 
 }

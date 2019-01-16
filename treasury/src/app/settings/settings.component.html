@@ -3,63 +3,50 @@
     <div class="row">
       <div class="col">
         <h1>Settings</h1>
-        <div class="row">
-          <div class="col-6 col-sm-3">
-            <strong>Set the value</strong>
-          </div>
-          <div class="hidden-xs col-sm-6">
-            <strong>Description</strong>
-          </div>
-          <div class="col-6 col-sm-3">
-            <strong>Current value</strong>
-          </div>
-        </div>
-        <!-- language for TMDB -->
-        <div class="row mb-5">
-          <div class="col-6 col-sm-3">
-            <mdc-select #language autosize outlined class="mt-3" placeholder="Language" (selectionChange)="setTMDBRegion(language.getValue())">
-              <option
-                *ngFor="let lang of tmdbRegionChoices"
-                value="{{ lang.value }}"
-                [selected]="lang.value === tmdbRegionValue"
-              >{{ lang.displayValue }}</option>
-            </mdc-select>
-          </div>
-          <div class="hidden-xs col-sm-6">
-            This applies to the added movies or tv shows - their title and images will be saved in the set language. Does not apply to currently existing items
-            in your account.<br />
-            If you add an already added movie again with a new region, it gets updated to the new region.
-          </div>
-          <div class="col-6 col-sm-3">
-            {{ tmdbRegion }}
-          </div>
-        </div>
-        <!-- toggle catalog visibility -->
-        <div class="row mb-5">
-          <div class="col-6 col-sm-3">
-            <button mdc-button primary raised (click)="toggleCatalogVisibility()">
-              Set&nbsp;<span *ngIf="isCatalogPublic">invisible</span><span *ngIf="!isCatalogPublic">visible</span>
-            </button>
-          </div>
-          <div class="hidden-xs col-sm-6">
-            Sets your whole catalog visible / invisible to the public internet. Requires setting a nickname.
-          </div>
-          <div class="col-6 col-sm-3">
-            <span *ngIf="isCatalogPublic">Visible</span>
-            <span *ngIf="!isCatalogPublic">Invisible</span>
-          </div>
-        </div>
       </div>
     </div>
-
     <div class="row">
-      <div class="col">
-        <h3>Backup</h3>
-        <app-backup></app-backup>
-      </div>
-    </div>
 
-    <ng-template #errorModal></ng-template>
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-0 border-bottom-sm py-3">
+        <mdc-select #language autosize outlined placeholder="Language of movie data" (selectionChange)="setTMDBRegion(language.getValue())">
+          <option *ngFor="let lang of tmdbRegionChoices" value="{{ lang.value }}" [selected]="lang.value === tmdbRegionValue">{{ lang.displayValue }}</option>
+        </mdc-select>
+      </div>
+      <div class="hidden-sm col-sm-12 col-lg-6 order-lg-2 border-bottom pb-3">
+        <small>
+          This applies to the movies or tv shows you're adding - their title and images will be saved in the configured language. It does not apply to
+          currently existing items in your account. If you add an already added movie again after setting a new region, its values will be updated to the
+          new region.
+        </small>
+      </div>
+
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-1 border-bottom-sm py-3 d-flex align-items-center">
+        Public catalog
+        <mdc-switch class="mx-3" [(ngModel)]="isCatalogPublic" (change)="toggleCatalogVisibility($event)"></mdc-switch>
+      </div>
+      <div class="hidden-sm col-sm-12 col-lg-6 order-lg-3 border-bottom pb-3">
+        <small>
+          Sets your whole catalog visible / invisible to the public internet. Requires setting a nickname.
+        </small>
+      </div>
+
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-4 border-bottom-sm py-3">
+        <button mdc-button primary raised (click)="backupData()">Backup data</button>
+      </div>
+      <div class="hidden-sm col-sm-12 col-lg-6 order-lg-6 border-bottom pb-3">
+        <small>
+          Downloads your movie data as JSON file. Can be imported in a future version.
+        </small>
+      </div>
+
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-5 bottom-sm py-3">
+        Nickname TBA
+      </div>
+      <div class="hidden-sm col-sm-12 col-lg-6 order-lg-7 border-bottom pb-3">
+        Your nickname for the public catalog.
+      </div>
+
+    </div>
   </div>
 </section>
 <router-outlet></router-outlet>

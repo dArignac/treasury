@@ -17,13 +17,24 @@
 @import "variables";
 
 /* responsive adjustments */
-.hidden-xs {
-  display: none;
+@include media-breakpoint-down(xs) {
+  .hidden-xs {
+    display: none;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .hidden-sm {
+    display: none;
+  }
+  .border-bottom-sm {
+    border-bottom: $border-width solid $border-color !important;
+  }
 }
 
 @include media-breakpoint-up(md) {
-  .hidden-xs {
-    display: block;
+  .border-0-md {
+    border: 0 !important;
   }
 }
 
