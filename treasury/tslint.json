@@ -3,5 +3,20 @@
     "node_modules/codelyzer"
   ],
   "extends": ["angular-tslint-rules"],
-  "rules": {}
+  "rules": {
+    "component-selector": [
+      true,
+      "element",
+      [
+        "ngx",
+        "test",
+        "treasury"
+      ],
+      "kebab-case"
+    ],
+    "max-line-length": [
+      true,
+      160
+    ]
+  }
 }
