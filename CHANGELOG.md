@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [//]: # "Fixed for any bug fixes."
 [//]: # "Security in case of vulnerabilities."
 
+## [Unreleased]
+### Added
+- be able to set a nickname [#45]
+
 ## [1.1.2]
 ### Fixed
 - hidden footer is visible again [#94]

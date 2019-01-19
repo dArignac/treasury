@@ -26,7 +26,7 @@
       </div>
       <div class="hidden-sm col-sm-12 col-lg-6 order-lg-3 border-bottom pb-3">
         <small>
-          Sets your whole catalog visible / invisible to the public internet. Requires setting a nickname.
+          Sets your whole catalog visible / invisible to the public internet. Requires setting a nickname. <strong>Currently not used.</strong>
         </small>
       </div>
 
@@ -40,10 +40,21 @@
       </div>
 
       <div class="col-12 col-sm-12 col-lg-6 order-lg-5 bottom-sm py-3">
-        Nickname TBA
+        <mdc-text-field
+          (change)="handleNicknameChanged($event)"
+          [helperText]="nicknameHelper"
+          label="Nickname"
+          minlength="3"
+          outlined
+          [required]="isCatalogPublic"
+          value="{{nickname}}"
+        ></mdc-text-field>
+        <mdc-helper-text #nicknameHelper validation persistent>Enter a nickname with a least 3 characters, alphanumeric only.</mdc-helper-text>
       </div>
       <div class="hidden-sm col-sm-12 col-lg-6 order-lg-7 border-bottom pb-3">
-        Your nickname for the public catalog.
+        <small>
+          Your nickname for the public catalog. <strong>Currently not used.</strong>
+        </small>
       </div>
 
     </div>

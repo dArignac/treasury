@@ -23,6 +23,7 @@ export class SettingsComponent extends BaseComponent {
   tmdbRegion: string = null;
   tmdbRegionValue = 'EN';
   isCatalogPublic = false;
+  nickname: string = null;
 
   constructor(private userService: UserService,
               private backupService: BackupService,
@@ -51,6 +52,7 @@ export class SettingsComponent extends BaseComponent {
     this.tmdbRegion = this.getLanguageHumanReadable(settings.tmdbRegion);
     this.tmdbRegionValue = settings.tmdbRegion;
     this.isCatalogPublic = settings.isCatalogPublic;
+    this.nickname = settings.nickname;
   }
 
   /**
@@ -100,6 +102,10 @@ export class SettingsComponent extends BaseComponent {
 
   backupData() {
     this.backupService.createAndServeExport();
+  }
+
+  handleNicknameChanged(value: any) {
+    this.setUserSetting('nickname', value.trim());
   }
 
 }

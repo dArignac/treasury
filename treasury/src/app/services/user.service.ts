@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import * as _ from 'lodash';
+
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
@@ -9,7 +11,6 @@ import { IMovie } from '../themoviedb/imovie';
 import { Movie } from '../themoviedb/movie';
 import { UserSettings } from './user-settings';
 import { UserCounters } from './user-counters';
-import { isNullOrUndefined } from 'util';
 
 @Injectable()
 export class UserService {
@@ -38,14 +39,13 @@ export class UserService {
           this.userSettings$.subscribe(
             (userSettings) => {
               // if initial document does not exist, create it with default values
-              if (isNullOrUndefined(userSettings)) {
-                userSettings = {
-                  isCatalogPublic: false,
-                  tmdbRegion: 'EN'
-                };
+              if (userSettings === undefined || userSettings === null) {
+                userSettings = UserService.getInitialUserSettings();
                 this.afs.collection<UserSettings>('settings').doc(this.authService.id).set(userSettings);
               }
               this.userSettings = userSettings;
+
+              this.upgradeUserSettingsStructureIfNecessary();
             }
           );
 
@@ -55,10 +55,8 @@ export class UserService {
           this.userCounters$.subscribe(
             (userCounters) => {
               // if initial document does not exist, create it with default values
-              if (isNullOrUndefined(userCounters)) {
-                userCounters = {
-                  movies: 0
-                };
+              if (userCounters === undefined || userCounters === null) {
+                userCounters = UserService.getInitialUserCounters();
                 this.afs.collection<UserCounters>('counters').doc(this.authService.id).set(userCounters);
               }
               this.userCounters = userCounters;
@@ -67,6 +65,43 @@ export class UserService {
         }
       }
     );
+  }
+
+  static getInitialUserSettings(): UserSettings {
+    return {
+      nickname: '',
+      isCatalogPublic: false,
+      tmdbRegion: 'EN'
+    };
+  }
+
+  static getInitialUserCounters(): UserCounters {
+    return {
+      movies: 0
+    };
+  }
+
+  /**
+   * Checks if the user settings document has the current structure.
+   * If not, it upgrades it with new fields and their default values.
+   */
+  upgradeUserSettingsStructureIfNecessary(): void {
+    const initialSettings = UserService.getInitialUserSettings();
+    const newSettings = _.omit(initialSettings, _.keys(this.userSettings));
+    const newSettingsKeys = _.keys(newSettings);
+    if (newSettingsKeys.length > 0) {
+      console.log('UserSettings need upgrade...');
+      newSettingsKeys.forEach((key) => {
+        this.setUserSetting(key, initialSettings[key]).then(
+          () => {
+            console.log('Successfully set the new key ' + key + ' to user settings');
+          },
+          () => {
+            console.error('Upgrading the key "' + key + '" failed.');
+          }
+        );
+      });
+    }
   }
 
   /**
