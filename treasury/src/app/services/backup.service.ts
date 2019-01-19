@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import * as fs from 'file-saver';
 import * as _ from 'lodash';
@@ -6,18 +6,10 @@ import * as _ from 'lodash';
 import { share } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 
-@Component({
-  selector: 'app-backup',
-  templateUrl: './backup.component.html',
-  styleUrls: ['./backup.component.scss']
-})
-export class BackupComponent implements OnInit {
+@Injectable()
+export class BackupService {
 
-  constructor(private userService: UserService) {
-  }
-
-  ngOnInit() {
-  }
+  constructor(private userService: UserService) { }
 
   /**
    * Creates the backup and serves it as file download.
@@ -65,5 +57,4 @@ export class BackupComponent implements OnInit {
       filename + '.json'
     );
   }
-
 }

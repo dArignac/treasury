@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
-import { BackupComponent } from './backup/backup.component';
 import { BaseComponent } from './base/base.component';
 import { ErrorPageDefaultComponent } from './error-page-default/error-page-default.component';
 import { FooterComponent } from './footer/footer.component';
@@ -28,6 +27,7 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
+import { BackupService } from './services/backup.service';
 import { UserService } from './services/user.service';
 
 
@@ -49,7 +49,6 @@ export class RavenErrorHandler implements ErrorHandler {
     PageNotFoundComponent,
     HomeComponent,
     SettingsComponent,
-    BackupComponent,
     BaseComponent,
     ErrorPageDefaultComponent,
     FooterComponent,
@@ -73,6 +72,7 @@ export class RavenErrorHandler implements ErrorHandler {
     AuthGuard,
     TheMovieDbService,
     UserService,
+    BackupService,
     {provide: ErrorHandler, useClass: RavenErrorHandler}
   ],
   bootstrap: [AppComponent]
