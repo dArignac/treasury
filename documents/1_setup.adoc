@@ -36,11 +36,10 @@ Anyway, _treasury_ has prepared an imprint component for both imprint and data p
 * go to the https://console.firebase.google.com/u/0/[Firebase console] and create a new project
 * enable and configure *Authentication* (treasury is developed with Google auth only - any other auth should work but was not tested)
 * under *Database* enable Cloud Firestore
-* enable *Functions*
 * enable *Hosting* if you want to host _treasury_ directly on Firebase
 
 === Firebase environment settings
-Within the Firebase Console go to the _"Project Overview"_ and click _"Add Firebase to my WebApp"_, grab the displayed Firebase settings and update the development and/or production environment file you created before with it:
+Within the Firebase Console go to the _"Project Overview"_ and add Firebase to a webapp (click the icon with _"</>"_), grab the displayed Firebase settings and update the development and/or production environment file you created before with it:
 
 [source,typescript]
 -------------------
@@ -58,24 +57,13 @@ export const environment = {
 -------------------
 
 === Firebase local setup
-To be able to push the project contents to your newly created Firebase project, you need to install the Firebase CLI on your local machine. We install it into the global npm space of your machine.
+To be able to push the project contents to your newly created Firebase project, you need to install the Firebase CLI on your local machine. We install it into the global yarn space of your machine.
 
 Therefore run the following:
 
 [source]
 --------
-npm install -g firebase-tools firebase firebase-functions@latest firebase-admin@latest
---------
-
-The go to the project folder (the initially cloned folder containing the folders `treasury`, `documents` and `functions`) and create a file called `.firebaserc` and add the following content (grab the `PROJECT-ID` from the Firebase Console, under `Settings`):
-
-[source]
---------
-{
-  "projects": {
-    "default": "PROJECT-ID"
-  }
-}
+yarn global add firebase-tools firebase firebase-functions@latest firebase-admin@latest
 --------
 
 === The Movie DB setup
@@ -101,11 +89,11 @@ Now that you have configured the Firebase and TMDB settings, you can install the
 
 [source]
 --------
-npm install -g @angular/cli
-npm install
+yarn global add @angular/cli
+yarn
 --------
 
-This installs https://cli.angular.io/[Angular CLI] in the global npm scope and installs all required packages of _treasury_ locally (and thus created the `node_modules` folder).
+This installs https://cli.angular.io/[Angular CLI] in the global yarn scope and installs all required packages of _treasury_ locally (and thus created the `node_modules` folder).
 
 === Run in development mode
-For development, simply run `npm run serve` from the treasury folder and open your browser at http://localhost:4444
+For development, simply run `yarn run serve` from the treasury folder and open your browser at http://localhost:4444

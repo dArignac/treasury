@@ -4,7 +4,7 @@ Alexander Herrmann
 :toclevels: 4
 :numbered:
 :imagesdir: img
-:docversion: 1.2
+:docversion: 1.2.1
 :docuri: https://darignac.github.io/treasury/
 :sourcecodeuri: https://github.com/dArignac/treasury
 :source-highlighter: prettify
@@ -47,6 +47,13 @@ include::2_deployment.adoc[]
 include::3_development.adoc[]
 
 == History of this documentation
+* 1.2.1
+** minor corrections to fit current Firebase version and tools
+*** Firebase Functions do not need to be enabled manually anymore
+*** changed "Add Firebase to Webapp" to reflect current UI of Firebase
+*** `.firebaserc` is no longer necessary
+*** specified how to deploy for a specific project in case there is not only a single project in the account
+** changed to `yarn` instead of `npm`
 * 1.2
 ** rewrote everything
 ** fixed some phrases and links
