@@ -1,33 +1,33 @@
 <mdc-list class="pt-1">
 
-  <a mdc-list-item [routerLink]="['']" [selected]="router.url == '/'">
+  <a data-cy="menu-link-home" mdc-list-item [routerLink]="['']" [selected]="router.url == '/'">
     <mdc-icon mdcListItemGraphic>home</mdc-icon>Home
   </a>
 
-  <a mdc-list-item (click)="authService.login()" href="javascript:;;" *ngIf="!authService.authenticated">
+  <a data-cy="menu-link-login" mdc-list-item (click)="authService.login()" href="javascript:;;" *ngIf="!authService.authenticated">
     <mdc-icon mdcListItemGraphic>account_circle</mdc-icon>Login
   </a>
 
   <ng-container *ngIf="authService.authenticated">
     <mdc-list-divider></mdc-list-divider>
-    <a mdc-list-item [routerLink]="['add-movie']" [selected]="router.url == '/add-movie'">
+    <a data-cy="menu-link-add-movie" mdc-list-item [routerLink]="['add-movie']" [selected]="router.url == '/add-movie'">
       <mdc-icon mdcListItemGraphic>library_add</mdc-icon>Add movies
     </a>
-    <a mdc-list-item [routerLink]="['movies']" [selected]="router.url == '/movies'">
+    <a data-cy="menu-link-movies" mdc-list-item [routerLink]="['movies']" [selected]="router.url == '/movies'">
       <mdc-icon mdcListItemGraphic>movie</mdc-icon>Movies
     </a>
-    <a mdc-list-item [routerLink]="['settings']" [selected]="router.url == '/settings'">
+    <a data-cy="menu-link-settings" mdc-list-item [routerLink]="['settings']" [selected]="router.url == '/settings'">
       <mdc-icon mdcListItemGraphic>settings</mdc-icon>Settings
     </a>
     <mdc-list-divider></mdc-list-divider>
-    <a mdc-list-item (click)="authService.logout()" href="javascript:;;">
+    <a data-cy="menu-link-logout" mdc-list-item (click)="authService.logout()" href="javascript:;;">
       <mdc-icon mdcListItemGraphic>exit_to_app</mdc-icon>Logout
     </a>
   </ng-container>
 
   <ng-container *ngIf="showImprint">
     <mdc-list-divider></mdc-list-divider>
-    <a mdc-list-item [routerLink]="['imprint']" [selected]="router.url == '/imprint'">
+    <a data-cy="menu-link-imprint" mdc-list-item [routerLink]="['imprint']" [selected]="router.url == '/imprint'">
       <mdc-icon mdcListItemGraphic>info</mdc-icon>Imprint & Data Privacy Statement
     </a>
   </ng-container>

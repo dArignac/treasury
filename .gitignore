@@ -1,5 +1,22 @@
+# Firebase
 .firebaserc
 .firebase
+
+# IntelliJ
 .idea
+
+# Sonarcloud
 .scannerwork
+
+# Angular
+treasury/dist
+treasury/node_modules
+treasury/src/environments/environment.*.ts
+
+# Cypress
+treasury/cypress/fixtures/example.json
+treasury/cypress/integration/examples
+treasury/serviceAccount.json
+
+# documentation
 documents/index.html
