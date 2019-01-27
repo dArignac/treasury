@@ -47,6 +47,8 @@ include::2_deployment.adoc[]
 include::3_development.adoc[]
 
 == History of this documentation
+* TBA
+** added Continuous Integration setup docs
 * 1.2.1
 ** minor corrections to fit current Firebase version and tools
 *** Firebase Functions do not need to be enabled manually anymore

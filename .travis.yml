@@ -6,9 +6,6 @@ addons:
   sonarcloud:
     organization: "darignac-github"
 
-services:
-  - docker
-
 cache:
   yarn: true
   directories:
@@ -17,30 +14,8 @@ cache:
 
 stages:
   - test
-  - name: documentation
-    if: branch = master
 
 script:
   - git fetch --unshallow
   - yarn
   - NODE_PATH=$HOME/node_modules sonar-scanner
-
-jobs:
-  include:
-    - stage: documentation
-      before_install:
-        - docker pull darignac/asciidoctor
-      script:
-        - make documentation
-      after_error:
-        - docker logs asciidoc-to-html
-      after_failure:
-        - docker logs asciidoc-to-html
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        local_dir: documents
-        target_branch: gh-pages
-        github_token: $GITHUB_TOKEN
-        on:
-          branch: master
