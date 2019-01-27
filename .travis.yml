@@ -10,6 +10,11 @@ cache:
     - '$HOME/.sonar/cache'
     - node_modules
 
+stages:
+  - test
+  - name: documentation
+    if: branch = master
+
 jobs:
   include:
     - stage: test
@@ -19,4 +24,10 @@ jobs:
         - git fetch --unshallow
         - NODE_PATH=$HOME/node_modules sonar-scanner
     - stage: documentation
-      script: echo "Will build documentation soon"
+      services:
+        - docker
+      before_install: docker pull darignac/asciidoctor
+      after_error: docker logs asciidoc-to-html
+      after_failure: docker logs asciidoc-to-html
+      name: "Generate AsciiDoc documentation"
+      script: make documentation
