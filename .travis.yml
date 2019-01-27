@@ -10,10 +10,13 @@ cache:
     - '$HOME/.sonar/cache'
     - node_modules
 
-stages:
-  - test
-
-script:
-  - git fetch --unshallow
-  - yarn add typescript@2.9.2
-  - NODE_PATH=$HOME/node_modules sonar-scanner
+jobs:
+  include:
+    - stage: test
+      name: "SonarCloud analysis"
+      script:
+        - git fetch --unshallow
+        - yarn add typescript@2.9.2
+        - NODE_PATH=$HOME/node_modules sonar-scanner
+    - stage: documentation
+      script: echo "Will build documentation soon"
