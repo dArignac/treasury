@@ -31,3 +31,11 @@ jobs:
       after_failure: docker logs asciidoc-to-html
       name: "Generate AsciiDoc documentation"
       script: make documentation
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: documents
+        target_branch: gh-pages
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master
