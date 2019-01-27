@@ -1,6 +1,4 @@
-language: node_js
-node_js:
-  - "node"
+dist: trusty
 
 addons:
   sonarcloud:
@@ -17,5 +15,5 @@ stages:
 
 script:
   - git fetch --unshallow
-  - yarn
+  - yarn add typescript@2.9.2
   - NODE_PATH=$HOME/node_modules sonar-scanner
