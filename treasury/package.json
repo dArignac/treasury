@@ -11,10 +11,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release": "release-it",
-    "cypress": "cypress open",
-    "cy:buildTestConfig": "cypress-firebase createTestEnvFile",
-    "cy:test": "yarn run build:buildTestConfig cypress run",
-    "cy:open": "yarn run build:buildTestConfig cypress open",
+    "cy:prepareci": "cypress-firebase createTestEnvFile",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,

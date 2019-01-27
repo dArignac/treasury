@@ -1,4 +1,9 @@
-describe('Landing Page', function() {
+describe('Landing Page Unauthenticated', function() {
+
+  before(() => {
+    cy.logout();  //FIXME this fails
+  });
+
   it('successfully loads', function() {
     cy.visit('/');
 

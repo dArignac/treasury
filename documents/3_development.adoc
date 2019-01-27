@@ -8,9 +8,68 @@ However, if you like to contribute, please get in touch through https://github.c
 === Workflows
 * use `ng update` to update Angular stuff
 * use `ng generate component --project=treasury` to create a new component
-* use `npm outdated` to find outdated packages
+* use `yarn outdated` to find outdated packages
 * use `make update-data-privacy` from the root directory to update the HTML of the `DataPrivacyComponent` from the contents of `DATA-PRIVACY.md`
 
-=== Development insights
+=== Continuous Integration
+Uses https://travis-ci.org/dArignac/treasury[Travis-CI] for automated pipeline. Each single step can also be run locally.
+
+==== Stage descriptions and setup
+===== test
+* this is the Travis-CI default stage
+
+===== Execution targets
+* install all libs
+* run https://www.cypress.io/[Cypress] tests
+* run https://sonarcloud.io/dashboard?id=dArignac_treasury[SonarCloud] analysis
+
+===== Prerequisites
+====== Cypress
+The following describes what we need for Cypress in CI. Separates by stage we describe the setup in the following.
+
+* needs a separate Firebase project for testing, leverages https://github.com/prescottprue/cypress-firebase[cypress-firebase] for Firebase support in Cypress
+* the Firebase project needs a service account, can be created in the https://console.firebase.google.com/u/0/project/_/settings/serviceaccounts/adminsdk[Firebase SDK Console], results need to be saved in `./treasury/serviceAccount.json`
+* the Firebase project needs a user account for testing
+* the project ID of the Firebase projects needs to be available in `./treasury/.firebaserc`
+* the Firebase config values (grab from Firebase portal) need to be either in the `./treasury/cypress.env.json` file (best for local runs) or set as environment variables (CI)
+* the Angular application itself needs a proper `environment.ci.ts` with the Firebase project settings for test
+
+*Locally* +
+
+* setup `./treasury/cypress.env.json` with
+[source]
+--------
+{
+  "TEST_UID": "id of the user with whom the tests are run (from Firebase portal)",
+  "FIREBASE_API_KEY": "apiKey (from Firebase portal)",
+  "FIREBASE_AUTH_DOMAIN": "authDomain (from Firebase portal)",
+  "FIREBASE_DATABASE_URL": "databaseUrl (from Firebase portal)",
+  "FIREBASE_STORAGE_BUCKET": "storageBucket (from Firebase portal)",
+  "FIREBASE_MESSAGING_SENDER_ID": "messagingSenderId (from Firebase portal)",
+}
+--------
+* run `yarn run cy:prepareci` from within the `./treasury` folder
+** this adds `FIREBASE_PROJECT_ID` (coming from the `.firebaserc` file) and `FIREBASE_AUTH_JWT` to `./treasury/cypress.env.json`
+* then run either `yarn run cy:open` for the UI or `yarn run cy:run` for headless testing
+
+*CI* +
+
+* TBA - FIXME grab the values from Travis CI Env for the cypress run via --env and for angualars env enviroment.ci.ts
+* create the build, run on the artefact?
+
+====== SonarCloud
+* the addon `sonarcloud` needs to be defined in the `addons` section of `.travis-yml`
+* the folder `$HOME/.sonar/cache` needs to be cached in `.travis-yml`
+* an unshallowed git copy must be given, otherwise SonarCloud complains about not being able to reference commits
+** `git fetch --unshallow` needs to be run before everything else in `scripts` in `.travis-yml`
+
+===== make-docs
+FIXME TBA
+
+===== deploy-docs
+FIXME TBA
+
+
+=== References
 * https://github.com/angular/angularfire2 for Angular-Firebase bindings
 * https://github.com/trimox/angular-mdc-web for Material Design

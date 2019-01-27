@@ -14,8 +14,12 @@ treasury/node_modules
 treasury/src/environments/environment.*.ts
 
 # Cypress
+treasury/cypress/config.json
 treasury/cypress/fixtures/example.json
 treasury/cypress/integration/examples
+treasury/cypress/screenshots
+treasury/cypress/videos
+treasury/cypress.env.json
 treasury/serviceAccount.json
 
 # documentation
