@@ -14,7 +14,16 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+const cypressFirebasePlugin = require('cypress-firebase').plugin;
+
+module.exports = (on, config) => {
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
+
+  // Return extended config (with settings from .firebaserc)
+  return cypressFirebasePlugin(config);
+};

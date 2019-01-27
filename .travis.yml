@@ -1,8 +1,6 @@
-branches:
-  only:
-    - master
-
-dist: trusty
+language: node_js
+node_js:
+  - "node"
 
 addons:
   sonarcloud:
@@ -12,29 +10,41 @@ services:
   - docker
 
 cache:
+  yarn: true
   directories:
     - '$HOME/.sonar/cache'
+    - node_modules
 
-before_install:
-  - docker pull darignac/asciidoctor
+stages:
+  - test
+  - name: make-docs
+    if: branch = master
+  - name: deploy-docs
+    if: branch = master
 
 script:
   - git fetch --unshallow
-  - make documentation
-  - npm install typescript@2.9.2
+  - yarn
   - NODE_PATH=$HOME/node_modules sonar-scanner
 
-after_error:
-  - docker logs asciidoc-to-html
-
-after_failure:
-  - docker logs asciidoc-to-html
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: documents
-  target_branch: gh-pages
-  github_token: $GITHUB_TOKEN
-  on:
-    branch: master
+jobs:
+  include:
+    - stage: make-docs
+      before_install:
+        - docker pull darignac/asciidoctor
+      script:
+        - make documentation
+      after_error:
+        - docker logs asciidoc-to-html
+      after_failure:
+        - docker logs asciidoc-to-html
+    - stage: deploy-docs
+      script: "Deploying to Github Pages"
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: documents
+        target_branch: gh-pages
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master
