@@ -2,27 +2,45 @@ dist: trusty
 
 addons:
   sonarcloud:
-    organization: "darignac-github"
+    organization: 'darignac-github'
 
 cache:
   yarn: true
   directories:
-    - '$HOME/.sonar/cache'
-    - node_modules
+    - "$HOME/.cache"
+    - "$HOME/.sonar/cache"
+    - "$TRAVIS_BUILD_DIR/node_modules"
 
 stages:
-  - test
+  - jasmine
+  - cypress
   - name: documentation
     if: branch = master
 
+after_script:
+  - echo "after script is running..."
+
 jobs:
   include:
-    - stage: test
-      name: "SonarCloud analysis"
-      install: yarn add typescript@2.9.2
+    - stage: jasmine
+      name: "Jasmine tests & Code analysis"
+      install:
+        - yarn add typescript@2.9.2
       script:
+        - echo "TODO run the jasmine stuff with yarn run ng test --configuration ci"
         - git fetch --unshallow
         - NODE_PATH=$HOME/node_modules sonar-scanner
+    - stage: cypress
+      name: "Cypress tests"
+      node_js: "11"
+      before_install:
+        - cd treasury
+      install:
+        - ./ci-before.sh
+      script:
+        - yarn run ci
+      after_script:
+        - ./ci-after.sh
     - stage: documentation
       services:
         - docker

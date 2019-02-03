@@ -1,30 +1,23 @@
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
-
 // displays all relevant values, however, create a custom environment.dev.ts for local dev usage with the appropriate credentials in it
 export const environment = {
-  production: false,
+  production: true,
   debugRouting: false,
   sentryDSN: '', // sentry DNS, leave empty to not use sentry
   firebase: {
     // your firebase settings, see overview of your firebase app in the firebase console
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: ''
+    apiKey: 'FIREBASE_API_KEY',
+    authDomain: 'FIREBASE_AUTH_DOMAIN',
+    databaseURL: 'FIREBASE_DATABASE_URL',
+    projectId: 'FIREBASE_PROJECT_ID',
+    storageBucket: 'FIREBASE_STORAGE_BUCKET',
+    messagingSenderId: 'FIREBASE_MESSAGING_SENDER_ID'
   },
   themoviedb: {
     // your themoviedb.org API key, see https://www.themoviedb.org/settings/api
-    apiKey: '',
+    apiKey: 'THEMOVIEDB_API_KEY',
     imageBaseURL: 'https://image.tmdb.org/t/p/'
   },
-  /*
-  if you set enableImprint to true, ensure to copy the imprint template imprint.component.tmpl
-  in src/app/imprint/imprint.component.html to imprint.component.html and adjust the content!
-  */
+  // if you set enableImprint to true, ensure to copy the imprint template imprint.component.tmpl
+  // in src/app/imprint/imprint.component.html to imprint.component.html and adjust the content!
   enableImprint: false
 };
