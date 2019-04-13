@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
-
-import { MdcSnackbar, MdcSwitchChange } from '@angular-mdc/web';
-
-import { BaseComponent } from '../base/base.component';
-import { BackupService } from '../services/backup.service';
-import { UserService } from '../services/user.service';
-import { UserSettings } from '../services/user-settings';
-import { IRegion } from '../themoviedb/iregion';
+import {Component} from '@angular/core';
+import {MdcSnackbar, MdcSwitchChange} from '@angular-mdc/web';
+import {BaseComponent} from '../base/base.component';
+import {BackupService} from '../services/backup.service';
+import {UserService} from '../services/user.service';
+import {UserSettings} from '../services/user-settings';
+import {IRegion} from '../themoviedb/iregion';
 
 
 @Component({
@@ -64,25 +62,26 @@ export class SettingsComponent extends BaseComponent {
 
   /**
    * Sets the TMDB region value of the user to the given value.
-   * @param {string} identifier language value as ISO-3166-1 code
+   * @param identifier language value as ISO-3166-1 code
    */
   setTMDBRegion(identifier: string) {
-   this.setUserSetting('tmdbRegion', identifier);
+    this.setUserSetting('tmdbRegion', identifier);
   }
 
   /**
    * Sets a user setting with the provided values to the settings document of the current user.
-   * @param {string} key the settings key
-   * @param {string|boolean} value the value to set
+   * @param key the settings key
+   * @param value the value to set
    */
-  private setUserSetting(key: string, value: string|boolean) {
+  private setUserSetting(key: string, value: string | boolean) {
     this.userService.setUserSetting(key, value).then(
-      () => {},
+      () => {
+      },
       () => {
         // FIXME send to sentry
         this.snackbar.open(
           'An error occurred while updating a user value. This may happened because the underlying Firebase database service returned an invalid '
-            + ' response. Please refresh the page an try again!',
+          + ' response. Please refresh the page an try again!',
           'Close',
           this.getSnackbarConfig()
         );

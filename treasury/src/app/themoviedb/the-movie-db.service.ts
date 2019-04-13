@@ -1,19 +1,14 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
-
-
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import * as Raven from 'raven-js';
-
 import * as _ from 'lodash';
-
-import { environment } from '../../environments/environment';
-import { Movie } from './movie';
-import { MovieCreditsResponse } from './credits/movie-credits-response';
-import { MovieSearchResponse } from './movie-search-response';
-import { UserService } from '../services/user.service';
-import { MovieCreditsCrewResponse } from './credits/movie-credits-crew-response';
-import { MovieCreditsCastResponse } from './credits/movie-credits-cast-response';
+import {environment} from '../../environments/environment';
+import {Movie} from './movie';
+import {MovieCreditsResponse} from './credits/movie-credits-response';
+import {MovieSearchResponse} from './movie-search-response';
+import {UserService} from '../services/user.service';
+import {MovieCreditsCrewResponse} from './credits/movie-credits-crew-response';
+import {MovieCreditsCastResponse} from './credits/movie-credits-cast-response';
 
 @Injectable()
 export class TheMovieDbService {
@@ -25,9 +20,9 @@ export class TheMovieDbService {
 
   /**
    * Returns the appropriate URL for the given section.
-   * @param {string} section
-   * @param id {number} id
-   * @returns {string}
+   * @param section name of the section
+   * @param id the id of the movie
+   * @returns the api url
    */
   private getURL(section: string, id?: number): string {
     let segment = '';
@@ -43,7 +38,7 @@ export class TheMovieDbService {
 
   /**
    * Returns the basic query params necessary for every API call.
-   * @returns {HttpParams}
+   * @returns HTTP params containing auth info
    */
   private getBasicQueryParams(): HttpParams {
     let p = new HttpParams();
@@ -53,8 +48,8 @@ export class TheMovieDbService {
 
   /**
    * Returns the query params for searching movies.
-   * @param {string} title
-   * @returns {HttpParams}
+   * @param title title of the item to search for
+   * @returns HTTP params with required values
    */
   private getMovieSearchQueryParams(title: string): HttpParams {
     let p = this.getBasicQueryParams();
@@ -68,14 +63,13 @@ export class TheMovieDbService {
 
   /**
    * Searches for movies with the given title.
-   * @param {string} title
-   * @returns {Promise<any>}
+   * @param title the title of the movie
    */
   public async getMovies(title: string): Promise<any> {
     const response = await this.http.get<MovieSearchResponse>(this.getURL('search_movie'), {params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
-        (query_response) => this.extractMoviesFromSearch(query_response),
+        (queryResponse) => this.extractMoviesFromSearch(queryResponse),
         () => {
           return [{error: 500, title: 'Unable to communicate properly with The Movie DB API (1)'}];
         }
@@ -92,12 +86,12 @@ export class TheMovieDbService {
 
   /**
    * Queries additional data for the given movies and returns the updated movie instance list.
-   * @param {any[]} movies
-   * @returns {Promise<any>}
+   * @param movies the movies to query for
+   * @returns the given movie list enhanced with credits info
    */
   private queryAdditionals(movies: any[]) {
-    const original_count = movies.length;
-    let current_count = 0;
+    const originalCount = movies.length;
+    let currentCount = 0;
     return new Promise((resolve, reject) => {
       if (movies.length > 0) {
         for (const movie of movies) {
@@ -105,8 +99,8 @@ export class TheMovieDbService {
             (credits) => {
               movie.credits_actresses = this.getActresses(credits.cast);
               movie.credits_directors = this.getDirectors(credits.crew);
-              current_count++;
-              if (current_count === original_count) {
+              currentCount++;
+              if (currentCount === originalCount) {
                 resolve(movies);
               }
             },
@@ -125,8 +119,8 @@ export class TheMovieDbService {
 
   /**
    * Extracts the Movies from the returned response.
-   * @param {MovieSearchResponse} response
-   * @returns {any}
+   * @param response the response from api
+   * @returns mapped movies
    */
   private extractMoviesFromSearch(response: MovieSearchResponse): any[] {
     if (response.total_results > 0) {
@@ -134,24 +128,24 @@ export class TheMovieDbService {
         .results
         .map(Movie.fromTMDBMovieSearchResult)
         .sort(
-        (n1, n2) => {
-          if (n1.title > n2.title) {
-            return 1;
+          (n1, n2) => {
+            if (n1.title > n2.title) {
+              return 1;
+            }
+            if (n1.title < n2.title) {
+              return -1;
+            }
+            return 0;
           }
-          if (n1.title < n2.title) {
-            return -1;
-          }
-          return 0;
-        }
-      );
+        );
     }
     return [];
   }
 
   /**
    * Queries for the credits of the movie with the given id.
-   * @param {number} id
-   * @returns {Promise<any>}
+   * @param id the id of the move to query
+   * @returns the credits
    */
   private async getMovieCredits(id: number): Promise<any> {
     const response = await this.http.get<MovieCreditsResponse>(this.getURL('movie_credits', id), {params: this.getBasicQueryParams()})
@@ -161,8 +155,8 @@ export class TheMovieDbService {
 
   /**
    * Extracts the top three actresses from the response object.
-   * @param {MovieCreditsCastResponse[]} cast
-   * @returns {string}
+   * @param cast the response to a cast api query
+   * @returns the three top actresses
    */
   private getActresses(cast: MovieCreditsCastResponse[]): string {
     // grab only the first 3 actresses
@@ -170,9 +164,7 @@ export class TheMovieDbService {
       _.map(
         _.filter(
           cast,
-          function (human: MovieCreditsCastResponse) {
-            return human.order < 3;
-          }
+          (human: MovieCreditsCastResponse) => human.order < 3
         ),
         'name'
       ),
@@ -182,17 +174,15 @@ export class TheMovieDbService {
 
   /**
    * Extracts the directors from the response object.
-   * @param {MovieCreditsCrewResponse[]} crew
-   * @returns {string}
+   * @param crew the response to a crew api query
+   * @returns the directors
    */
   private getDirectors(crew: MovieCreditsCrewResponse[]) {
     return _.join(
       _.map(
         _.filter(
           crew,
-          function (human: MovieCreditsCrewResponse) {
-            return human.department === 'Directing' && human.job === 'Director'
-          }
+          (human: MovieCreditsCrewResponse) => human.department === 'Directing' && human.job === 'Director'
         ),
         'name'
       ),

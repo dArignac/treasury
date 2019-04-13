@@ -1,5 +1,4 @@
 import { isNull } from 'util';
-
 import { environment } from '../../environments/environment';
 import { IMovie } from './imovie';
 

@@ -1,16 +1,12 @@
-import { Injectable } from '@angular/core';
-
+import {Injectable} from '@angular/core';
 import * as _ from 'lodash';
-
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-
-import { Observable } from 'rxjs';
-
-import { AuthService } from './auth.service';
-import { IMovie } from '../themoviedb/imovie';
-import { Movie } from '../themoviedb/movie';
-import { UserSettings } from './user-settings';
-import { UserCounters } from './user-counters';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import {AuthService} from './auth.service';
+import {IMovie} from '../themoviedb/imovie';
+import {Movie} from '../themoviedb/movie';
+import {UserSettings} from './user-settings';
+import {UserCounters} from './user-counters';
 
 @Injectable()
 export class UserService {
@@ -22,7 +18,7 @@ export class UserService {
   userCounters$: Observable<UserCounters>;
   userSettings: UserSettings;
   userCounters: UserCounters = {
-    'movies': 0
+    movies: 0
   };
 
   constructor(private authService: AuthService, private afs: AngularFirestore) {
@@ -106,8 +102,8 @@ export class UserService {
 
   /**
    * Adds the given movie to the current user's catalog.
-   * @param {Movie} movie
-   * @returns {Promise<boolean>} if it was added ot the user catalog, if not, it already exists
+   * @param movie the movie to add to the user catalog
+   * @returns if it was added ot the user catalog, if not, it already exists
    */
   addMovie(movie: Movie): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -124,8 +120,8 @@ export class UserService {
 
   /**
    * Removes the given movie from the user's collection.
-   * @param {IMovie} movie
-   * @returns {Promise<boolean>}
+   * @param movie the movie to remove
+   * @returns if removal was successful
    */
   removeMovie(movie: IMovie): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
@@ -143,7 +139,7 @@ export class UserService {
   /**
    * Returns the movie collection of the current user.
    * It's sorted by title.
-   * @returns {AngularFirestoreCollection<IMovie>}
+   * @return the movie collection
    */
   getMovieCollection(): AngularFirestoreCollection<IMovie> {
     return this.afs.collection<{}>('users')
@@ -159,7 +155,7 @@ export class UserService {
    * @param key the key to user
    * @param value the value to set
    */
-  setUserSetting(key: string, value: string|boolean): Promise<boolean> {
+  setUserSetting(key: string, value: string | boolean): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       const settings = this.userSettings;
       settings[key] = value;
