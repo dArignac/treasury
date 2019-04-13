@@ -9,7 +9,6 @@ However, if you like to contribute, please get in touch through https://github.c
 * use `ng update` to update Angular stuff
 * use `ng generate component --project=treasury` to create a new component
 * use `yarn outdated` to find outdated packages
-* use `make update-data-privacy` from the root directory to update the HTML of the `DataPrivacyComponent` from the contents of `DATA-PRIVACY.md`
 
 === Continuous Integration
 Uses https://travis-ci.org/dArignac/treasury[Travis-CI] for automated pipeline. Each single step can also be run locally.
