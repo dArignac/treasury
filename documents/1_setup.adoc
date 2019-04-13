@@ -67,6 +67,19 @@ Therefore run the following:
 yarn global add firebase-tools firebase firebase-functions@latest firebase-admin@latest
 --------
 
+NOTE: The following is not necessary if you do not want to publish to Firebase.
+
+Setup Firebase locally as follows. +
+All required files are already part of the project (`firebase.json`, `firestore.indexes.json`, `firestore.rules`), we just let Firebase create the `.firebaserc`.
+
+When the `firebase init` command asks what to setup, choose *Functions* and *Firestore*. Don't overwrite the files that are identified as already existing. Also do not install the `npm` dependencies:
+
+[source]
+--------
+firebase login
+firebase init
+--------
+
 === The Movie DB setup
 * sign up for an TMDB account at https://www.themoviedb.org/account/signup[The Movie DB] or https://www.themoviedb.org/login[log into an existing one]
 * goto https://www.themoviedb.org/settings/api and grab the `API Key (v3 auth)`

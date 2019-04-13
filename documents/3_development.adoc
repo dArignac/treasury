@@ -52,13 +52,13 @@ The steps are:
 ===== Cypress
 Runs the Cypress (E2E) tests
 
-* Prerequisites (are covered in the `ci-*.sh` scripts and `.travis.yml`):
+* Prerequisites (are covered in the `ci-*.sh` scripts and `.travis.yml` - no need for you to act, for local setup see below)
 ** needs a separate Firebase project for testing, leverages https://github.com/prescottprue/cypress-firebase[cypress-firebase] for Firebase support in Cypress
 ** the Firebase project needs a service account, can be created in the https://console.firebase.google.com/u/0/project/_/settings/serviceaccounts/adminsdk[Firebase SDK Console], results need to be saved in `./treasury/serviceAccount.json` (for TravisCI each key is a environment variable)
 *** if you already created one but lost the data, just click "Generate new private key"
 ** the Firebase project needs a user account for testing (`TEST_UID`), select a User UID from the user table in the Firebase console > Develop > Authentication
 ** the project ID of the Firebase projects needs to be available in `./treasury/.firebaserc`
-** the Firebase config values (grab from Firebase portal or `src/environments/environment.dev.ts` locally) need to be either in the `./treasury/cypress.env.json` file (best for local runs) or set as environment variables (CI)
+** the Firebase config values (grab from Firebase portal) need to be either in the `./treasury/cypress.env.json` file (best for local runs) or set as environment variables (CI)
 ** the Angular application itself needs a proper `environment.ci.ts` with the Firebase project settings for test
 
 * Workflow
@@ -73,7 +73,8 @@ Runs the Cypress (E2E) tests
 ** run server with dist & run cypress
 
 ==== Run locally
-* copy `./treasury/cypress.env.json.tmpl` to `./treasury/cypress.env.json` and adjust the values:
+* copy `./.firebaserc` into `./treasury/.firebaserc`
+* copy `./treasury/cypress.env.json.tmpl` to `./treasury/cypress.env.json` and adjust the values with the ones from `src/environments/environment.dev.ts` or the Firebase portal:
 [source]
 --------
 {
@@ -87,6 +88,7 @@ Runs the Cypress (E2E) tests
 --------
 * run `yarn run cy:prepareci` from within the `./treasury` folder
 ** this adds `FIREBASE_PROJECT_ID` (coming from the `.firebaserc` file) and `FIREBASE_AUTH_JWT` to `./treasury/cypress.env.json`
+* ensure _treasury_ is running (`yarn serve`)
 * then run either `yarn run cy:open` for the UI or `yarn run cy:run` for headless testing
 
 === References
