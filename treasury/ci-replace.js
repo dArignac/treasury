@@ -7,7 +7,7 @@ let files = [
     'target': 'src/environments/environment.ci.ts',
   },
   {
-    'source': 'cypress.tmpl.json',
+    'source': 'cypress.env.json.tmpl',
     'target': 'cypress.env.json',
     'wrap': '%',
   },
