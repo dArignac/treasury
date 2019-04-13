@@ -39,7 +39,8 @@ Anyway, _treasury_ has prepared an imprint component for both imprint and data p
 * enable *Hosting* if you want to host _treasury_ directly on Firebase
 
 === Firebase environment settings
-Within the Firebase Console go to the _"Project Overview"_ and add Firebase to a webapp (click the icon with _"</>"_), grab the displayed Firebase settings and update the development and/or production environment file you created before with it:
+Within the Firebase Console choose the settings gear icon and in the dropdown choose "Project settings".
+Under "My Apps" click the icon with _"</>"_ and grab the values to update the development and/or production environment file you created before with it:
 
 [source,typescript]
 -------------------
