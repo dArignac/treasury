@@ -34,36 +34,33 @@ export class Movie implements IMovie {
    * @param collection catalog data coming from Firebase
    * @returns Firebase catalog data mapped to a list of Movies
    */
-  // FIXME type collection
-  public static fromFirebaseCollection(collection): Movie[] {
+  public static fromFirebaseCollection(collection: IMovie[]): Movie[] {
     return collection.map(Movie.fromFirebaseObject);
   }
 
   /**
    * Creates a movie instance from the given data.
-   * @param obj a JS object with movie keys
+   * @param movie a JS object with movie keys
    * @returns the typed Movie
    */
-  // FIXME type obj
-  private static fromObject(obj): Movie {
-    const m = new Movie();
-    m.error = 200;
+  private static fromObject(movie: IMovie): Movie {
+    const theMovie = new Movie();
+    theMovie.error = 200;
     // this will set all keys and values coming in through the object
-    for (const key of Object.getOwnPropertyNames(obj)) {
-      m[key] = obj[key];
+    for (const key of Object.getOwnPropertyNames(movie)) {
+      theMovie[key] = movie[key];
     }
-    return m;
+    return theMovie;
   }
 
   /**
    * Creates a movie instance from the given Firebase data.
    * It is assumed, that the returned data is complete. Meaning that we do not additionally query for additional data as in Movie.fromTMDBMovieSearchResult.
-   * @param obj the Firebase document representing a movie
+   * @param movie the Firebase document representing a movie
    * @returns the movie instance
    */
-  // FIXME type obj
-  public static fromFirebaseObject(obj): Movie {
-    return Movie.fromObject(obj);
+  public static fromFirebaseObject(movie: IMovie): Movie {
+    return Movie.fromObject(movie);
   }
 
   /**
@@ -82,8 +79,7 @@ export class Movie implements IMovie {
    * @param variant poster variant, one of: w92, w154, w185, w342, w500, w780, original
    * @returns url to the poster image on The Movie DB server
    */
-  // FIXME returns an URL, rename it
-  public getPosterImage(variant: string): string {
+  public getPosterImageURL(variant: string): string {
     if (this.poster_path !== null) {
       return environment.themoviedb.imageBaseURL + variant + '/' + this.poster_path;
     }
