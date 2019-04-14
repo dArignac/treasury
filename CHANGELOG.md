@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [//]: # "Fixed for any bug fixes."
 [//]: # "Security in case of vulnerabilities."
 
-## [Unreleased]
+## [Unreleased] - NO DATE YET
 ### Added
+- integrated Cypress into CI, configured linting, fixed linting issues [#95]
 - be able to set a nickname [#45]
 
 ## [1.1.2]
@@ -75,6 +76,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [1.1.1]: https://github.com/darignac/treasury/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#95]: https://github.com/dArignac/treasury/issues/95
 [#94]: https://github.com/dArignac/treasury/issues/94
 [#93]: https://github.com/dArignac/treasury/issues/93
 [#91]: https://github.com/dArignac/treasury/issues/91
