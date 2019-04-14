@@ -3,7 +3,7 @@
 === Sentry setup (optional)
 * for error logging in the live environment you *can* use Sentry
 * therefore get an account at https://sentry.io/signup/
-* add your sentry Public DSN to `treasury/src/environments/environment.prod.ts` in `environment.sentryDSN` (get it under _"Data"_ > _"Error tracking"_)
+* add your sentry Public DSN to `treasury/src/environments/environment.prod.ts` in `environment.sentryDSN` (get it under _Settings_ > _Projects_, select your project, then _SDK Setup_ > _Error Tracking_, choose _Get your DSN_ and grab the _Public DSN_)
 * Sentry will only be used in the `prod` environment
 
 === Deployment preparation

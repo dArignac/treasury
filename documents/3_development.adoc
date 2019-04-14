@@ -3,7 +3,7 @@
 === Workflows
 * use `ng update` to update Angular stuff
 * use `ng generate component --project=treasury` to create a new component
-* use `yarn outdated` to find outdated packages
+* use `yarn outdated` to find outdated packages and update them with `yarn upgrade <packagename>`
 
 === Continuous Integration
 Uses https://travis-ci.org/dArignac/treasury[Travis-CI] for automated pipeline. Each single step can also be run locally.
