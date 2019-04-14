@@ -11,7 +11,7 @@
     "cy:prepareci": "cypress-firebase createTestEnvFile",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "build:ci": "ng build -c ci --stats-json --aot --vendor-chunk --common-chunk ---delete-output-path --build-optimizer --optimization",
+    "build:ci": "ng build -c ci --vendor-chunk --common-chunk ---delete-output-path",
     "start:ci": "node ci-server.js",
     "ci": "start-server-and-test start:ci :4444 cy:run",
     "test": "ng test",
