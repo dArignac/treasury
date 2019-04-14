@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - NO DATE YET
 ### Added
-- integrated Cypress into CI, configured linting, fixed linting issues [#95]
+- integrated Cypress into CI, configured linting, fixed linting issues [#95], [#100]
 - be able to set a nickname [#45]
 
 ## [1.1.2]
@@ -76,6 +76,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [1.1.1]: https://github.com/darignac/treasury/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#100]: https://github.com/dArignac/treasury/pull/100
 [#95]: https://github.com/dArignac/treasury/issues/95
 [#94]: https://github.com/dArignac/treasury/issues/94
 [#93]: https://github.com/dArignac/treasury/issues/93
@@ -100,4 +101,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [#57]: https://github.com/dArignac/treasury/issues/57
 [#55]: https://github.com/dArignac/treasury/pull/55
 [#53]: https://github.com/dArignac/treasury/pull/53
+[#45]: https://github.com/dArignac/treasury/issues/45
 [#40]: https://github.com/dArignac/treasury/issues/40
