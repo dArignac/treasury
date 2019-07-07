@@ -14,7 +14,9 @@
     "cy:prepareci": "cypress-firebase createTestEnvFile",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "bundle-report": "webpack-bundle-analyzer dist/stats.json"
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +39,8 @@
     "normalize.css": "^8.0.1",
     "raven-js": "^3.27.0",
     "rxjs": "^6.4.0",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.8.29",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.0",
@@ -73,5 +76,6 @@
     "tslint": "~5.12.1",
     "typescript": "~3.2.2",
     "webpack-bundle-analyzer": "^3.0.3"
-  }
+  },
+  "snyk": true
 }
