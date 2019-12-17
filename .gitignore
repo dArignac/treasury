@@ -1,6 +1,7 @@
 # Firebase
 .firebaserc
 .firebase
+firebase-debug.log
 
 # IntelliJ
 .idea

@@ -4,6 +4,13 @@
 * use `ng update` to update Angular stuff
 * use `ng generate component --project=treasury` to create a new component
 * use `npm outdated` to find outdated packages and update them with `npm update --save <packagename>`
+* to update the `functions`, use
+[source]
+--------
+npm i firebase-functions@latest --save
+npm i firebase-admin@latest --save-exact
+npm i -g firebase-tools
+--------
 
 === Continuous Integration
 Uses https://travis-ci.org/dArignac/treasury[Travis-CI] for automated pipeline. Each single step can also be run locally.
