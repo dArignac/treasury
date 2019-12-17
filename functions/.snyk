@@ -48,6 +48,8 @@ patch:
         patched: '2019-10-06T09:38:01.441Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
         patched: '2019-10-06T09:38:01.441Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-12-17T14:20:38.588Z'
   SNYK-JS-TREEKILL-536781:
     - snyk > snyk-sbt-plugin > tree-kill:
         patched: '2019-12-15T01:31:43.239Z'
