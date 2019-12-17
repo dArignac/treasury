@@ -26,9 +26,9 @@ jobs:
     - stage: jasmine
       name: "Jasmine tests & Code analysis"
       install:
-        - npm ci
+        - npm install typescript@2.9.2
       script:
-        - echo "TODO run the jasmine stuff with npm run ng test --configuration ci"
+        - echo "TODO run the jasmine stuff with npm ci (from treasury dir) and npm run ng test --configuration ci"
         - git fetch --unshallow
         - NODE_PATH=$HOME/node_modules sonar-scanner
     - stage: documentation
