@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - NO DATE YET
 ### Added
-- integrated Cypress into CI, configured linting, fixed linting issues [#95], [#100]
 - be able to set a nickname [#45]
 
 ## [1.1.2]

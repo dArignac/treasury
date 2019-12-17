@@ -12,7 +12,6 @@ cache:
 
 stages:
   - jasmine
-  - cypress
   - name: documentation
     if: branch = master
 
@@ -29,17 +28,6 @@ jobs:
         - echo "TODO run the jasmine stuff with npm run ng test --configuration ci"
         - git fetch --unshallow
         - NODE_PATH=$HOME/node_modules sonar-scanner
-    - stage: cypress
-      name: "Cypress tests"
-      node_js: "11"
-      before_install:
-        - cd treasury
-      install:
-        - ./ci-before.sh
-      script:
-        - npm run ci
-      after_script:
-        - ./ci-after.sh
     - stage: documentation
       services:
         - docker
