@@ -1,16 +1,12 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
-import { MdcSnackbar } from '@angular-mdc/web';
-
-import { Observable } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
-
-import { BaseComponent } from '../base/base.component';
-import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
-import { UserService } from '../services/user.service';
-import { Movie } from '../themoviedb/movie';
-
+import {Component} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {MdcSnackbar} from '@angular-mdc/web';
+import {Observable} from 'rxjs';
+import {debounceTime, switchMap} from 'rxjs/operators';
+import {BaseComponent} from '../base/base.component';
+import {TheMovieDbService} from '../themoviedb/the-movie-db.service';
+import {UserService} from '../services/user.service';
+import {Movie} from '../themoviedb/movie';
 
 
 @Component({
@@ -37,7 +33,7 @@ export class FormAddComponent extends BaseComponent {
 
   /**
    * When a found movie was clicked, try to add it to the user catalog.
-   * @param {Movie} movie
+   * @param movie the movie to add
    */
   addMovie(movie: Movie) {
     // mark item as currently being added - we wait for the firebase reply soon
@@ -52,7 +48,7 @@ export class FormAddComponent extends BaseComponent {
         // FIXME send to sentry
         this.snackbar.open(
           'An error occurred while adding the item. This may happened because the underlying TheMovieDB service returned an invalid response. '
-            + 'Please refresh the page an try again!',
+          + 'Please refresh the page an try again!',
           'Close',
           this.getSnackbarConfig()
         );

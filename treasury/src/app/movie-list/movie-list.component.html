@@ -13,7 +13,7 @@
               <div class="p-1 text-center">{{item.title}}</div>
               <button class="mt-auto mx-auto mb-2" mdc-button raised (click)="remove(item)">Remove</button>
             </div>
-            <img [src]="item.getPosterImage('w154')" alt="{{item.title}}" />
+            <img [src]="item.getPosterImageURL('w154')" alt="{{item.title}}" />
           </div>
         </ng-container>
       </ng-container>

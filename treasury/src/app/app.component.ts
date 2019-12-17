@@ -1,6 +1,5 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-
-import { environment } from '../environments/environment';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {environment} from '../environments/environment';
 
 
 @Component({
@@ -13,13 +12,13 @@ export class AppComponent implements OnInit {
   matcher: MediaQueryList;
   public showImprint = environment.enableImprint;
 
-  constructor(private _ngZone: NgZone) {
+  constructor(private ngZone: NgZone) {
 
   }
 
   ngOnInit(): void {
     this.matcher = matchMedia(`(max-width: 1240px)`);
-    this.matcher.addEventListener('any', (event: MediaQueryListEvent) => this._ngZone.run(() => event.matches));
+    this.matcher.addEventListener('any', (event: MediaQueryListEvent) => this.ngZone.run(() => event.matches));
   }
 
   isScreenSmall(): boolean {

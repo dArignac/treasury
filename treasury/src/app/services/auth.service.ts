@@ -1,19 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Subject } from 'rxjs';
-
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
 import * as firebase from 'firebase/app';
-
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-
-import { UserService } from './user.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable()
 export class AuthService {
 
-  private _user: firebase.User = null;
+  private firebaseUser: firebase.User = null;
   isAuthenticated: Subject<boolean>;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
@@ -28,15 +23,15 @@ export class AuthService {
   }
 
   get user(): firebase.User {
-    return this._user;
+    return this.firebaseUser;
   }
 
   set user(value: firebase.User) {
-    this._user = value;
+    this.firebaseUser = value;
   }
 
   get authenticated(): boolean {
-    return this._user !== null;
+    return this.firebaseUser !== null;
   }
 
   get id(): string {
