@@ -1,4 +1,6 @@
-dist: trusty
+os: linux
+arch: arm64
+dist: bionic
 
 addons:
   sonarcloud:
@@ -6,6 +8,7 @@ addons:
 
 cache:
   directories:
+    - "$HOME/.npm"
     - "$HOME/.cache"
     - "$HOME/.sonar/cache"
     - "$TRAVIS_BUILD_DIR/node_modules"
@@ -23,7 +26,7 @@ jobs:
     - stage: jasmine
       name: "Jasmine tests & Code analysis"
       install:
-        - npm install typescript@2.9.2
+        - npm ci
       script:
         - echo "TODO run the jasmine stuff with npm run ng test --configuration ci"
         - git fetch --unshallow
