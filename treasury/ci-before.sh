@@ -11,10 +11,10 @@ echo "creating .firebaserc..."
 echo "{\"projects\":{\"ci\":\"$FIREBASE_PROJECT_ID\"}}" > .firebaserc
 
 echo "installing packages..."
-yarn install --silent --pure-lockfile --ignore-engines
+npm i
 
 echo "running build for ci stage..."
-yarn run build:ci
+npm run build:ci
 
 echo "grabbing JWT token..."
-yarn run cy:prepareci
+npm run cy:prepareci

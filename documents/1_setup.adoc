@@ -58,13 +58,13 @@ export const environment = {
 -------------------
 
 === Firebase local setup
-To be able to push the project contents to your newly created Firebase project, you need to install the Firebase CLI on your local machine. We install it into the global yarn space of your machine.
+To be able to push the project contents to your newly created Firebase project, you need to install the Firebase CLI on your local machine. We install it into the global npm space of your machine.
 
 Therefore run the following:
 
 [source]
 --------
-yarn global add firebase-tools firebase firebase-functions@latest firebase-admin@latest
+npm install --global firebase-tools firebase firebase-functions@latest firebase-admin@latest
 --------
 
 NOTE: The following is not necessary if you do not want to publish to Firebase.
@@ -103,11 +103,11 @@ Now that you have configured the Firebase and TMDB settings, you can install the
 
 [source]
 --------
-yarn global add @angular/cli
-yarn
+npm install --global @angular/cli
+npm i
 --------
 
-This installs https://cli.angular.io/[Angular CLI] in the global yarn scope and installs all required packages of _treasury_ locally (and thus created the `node_modules` folder).
+This installs https://cli.angular.io/[Angular CLI] in the global npm scope and installs all required packages of _treasury_ locally (and thus created the `node_modules` folder).
 
 === Run in development mode
-For development, simply run `yarn run serve` from the treasury folder and open your browser at http://localhost:4444
+For development, simply run `npm run serve` from the treasury folder and open your browser at http://localhost:4444
