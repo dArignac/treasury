@@ -1,7 +1,7 @@
 {
   "verbose": true,
-  "scripts": {
-    "beforeStage": "sed -i 's/[0-9]\\.[0-9]\\.[0-9]/${version}/g' ../sonar-project.properties && sed -i 's/v[0-9]\\.[0-9]\\.[0-9]/v${version}/g' src/app/footer/footer.component.html && sed -i 's/>[0-9]\\.[0-9]\\.[0-9]/>${version}/g' src/app/footer/footer.component.html"
+  "hooks": {
+    "after:bump": "sed -i 's/[0-9]\\.[0-9]\\.[0-9]/${version}/g' ../sonar-project.properties && sed -i 's/v[0-9]\\.[0-9]\\.[0-9]/v${version}/g' src/app/footer/footer.component.html && sed -i 's/>[0-9]\\.[0-9]\\.[0-9]/>${version}/g' src/app/footer/footer.component.html"
   },
   "git": {
     "tagName": "v%s",
