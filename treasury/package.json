@@ -26,7 +26,6 @@
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
     "bootstrap": "^4.2.1",
-    "core-js": "^2.5.4",
     "file-saver": "^2.0.0",
     "firebase": "^7.6.0",
     "font-awesome": "^4.7.0",
@@ -34,7 +33,7 @@
     "normalize.css": "^8.0.1",
     "raven-js": "^3.27.0",
     "rxjs": "^6.4.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
@@ -46,11 +45,10 @@
     "@types/jasmine": "^3.5.0",
     "@types/jasminewd2": "~2.0.6",
     "@types/lodash": "^4.14.119",
-    "@types/node": "^10.12.18",
+    "@types/node": "^12.12.20",
     "codelyzer": "^5.0.1",
-    "eslint": "^5.13.0",
-    "eslint-plugin-chai-friendly": "^0.4.1",
-    "eslint-plugin-cypress": "^2.2.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-chai-friendly": "^0.5.0",
     "express": "^4.16.4",
     "firebase-tools": "^7.10.0",
     "jasmine-core": "^3.5.0",
@@ -63,9 +61,8 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "node-sass": "^4.11.0",
     "protractor": "^5.4.2",
-    "release-it": "^10.0.0",
-    "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
+    "release-it": "^12.4.3",
+    "tslint": "^5.20.1",
     "typescript": "~3.5.3",
     "webpack-bundle-analyzer": "^3.0.3"
   }
