@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [//]: # "Fixed for any bug fixes."
 [//]: # "Security in case of vulnerabilities."
 
-## [1.2.0] - 2019-12-18
+## [1.2.0] - 2019-12-19
 ### Added
 - be able to set a nickname [#45]
 
