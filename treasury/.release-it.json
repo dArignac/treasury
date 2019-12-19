@@ -4,9 +4,9 @@
     "after:bump": "sed -i 's/[0-9]\\.[0-9]\\.[0-9]/${version}/g' ../sonar-project.properties && sed -i 's/v[0-9]\\.[0-9]\\.[0-9]/v${version}/g' src/app/footer/footer.component.html && sed -i 's/>[0-9]\\.[0-9]\\.[0-9]/>${version}/g' src/app/footer/footer.component.html"
   },
   "git": {
-    "tagName": "v%s",
+    "addUntrackedFiles": true,
     "commitArgs": "-S",
-    "addUntrackedFiles": true
+    "tagName": "v%s"
   },
   "npm": {
     "publish": false
@@ -21,9 +21,9 @@
   },
   "prompt": {
     "dist": {
-      "tag": true,
+      "publish": true,
       "release": true,
-      "publish": true
+      "tag": true
     }
   }
 }
