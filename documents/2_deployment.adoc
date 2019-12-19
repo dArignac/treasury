@@ -36,7 +36,7 @@ firebase deploy --project <PROJECTNAME> --only functions,firestore
 This will initialize the Cloud Functions and Cloud Firestore (the database).
 
 === Firebase Hosting
-To deploy to Firebase, simply go to the project root and run `firebase deploy`.
+To deploy to Firebase, run `make deploy` in the root folder. It will build the Angular appllication and deploy everything to Firebase.
 
 === Custom Hosting
 Put the contents of the `treasury/dist` folder somewhere onto your server and configure it to serve it.
