@@ -1,5 +1,5 @@
 import {environment} from '../../environments/environment';
-import {IMovie} from './imovie';
+import {IMovie} from './interfaces';
 
 /**
  * Class representing a Movie.

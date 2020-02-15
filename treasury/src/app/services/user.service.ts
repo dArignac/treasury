@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
-import {IMovie} from '../themoviedb/imovie';
+import {IMovie} from '../themoviedb/interfaces';
 import {Movie} from '../themoviedb/movie';
 import {UserSettings} from './user-settings';
 import {UserCounters} from './user-counters';

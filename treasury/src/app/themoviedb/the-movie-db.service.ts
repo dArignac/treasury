@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import {environment} from '../../environments/environment';
 import {Movie} from './movie';
 import {MovieCreditsResponse} from './credits/movie-credits-response';
-import {MovieSearchResponse} from './movie-search-response';
+import {MovieSearchResponse} from './interfaces';
 import {UserService} from '../services/user.service';
 import {MovieCreditsCrewResponse} from './credits/movie-credits-crew-response';
 import {MovieCreditsCastResponse} from './credits/movie-credits-cast-response';

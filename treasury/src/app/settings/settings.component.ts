@@ -4,7 +4,7 @@ import {BaseComponent} from '../base/base.component';
 import {BackupService} from '../services/backup.service';
 import {UserService} from '../services/user.service';
 import {UserSettings} from '../services/user-settings';
-import {IRegion} from '../themoviedb/iregion';
+import {IRegion} from '../themoviedb/interfaces';
 
 
 @Component({

@@ -5,7 +5,7 @@ import {MdcSnackbar} from '@angular-mdc/web';
 import {AngularFirestoreCollection} from '@angular/fire/firestore';
 import {environment} from '../../environments/environment';
 import {BaseComponent} from '../base/base.component';
-import {IMovie} from '../themoviedb/imovie';
+import {IMovie} from '../themoviedb/interfaces';
 import {Movie} from '../themoviedb/movie';
 import {UserService} from '../services/user.service';
 
