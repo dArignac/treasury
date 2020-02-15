@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import {environment} from '../../environments/environment';
 import {Movie} from './movie';
 import {MovieCreditsResponse} from './credits/movie-credits-response';
-import {MovieSearchResponse} from './interfaces';
+import {MovieSearchResponse, RequestTokenResponse} from './interfaces';
 import {UserService} from '../services/user.service';
 import {MovieCreditsCrewResponse} from './credits/movie-credits-crew-response';
 import {MovieCreditsCastResponse} from './credits/movie-credits-cast-response';
@@ -32,6 +32,10 @@ export class TheMovieDbService {
         break;
       case 'movie_credits':
         segment = 'movie/' + id + '/credits';
+        break;
+      case 'request_token':
+        segment = '/authentication/token/new';
+        break;
     }
     return this.apiBaseURL + segment;
   }
@@ -59,6 +63,11 @@ export class TheMovieDbService {
     p = p.append('include_adult', 'false');
     p = p.append('region', this.userService.userSettings.tmdbRegion || '');
     return p;
+  }
+
+  public async getResourceToken(): Promise<RequestTokenResponse> {
+    return await this.http.get<RequestTokenResponse>(this.getURL('request_token'), {params: this.getBasicQueryParams()})
+      .toPromise();
   }
 
   /**
