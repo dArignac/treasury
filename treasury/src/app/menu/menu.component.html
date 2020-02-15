@@ -19,6 +19,9 @@
     <a data-cy="menu-link-settings" mdc-list-item [routerLink]="['settings']" [selected]="router.url == '/settings'">
       <mdc-icon mdcListItemGraphic>settings</mdc-icon>Settings
     </a>
+    <a data-cy="menu-link-ratings" mdc-list-item [routerLink]="['ratings']" [selected]="router.url == '/ratings'">
+      <mdc-icon mdcListItemGraphic>rate_review</mdc-icon>Ratings
+    </a>
     <mdc-list-divider></mdc-list-divider>
     <a data-cy="menu-link-logout" mdc-list-item (click)="authService.logout()" href="javascript:;;">
       <mdc-icon mdcListItemGraphic>exit_to_app</mdc-icon>Logout

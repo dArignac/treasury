@@ -10,6 +10,7 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SettingsComponent } from './settings/settings.component';
+import { RatingsComponent } from './ratings/ratings.component';
 
 const appRoutes: Routes = [
   {
@@ -29,6 +30,11 @@ const appRoutes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'ratings',
+    component: RatingsComponent,
     canActivate: [AuthGuard]
   },
   {

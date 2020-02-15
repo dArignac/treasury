@@ -27,6 +27,7 @@ import { BackupService } from './services/backup.service';
 import { UserService } from './services/user.service';
 import { SettingsComponent } from './settings/settings.component';
 import { TheMovieDbService } from './themoviedb/the-movie-db.service';
+import { RatingsComponent } from './ratings/ratings.component';
 
 if (environment.sentryDSN.length > 0) {
   Raven.config(environment.sentryDSN).install();
@@ -50,7 +51,8 @@ export class RavenErrorHandler implements ErrorHandler {
     ErrorPageDefaultComponent,
     FooterComponent,
     ImprintComponent,
-    MenuComponent
+    MenuComponent,
+    RatingsComponent
   ],
   imports: [
     BrowserModule,
