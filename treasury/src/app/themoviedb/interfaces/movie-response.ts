@@ -1,4 +1,4 @@
-export interface IMovie {
+export interface MovieResponse {
   vote_count: number;
   id: number;
   video: boolean;

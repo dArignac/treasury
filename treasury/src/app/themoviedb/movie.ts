@@ -1,10 +1,10 @@
 import {environment} from '../../environments/environment';
-import {IMovie} from './interfaces';
+import {MovieResponse} from './interfaces';
 
 /**
  * Class representing a Movie.
  */
-export class Movie implements IMovie {
+export class Movie implements MovieResponse {
   // the python styled properties fail linting, see https://github.com/dArignac/treasury/issues/99 how to fix
   // persisted properties
   adult: boolean;
@@ -34,7 +34,7 @@ export class Movie implements IMovie {
    * @param collection catalog data coming from Firebase
    * @returns Firebase catalog data mapped to a list of Movies
    */
-  public static fromFirebaseCollection(collection: IMovie[]): Movie[] {
+  public static fromFirebaseCollection(collection: MovieResponse[]): Movie[] {
     return collection.map(Movie.fromFirebaseObject);
   }
 
@@ -43,7 +43,7 @@ export class Movie implements IMovie {
    * @param movie a JS object with movie keys
    * @returns the typed Movie
    */
-  private static fromObject(movie: IMovie): Movie {
+  private static fromObject(movie: MovieResponse): Movie {
     const theMovie = new Movie();
     theMovie.error = 200;
     // this will set all keys and values coming in through the object
@@ -59,7 +59,7 @@ export class Movie implements IMovie {
    * @param movie the Firebase document representing a movie
    * @returns the movie instance
    */
-  public static fromFirebaseObject(movie: IMovie): Movie {
+  public static fromFirebaseObject(movie: MovieResponse): Movie {
     return Movie.fromObject(movie);
   }
 
@@ -70,7 +70,7 @@ export class Movie implements IMovie {
    * @param result result from the The Movie DB api
    * @returns the movie instance
    */
-  public static fromTMDBMovieSearchResult(result: IMovie): Movie {
+  public static fromTMDBMovieSearchResult(result: MovieResponse): Movie {
     return Movie.fromObject(result);
   }
 

@@ -5,7 +5,7 @@ import {MdcSnackbar} from '@angular-mdc/web';
 import {AngularFirestoreCollection} from '@angular/fire/firestore';
 import {environment} from '../../environments/environment';
 import {BaseComponent} from '../base/base.component';
-import {IMovie} from '../themoviedb/interfaces';
+import {MovieResponse} from '../themoviedb/interfaces';
 import {Movie} from '../themoviedb/movie';
 import {UserService} from '../services/user.service';
 
@@ -17,7 +17,7 @@ import {UserService} from '../services/user.service';
 })
 export class MovieListComponent extends BaseComponent {
 
-  private movieCollection: AngularFirestoreCollection<IMovie>;
+  private movieCollection: AngularFirestoreCollection<MovieResponse>;
   public movies$: Observable<Movie[]>;
 
   constructor(
@@ -32,7 +32,7 @@ export class MovieListComponent extends BaseComponent {
    * @param movie the movie to get the poster for
    * @returns URL to poster image
    */
-  getPosterImage(movie: IMovie): string {
+  getPosterImage(movie: MovieResponse): string {
     return environment.themoviedb.imageBaseURL + 'w154/' + movie.poster_path;
   }
 
@@ -40,7 +40,7 @@ export class MovieListComponent extends BaseComponent {
    * Removes the given movie from the user's collection.
    * @param movie movie to be removed
    */
-  remove(movie: IMovie) {
+  remove(movie: MovieResponse) {
     this.userService.removeMovie(movie).then(
       () => {
         // we do not handle the promise here as the element is removed immediately from the movie list that is observed

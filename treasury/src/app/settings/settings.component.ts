@@ -4,7 +4,7 @@ import {BaseComponent} from '../base/base.component';
 import {BackupService} from '../services/backup.service';
 import {UserService} from '../services/user.service';
 import {UserSettings} from '../services/user-settings';
-import {IRegion} from '../themoviedb/interfaces';
+import {RegionResponse} from '../themoviedb/interfaces';
 
 
 @Component({
@@ -14,7 +14,7 @@ import {IRegion} from '../themoviedb/interfaces';
 })
 export class SettingsComponent extends BaseComponent {
 
-  tmdbRegionChoices: IRegion[] = [
+  tmdbRegionChoices: RegionResponse[] = [
     {value: 'DE', displayValue: 'German'},
     {value: 'EN', displayValue: 'English'},
   ];

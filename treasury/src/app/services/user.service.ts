@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
-import {IMovie} from '../themoviedb/interfaces';
+import {MovieResponse} from '../themoviedb/interfaces';
 import {Movie} from '../themoviedb/movie';
 import {UserSettings} from './user-settings';
 import {UserCounters} from './user-counters';
@@ -123,7 +123,7 @@ export class UserService {
    * @param movie the movie to remove
    * @returns if removal was successful
    */
-  removeMovie(movie: IMovie): Promise<boolean> {
+  removeMovie(movie: MovieResponse): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.userDoc.collection('movies').doc(String(movie.id)).delete().then(
         () => {
@@ -141,7 +141,7 @@ export class UserService {
    * It's sorted by title.
    * @return the movie collection
    */
-  getMovieCollection(): AngularFirestoreCollection<IMovie> {
+  getMovieCollection(): AngularFirestoreCollection<MovieResponse> {
     return this.afs.collection<{}>('users')
       .doc(this.authService.id)
       .collection(

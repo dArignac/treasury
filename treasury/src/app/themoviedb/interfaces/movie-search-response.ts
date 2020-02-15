@@ -1,8 +1,8 @@
-import { IMovie } from './imovie';
+import { MovieResponse } from './movie-response';
 
 export interface MovieSearchResponse {
   page: number;
   total_results: number;
   total_pages: number;
-  results: IMovie[];
+  results: MovieResponse[];
 }

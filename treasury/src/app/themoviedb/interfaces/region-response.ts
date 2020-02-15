@@ -1,4 +1,4 @@
-export interface IRegion {
+export interface RegionResponse {
   value: string;
   displayValue: string;
 }
