@@ -7,9 +7,11 @@ firebase-debug.log
 .scannerwork
 
 # Angular
+treasury/coverage
 treasury/dist
 treasury/node_modules
 treasury/src/environments/environment.*.ts
+!treasury/src/environments/environment.test.ts
 
 # documentation
 documents/index.html

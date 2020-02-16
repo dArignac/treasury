@@ -18,10 +18,15 @@ export class Requests {
         segment = 'search/movie';
         break;
       case 'movie_credits':
+        if (id === undefined) {
+          return undefined;
+        } else if (id <= 0) {
+          return undefined;
+        }
         segment = 'movie/' + id + '/credits';
         break;
       case 'request_token':
-        segment = '/authentication/token/new';
+        segment = 'authentication/token/new';
         break;
     }
     return this.apiBaseURL + segment;

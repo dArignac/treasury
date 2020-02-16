@@ -7,7 +7,7 @@
     "serve": "ng serve -c dev --port 4444",
     "serve:ci": "ng serve -c ci --port 4444 --watch=false",
     "build": "ng build --prod --stats-json --aot --vendor-chunk --common-chunk ---delete-output-path --build-optimizer --optimization",
-    "test": "ng test",
+    "test": "ng test --code-coverage --source-map",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release": "release-it",
