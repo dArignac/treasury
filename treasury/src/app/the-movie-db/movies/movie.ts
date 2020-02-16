@@ -1,5 +1,5 @@
-import {environment} from '../../environments/environment';
-import {MovieResponse} from './interfaces';
+import { environment } from '../../../environments/environment';
+import { MovieResponse } from '../movies';
 
 /**
  * Class representing a Movie.

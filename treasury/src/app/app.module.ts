@@ -21,13 +21,13 @@ import { MaterialModule } from './material/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RatingsComponent } from './ratings/ratings.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { BackupService } from './services/backup.service';
 import { UserService } from './services/user.service';
 import { SettingsComponent } from './settings/settings.component';
-import { TheMovieDbService } from './themoviedb/the-movie-db.service';
-import { RatingsComponent } from './ratings/ratings.component';
+import { TheMovieDbService } from './the-movie-db/the-movie-db.service';
 
 if (environment.sentryDSN.length > 0) {
   Raven.config(environment.sentryDSN).install();

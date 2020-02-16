@@ -1,11 +1,10 @@
-import {Component} from '@angular/core';
-import {MdcSnackbar, MdcSwitchChange} from '@angular-mdc/web';
-import {BaseComponent} from '../base/base.component';
-import {BackupService} from '../services/backup.service';
-import {UserService} from '../services/user.service';
-import {UserSettings} from '../services/user-settings';
-import {RegionResponse} from '../themoviedb/interfaces';
-
+import { MdcSnackbar, MdcSwitchChange } from '@angular-mdc/web';
+import { Component } from '@angular/core';
+import { BaseComponent } from '../base/base.component';
+import { BackupService } from '../services/backup.service';
+import { UserSettings } from '../services/user-settings';
+import { UserService } from '../services/user.service';
+import { RegionResponse } from '../the-movie-db/config';
 
 @Component({
   selector: 'app-settings',

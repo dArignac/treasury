@@ -1,14 +1,12 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map, share} from 'rxjs/operators';
-import {MdcSnackbar} from '@angular-mdc/web';
-import {AngularFirestoreCollection} from '@angular/fire/firestore';
-import {environment} from '../../environments/environment';
-import {BaseComponent} from '../base/base.component';
-import {MovieResponse} from '../themoviedb/interfaces';
-import {Movie} from '../themoviedb/movie';
-import {UserService} from '../services/user.service';
-
+import { MdcSnackbar } from '@angular-mdc/web';
+import { Component } from '@angular/core';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map, share } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { BaseComponent } from '../base/base.component';
+import { UserService } from '../services/user.service';
+import { Movie, MovieResponse } from '../the-movie-db/movies';
 
 @Component({
   selector: 'app-movie-list',

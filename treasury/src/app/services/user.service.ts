@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import * as _ from 'lodash';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
-import {AuthService} from './auth.service';
-import {MovieResponse} from '../themoviedb/interfaces';
-import {Movie} from '../themoviedb/movie';
-import {UserSettings} from './user-settings';
-import {UserCounters} from './user-counters';
+import { Observable } from 'rxjs';
+import { Movie, MovieResponse } from '../the-movie-db/movies';
+import { AuthService } from './auth.service';
+import { UserCounters } from './user-counters';
+import { UserSettings } from './user-settings';
 
 @Injectable()
 export class UserService {

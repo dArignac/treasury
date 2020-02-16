@@ -1,14 +1,12 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import * as Raven from 'raven-js';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import {environment} from '../../environments/environment';
-import {Movie} from './movie';
-import {MovieCreditsResponse} from './credits/movie-credits-response';
-import {MovieSearchResponse, RequestTokenResponse} from './interfaces';
-import {UserService} from '../services/user.service';
-import {MovieCreditsCrewResponse} from './credits/movie-credits-crew-response';
-import {MovieCreditsCastResponse} from './credits/movie-credits-cast-response';
+import * as Raven from 'raven-js';
+import { environment } from '../../environments/environment';
+import { UserService } from '../services/user.service';
+import { RequestTokenResponse } from './authentication';
+import { MovieCreditsCastResponse, MovieCreditsCrewResponse, MovieCreditsResponse } from './credits';
+import { Movie, MovieSearchResponse } from './movies';
 
 @Injectable()
 export class TheMovieDbService {

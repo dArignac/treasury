@@ -1,13 +1,12 @@
-import {Component} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MdcSnackbar} from '@angular-mdc/web';
-import {Observable} from 'rxjs';
-import {debounceTime, switchMap} from 'rxjs/operators';
-import {BaseComponent} from '../base/base.component';
-import {TheMovieDbService} from '../themoviedb/the-movie-db.service';
-import {UserService} from '../services/user.service';
-import {Movie} from '../themoviedb/movie';
-
+import { MdcSnackbar } from '@angular-mdc/web';
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { BaseComponent } from '../base/base.component';
+import { UserService } from '../services/user.service';
+import { Movie } from '../the-movie-db/movies';
+import { TheMovieDbService } from '../the-movie-db/the-movie-db.service';
 
 @Component({
   selector: 'app-form-add',

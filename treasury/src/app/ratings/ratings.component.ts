@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TheMovieDbService } from '../themoviedb/the-movie-db.service';
+import { TheMovieDbService } from '../the-movie-db/the-movie-db.service';
 
 @Component({
   selector: 'app-ratings',
