@@ -2,50 +2,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import * as Raven from 'raven-js';
-import { environment } from '../../environments/environment';
 import { UserService } from '../services/user.service';
-import { RequestTokenResponse } from './authentication';
+import { Requests } from './config/requests';
 import { MovieCreditsCastResponse, MovieCreditsCrewResponse, MovieCreditsResponse } from './credits';
 import { Movie, MovieSearchResponse } from './movies';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TheMovieDbService {
 
-  private apiBaseURL = 'https://api.themoviedb.org/3/';
-
   constructor(private http: HttpClient, private userService: UserService) {
-  }
-
-  /**
-   * Returns the appropriate URL for the given section.
-   * @param section name of the section
-   * @param id the id of the movie
-   * @returns the api url
-   */
-  private getURL(section: string, id?: number): string {
-    let segment = '';
-    switch (section) {
-      case 'search_movie':
-        segment = 'search/movie';
-        break;
-      case 'movie_credits':
-        segment = 'movie/' + id + '/credits';
-        break;
-      case 'request_token':
-        segment = '/authentication/token/new';
-        break;
-    }
-    return this.apiBaseURL + segment;
-  }
-
-  /**
-   * Returns the basic query params necessary for every API call.
-   * @returns HTTP params containing auth info
-   */
-  private getBasicQueryParams(): HttpParams {
-    let p = new HttpParams();
-    p = p.append('api_key', environment.themoviedb.apiKey);
-    return p;
   }
 
   /**
@@ -54,7 +21,7 @@ export class TheMovieDbService {
    * @returns HTTP params with required values
    */
   private getMovieSearchQueryParams(title: string): HttpParams {
-    let p = this.getBasicQueryParams();
+    let p = Requests.getBasicQueryParams();
     p = p.append('language', this.userService.userSettings.tmdbRegion.toLowerCase() || 'en');
     p = p.append('query', title);
     p = p.append('page', '1');
@@ -63,17 +30,12 @@ export class TheMovieDbService {
     return p;
   }
 
-  public async getResourceToken(): Promise<RequestTokenResponse> {
-    return await this.http.get<RequestTokenResponse>(this.getURL('request_token'), {params: this.getBasicQueryParams()})
-      .toPromise();
-  }
-
   /**
    * Searches for movies with the given title.
    * @param title the title of the movie
    */
   public async getMovies(title: string): Promise<any> {
-    const response = await this.http.get<MovieSearchResponse>(this.getURL('search_movie'), {params: this.getMovieSearchQueryParams(title)})
+    const response = await this.http.get<MovieSearchResponse>(Requests.getURL('search_movie'), {params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
         (queryResponse) => this.extractMoviesFromSearch(queryResponse),
@@ -155,7 +117,7 @@ export class TheMovieDbService {
    * @returns the credits
    */
   private async getMovieCredits(id: number): Promise<any> {
-    const response = await this.http.get<MovieCreditsResponse>(this.getURL('movie_credits', id), {params: this.getBasicQueryParams()})
+    const response = await this.http.get<MovieCreditsResponse>(Requests.getURL('movie_credits', id), {params: Requests.getBasicQueryParams()})
       .toPromise();
     return response;
   }
