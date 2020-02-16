@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { TheMovieDbSessionService } from './session-service.service';
+import { SessionService } from './session-service.service';
 
 describe('SessionServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TheMovieDbSessionService = TestBed.get(TheMovieDbSessionService);
+    const service: SessionService = TestBed.get(SessionService);
     expect(service).toBeTruthy();
   });
 });

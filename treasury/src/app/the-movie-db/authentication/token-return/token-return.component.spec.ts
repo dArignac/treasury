@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TheMovieDbTokenReturnComponent } from './the-movie-db-token-return.component';
+import { TheMovieDbTokenReturnComponent } from './token-return.component';
 
 describe('TheMovieDbTokenReturnComponent', () => {
   let component: TheMovieDbTokenReturnComponent;

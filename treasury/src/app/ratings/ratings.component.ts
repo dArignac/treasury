@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TheMovieDbSessionService } from '../the-movie-db/authentication/session-service.service';
+import { SessionService } from '../the-movie-db/authentication/session-service.service';
 
 @Component({
   selector: 'app-ratings',
@@ -9,7 +9,7 @@ import { TheMovieDbSessionService } from '../the-movie-db/authentication/session
 export class RatingsComponent implements OnInit {
 
   constructor(
-    private theMovieDbSessionService: TheMovieDbSessionService
+    private theMovieDbSessionService: SessionService
   ) { }
 
   ngOnInit() {

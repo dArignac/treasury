@@ -1,0 +1,23 @@
+<section id="imdb-token" class="mt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h1>The Movie DB Account Link Status</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Status:
+        <span *ngIf="currentTokenStatus == tokenStatuses.Unkown">Unknown</span>
+        <span *ngIf="currentTokenStatus == tokenStatuses.Invalid">Invalid</span>
+        <span *ngIf="currentTokenStatus == tokenStatuses.Unapproved">Unapproved</span>
+      </div>
+    </div>
+    <div class="row" *ngIf="currentTokenStatus == tokenStatuses.Invalid">
+      <div class="col">Did not receive required payload for The Movie DB.</div>
+    </div>
+    <div class="row" *ngIf="currentTokenStatus == tokenStatuses.Unapproved">
+      <div class="col">The Movie DB did not approve the request.</div>
+    </div>
+  </div>
+</section>

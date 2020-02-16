@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import * as Raven from 'raven-js';
 import { UserService } from '../services/user.service';
-import { Requests } from './config/requests';
+import { Requests, TheMovieDbURL } from './config';
 import { MovieCreditsCastResponse, MovieCreditsCrewResponse, MovieCreditsResponse } from './credits';
 import { Movie, MovieSearchResponse } from './movies';
 
@@ -35,7 +35,7 @@ export class TheMovieDbService {
    * @param title the title of the movie
    */
   public async getMovies(title: string): Promise<any> {
-    const response = await this.http.get<MovieSearchResponse>(Requests.getURL('search_movie'), {params: this.getMovieSearchQueryParams(title)})
+    const response = await this.http.get<MovieSearchResponse>(Requests.getURL(TheMovieDbURL.MovieSearch), {params: this.getMovieSearchQueryParams(title)})
       .toPromise()
       .then(
         (queryResponse) => this.extractMoviesFromSearch(queryResponse),
@@ -117,7 +117,7 @@ export class TheMovieDbService {
    * @returns the credits
    */
   private async getMovieCredits(id: number): Promise<any> {
-    const response = await this.http.get<MovieCreditsResponse>(Requests.getURL('movie_credits', id), {params: Requests.getBasicQueryParams()})
+    const response = await this.http.get<MovieCreditsResponse>(Requests.getURL(TheMovieDbURL.MovieCredits, id), {params: Requests.getBasicQueryParams()})
       .toPromise();
     return response;
   }

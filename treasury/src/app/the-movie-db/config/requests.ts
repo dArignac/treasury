@@ -1,9 +1,10 @@
 import { HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { TheMovieDbURL } from './urls';
 
 export class Requests {
 
-  private static apiBaseURL = 'https://api.themoviedb.org/3/';
+  private static apiBaseURL = 'https://api.themoviedb.org/3';
 
   /**
    * Returns the appropriate URL for the given section.
@@ -11,25 +12,27 @@ export class Requests {
    * @param id the id of the movie
    * @returns the api url
    */
-  static getURL(section: string, id?: number): string {
-    let segment = '';
-    switch (section) {
-      case 'search_movie':
-        segment = 'search/movie';
-        break;
-      case 'movie_credits':
+  static getURL(url: TheMovieDbURL, id?: number): string {
+    let theURL = url + '';
+    // check id for necessary urls
+    switch (url) {
+      case TheMovieDbURL.MovieCredits:
         if (id === undefined) {
           return undefined;
-        } else if (id <= 0) {
-          return undefined;
+        } else {
+          if (id <= 0) {
+            return undefined;
+          }
         }
-        segment = 'movie/' + id + '/credits';
-        break;
-      case 'request_token':
-        segment = 'authentication/token/new';
         break;
     }
-    return this.apiBaseURL + segment;
+    // replace id for necessary urls
+    switch (url) {
+      case TheMovieDbURL.MovieCredits:
+        theURL = url.replace('{ID}', id + '');
+        break;
+    }
+    return this.apiBaseURL + theURL;
   }
 
   /**

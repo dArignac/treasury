@@ -27,9 +27,8 @@ import { AuthService } from './services/auth.service';
 import { BackupService } from './services/backup.service';
 import { UserService } from './services/user.service';
 import { SettingsComponent } from './settings/settings.component';
+import { SessionService, TheMovieDbTokenReturnComponent } from './the-movie-db/authentication';
 import { TheMovieDbService } from './the-movie-db/the-movie-db.service';
-import { TheMovieDbTokenReturnComponent } from './the-movie-db/authentication';
-import { TheMovieDbSessionService } from './the-movie-db/authentication';
 
 if (environment.sentryDSN.length > 0) {
   Raven.config(environment.sentryDSN).install();
@@ -74,7 +73,7 @@ export class RavenErrorHandler implements ErrorHandler {
     AuthService,
     AuthGuard,
     TheMovieDbService,
-    TheMovieDbSessionService,
+    SessionService,
     UserService,
     BackupService,
     { provide: ErrorHandler, useClass: RavenErrorHandler }
