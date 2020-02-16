@@ -23,6 +23,15 @@ Copy `treasury/src/environments/environment.ts` to
 * `treasury/src/environments/environment.prod.ts` for *production* environment (on how to deploy, see chapter <<Deployment>>)
 ** adjust the value of `production` from `false` to `true`
 
+=== Add custom host name
+To be able to use the ratings feature, a custom host name must be set up.
+This has to be done as _Treasury_ will redirect the user to _The Movie DB_ to allow access on
+her data. The redirection will not work if you run the application just under the default 
+localhost host.
+
+So add a custom host name into `/etc/hosts`, e.g. `treasury.local`: `127.0.0.1 treasury.local` 
+and then access the local development environment using this host instead of `localhost`.
+
 ==== Add an imprint and data privacy statement
 If you live in Germany than you need to add an imprint if you host this application publically. As European Union citizen you also need a data privacy declaration. I don't know how it applies to other countries.
 
@@ -35,6 +44,7 @@ Anyway, _treasury_ has prepared an imprint component for both imprint and data p
 === Firebase project setup
 * go to the https://console.firebase.google.com/u/0/[Firebase console] and create a new project
 * enable and configure *Authentication* (treasury is developed with Google auth only - any other auth should work but was not tested)
+** add the custom host name, that was setup in one of the previous steps, to the allowed domains to allow login from there
 * under *Database* enable Cloud Firestore
 * enable *Hosting* if you want to host _treasury_ directly on Firebase
 
