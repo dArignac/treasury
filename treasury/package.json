@@ -11,7 +11,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release": "release-it",
-    "bundle-report": "webpack-bundle-analyzer dist/stats.json"
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -33,7 +35,8 @@
     "normalize.css": "^8.0.1",
     "raven-js": "^3.27.0",
     "rxjs": "^6.4.0",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.2",
+    "snyk": "^1.316.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
@@ -65,5 +68,6 @@
     "tslint": "^5.20.1",
     "typescript": "~3.5.3",
     "webpack-bundle-analyzer": "^3.0.3"
-  }
+  },
+  "snyk": true
 }
