@@ -83,7 +83,7 @@ export class Movie implements IMovie {
     if (this.poster_path !== null) {
       return environment.themoviedb.imageBaseURL + variant + '/' + this.poster_path;
     }
-    return null;
+    return '';
   }
 
   /**

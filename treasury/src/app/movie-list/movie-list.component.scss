@@ -12,6 +12,11 @@
     position: relative;
     width: 154px;
 
+    .no-poster {
+      height: 231px;
+      width: 154px;
+    }
+
     .overlay-effect {
       background-color: rgba($color-fill, 0.8);
       bottom: 0;
