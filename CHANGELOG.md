@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [//]: # "Fixed for any bug fixes."
 [//]: # "Security in case of vulnerabilities."
 
+## [1.2.1] - 2020-08-09
+### Fixed
+- changed to new The Movie DB logo
+- fixed display of movies without image [#126]
+- updated Firebase functions to node 10 [#127]
+
 ## [1.2.0] - 2019-12-19
 ### Added
 - be able to set a nickname [#45]
@@ -70,12 +76,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - be able to list movies
 
 
-[Unreleased]: https://github.com/darignac/treasury/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/darignac/treasury/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/darignac/treasury/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/darignac/treasury/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/darignac/treasury/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/darignac/treasury/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/darignac/treasury/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/darignac/treasury/compare/v1.0.0...v1.0.1
+[#127]: https://github.com/dArignac/treasury/issues/127
+[#126]: https://github.com/dArignac/treasury/issues/126
 [#100]: https://github.com/dArignac/treasury/pull/100
 [#95]: https://github.com/dArignac/treasury/issues/95
 [#94]: https://github.com/dArignac/treasury/issues/94
