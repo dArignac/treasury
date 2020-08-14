@@ -39,7 +39,7 @@
         </small>
       </div>
 
-      <div class="col-12 col-sm-12 col-lg-6 order-lg-5 bottom-sm py-3">
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-5 bottom-sm border-bottom-sm py-3">
         <mdc-text-field
           (change)="handleNicknameChanged($event)"
           [helperText]="nicknameHelper"
@@ -56,6 +56,18 @@
           Your nickname for the public catalog. <strong>Currently not used.</strong>
         </small>
       </div>
+
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-8 border-bottom-sm py-3">
+        <button mdc-button primary raised (click)="synchronizeCatalogue()">Synchronize catalogue</button>
+      </div>
+      <div class="hidden-sm col-sm-12 col-lg-6 order-lg-10 border-bottom pb-3">
+        <small>
+          Synchronizes the catalogue data with The Movie DB. Might be necessary as image paths change.
+        </small>
+      </div>
+
+      <div class="col-12 col-sm-12 col-lg-6 order-lg-9 border-bottom-sm py-3"></div>
+      <div class="hidden-sm col-sm-12 col-lg-6 order-lg-11 border-bottom pb-3"></div>
 
     </div>
   </div>

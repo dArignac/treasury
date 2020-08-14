@@ -107,4 +107,9 @@ export class SettingsComponent extends BaseComponent {
     this.setUserSetting('nickname', value.trim());
   }
 
+  synchronizeCatalogue() {
+    // FIXME implement
+    console.log('FIXME catalogue sync');
+  }
+
 }
