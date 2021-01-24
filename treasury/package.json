@@ -65,5 +65,8 @@
     "tslint": "^5.20.1",
     "typescript": "~3.5.3",
     "webpack-bundle-analyzer": "^3.0.3"
+  },
+  "volta": {
+    "node": "14.15.4"
   }
 }
