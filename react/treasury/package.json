@@ -46,5 +46,9 @@
   },
   "volta": {
     "node": "15.11.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
   }
 }
