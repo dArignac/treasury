@@ -1,11 +1,13 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
+import { FirebaseAuthConsumer } from '@react-firebase/auth';
+import firebase from 'firebase/app';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +34,25 @@ function Menu() {
           <Typography variant="h6" className={classes.title}>
             Treasury
           </Typography>
-          <Button color="inherit">TODO Login</Button>
+          <FirebaseAuthConsumer>
+            {({ isSignedIn, user, providerId }) => {
+              if (!isSignedIn) {
+                return (
+                  <Button
+                    color="inherit"
+                    onClick={() => {
+                      const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+                      firebase.auth().signInWithPopup(googleAuthProvider);
+                    }
+                    }>Login</Button>
+                );
+              } else {
+                return (
+                  <Button color="inherit" onClick={() => firebase.auth().signOut()}>Logout</Button>
+                );
+              }
+            }}
+          </FirebaseAuthConsumer>
         </Toolbar>
       </AppBar>
     </div>

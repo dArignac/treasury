@@ -1,12 +1,14 @@
-import React from 'react';
-import Menu from './menu/Menu';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { FirebaseAuthProvider } from '@react-firebase/auth';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import React from 'react';
+import firebaseConfig from './auth/config';
+import Menu from './menu/Menu';
 
-// FIXME colors suck, need something dark and pastel
 // current palette #525252 #414141 #313131 #CA3E47
-// need to check after more components have been added
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -20,12 +22,12 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <React.Fragment>
-      <CssBaseline />
+    <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
+      <CssBaseline />  
       <ThemeProvider theme={theme}>
         <Menu />
       </ThemeProvider>
-    </React.Fragment>
+    </FirebaseAuthProvider>
   );
 }
 
