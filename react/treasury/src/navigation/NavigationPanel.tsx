@@ -35,7 +35,7 @@ export default function NavigationPanel() {
   );
 
   return (
-    <React.Fragment>
+    <header>
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
@@ -72,6 +72,6 @@ export default function NavigationPanel() {
       >
         {navigationElements}
       </Drawer>
-    </React.Fragment>
+    </header>
   );
 }

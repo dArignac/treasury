@@ -14,6 +14,7 @@ import "firebase/auth";
 import React from "react";
 import { Route } from "wouter";
 import firebaseConfig from "./auth/config";
+import Footer from "./Footer";
 import Greeting from "./Greeting";
 import MovieList from "./movie-list/MovieList";
 import NavigationPanel from "./navigation/NavigationPanel";
@@ -31,8 +32,13 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: "0.5em",
+  wrapper: {
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gridTemplateRows: "4.5em auto auto",
+  },
+  main: {
+    padding: "0.5em",
   },
 }));
 
@@ -43,17 +49,20 @@ export default function App() {
     <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <NavigationPanel />
-        <div className={classes.root}>
-          <IfFirebaseUnAuthed>{() => <Greeting />}</IfFirebaseUnAuthed>
-          <IfFirebaseAuthed>
-            {({ user }) => (
-              <Route path="/">
-                <MovieList user={user} />
-              </Route>
-            )}
-          </IfFirebaseAuthed>
-          {/* other routes go here */}
+        <div className={classes.wrapper}>
+          <NavigationPanel />
+          <main className={classes.main}>
+            <IfFirebaseUnAuthed>{() => <Greeting />}</IfFirebaseUnAuthed>
+            <IfFirebaseAuthed>
+              {({ user }) => (
+                <Route path="/">
+                  <MovieList user={user} />
+                </Route>
+              )}
+            </IfFirebaseAuthed>
+            {/* other routes go here */}
+          </main>
+          <Footer />
         </div>
       </ThemeProvider>
     </FirebaseAuthProvider>
