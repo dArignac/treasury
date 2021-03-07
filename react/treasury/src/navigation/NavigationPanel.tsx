@@ -58,7 +58,7 @@ export default function NavigationPanel() {
                     </React.Fragment>
                   )}
                 </IfFirebaseAuthed>
-                <Route path="/imprint"> - Imprint</Route>
+                {/* other routes go here */}
               </React.Fragment>
             </Typography>
             <LoginLogout />

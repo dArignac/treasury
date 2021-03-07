@@ -12,12 +12,11 @@ import {
 import firebase from "firebase/app";
 import "firebase/auth";
 import React from "react";
-import firebaseConfig from "./auth/config";
-import NavigationPanel from "./navigation/NavigationPanel";
 import { Route } from "wouter";
-import MovieList from "./movie-list/MovieList";
-import Imprint from "./imprint/Imprint";
+import firebaseConfig from "./auth/config";
 import Greeting from "./Greeting";
+import MovieList from "./movie-list/MovieList";
+import NavigationPanel from "./navigation/NavigationPanel";
 
 // current palette #525252 #414141 #313131 #CA3E47
 const theme = createMuiTheme({
@@ -54,7 +53,7 @@ export default function App() {
               </Route>
             )}
           </IfFirebaseAuthed>
-          <Route path="/imprint" component={Imprint} />
+          {/* other routes go here */}
         </div>
       </ThemeProvider>
     </FirebaseAuthProvider>
