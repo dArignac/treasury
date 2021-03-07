@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import HomeIcon from "@material-ui/icons/Home";
+import { Link } from "wouter";
 
 export default function NavigationList() {
   return (
@@ -16,7 +17,9 @@ export default function NavigationList() {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>Home</ListItemText>
+          <Link href="/">
+            <ListItemText>Home</ListItemText>
+          </Link>
         </ListItem>
       </List>
       <Divider />
@@ -25,7 +28,9 @@ export default function NavigationList() {
           <ListItemIcon>
             <ContactSupportIcon />
           </ListItemIcon>
-          <ListItemText>Imprint</ListItemText>
+          <Link href="/imprint">
+            <ListItemText>Imprint</ListItemText>
+          </Link>
         </ListItem>
       </List>
     </div>
