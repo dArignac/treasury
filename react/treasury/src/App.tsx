@@ -1,12 +1,12 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { FirebaseAuthProvider } from "@react-firebase/auth";
 import firebase from "firebase/app";
 import "firebase/auth";
 import React from "react";
 import firebaseConfig from "./auth/config";
-import Navigation from "./navigation/Navigation";
+import NavigationPanel from "./navigation/NavigationPanel";
 
 // current palette #525252 #414141 #313131 #CA3E47
 const theme = createMuiTheme({
@@ -25,7 +25,7 @@ export default function App() {
     <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <Navigation />
+        <NavigationPanel />
         <div>
           <p>Lorem Ipsum</p>
           <p>Lorem Ipsum</p>
