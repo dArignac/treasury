@@ -18,6 +18,7 @@ import Footer from "./Footer";
 import Greeting from "./Greeting";
 import MovieList from "./movie-list/MovieList";
 import NavigationPanel from "./navigation/NavigationPanel";
+import Search from "./search/Search";
 
 // current palette #525252 #414141 #313131 #CA3E47
 const theme = createMuiTheme({
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   wrapper: {
     display: "grid",
     gridTemplateColumns: "1fr",
-    gridTemplateRows: "4.5em auto auto",
+    gridTemplateRows: "4em auto auto",
   },
   main: {
     padding: "0.5em",
@@ -55,9 +56,14 @@ export default function App() {
             <IfFirebaseUnAuthed>{() => <Greeting />}</IfFirebaseUnAuthed>
             <IfFirebaseAuthed>
               {({ user }) => (
-                <Route path="/">
-                  <MovieList user={user} />
-                </Route>
+                <React.Fragment>
+                  <Route path="/">
+                    <MovieList user={user} />
+                  </Route>
+                  <Route path="/search">
+                    <Search />
+                  </Route>
+                </React.Fragment>
               )}
             </IfFirebaseAuthed>
             {/* other routes go here */}

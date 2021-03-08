@@ -6,6 +6,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
+import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "wouter";
 
 export default function NavigationList() {
@@ -17,12 +18,19 @@ export default function NavigationList() {
             <HomeIcon />
           </ListItemIcon>
           <Link href="/">
-            <ListItemText>Home</ListItemText>
+            <ListItemText>My Movies</ListItemText>
+          </Link>
+        </ListItem>
+        <ListItem button key="search">
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <Link href="/search">
+            <ListItemText>Search</ListItemText>
           </Link>
         </ListItem>
       </List>
       <Divider />
-      {/* other entries go here */}
     </div>
   );
 }
