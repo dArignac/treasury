@@ -7,7 +7,7 @@ type TFirebaseConfig = {
 	messagingSenderId: string;
 };
 
-const firebaseConfig: TFirebaseConfig = {
+export const firebaseConfig: TFirebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY as string,
 	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID as string,
 	databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL as string,
@@ -17,4 +17,10 @@ const firebaseConfig: TFirebaseConfig = {
 		.REACT_APP_FIREBASE_MESSAGING_SENDER_ID as string,
 };
 
-export default firebaseConfig;
+type TTheMovieDatabaseConfig = {
+	apiKey: string;
+};
+
+export const theMovieDatabaseConfig: TTheMovieDatabaseConfig = {
+	apiKey: process.env.REACT_APP_TMDB_API_KEY as string,
+};

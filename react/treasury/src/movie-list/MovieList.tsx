@@ -5,7 +5,7 @@ import {
 } from "@react-firebase/firestore";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import firebaseConfig from "../auth/config";
+import { firebaseConfig } from "../config";
 import { TMovie } from "./Movie";
 import MovieCard from "./MovieCard";
 

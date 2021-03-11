@@ -1,6 +1,7 @@
 import { makeStyles, TextField } from "@material-ui/core";
-import React, { useState } from "react";
-import useDebounce from "react-use/lib/useDebounce";
+import React, { useEffect, useState } from "react";
+import useDebounce from "./debounce";
+import MovieSearchResult from "./MovieSearchResult";
 
 const useStyles = makeStyles((theme) => ({
   h2: {
@@ -11,18 +12,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Search() {
   const classes = useStyles();
-  const [needle, setNeedle] = useState("");
-  const [debouncedValue, setDebouncedValue] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  useDebounce(
-    () => {
-      if (needle.trim().length > 0) {
-        setDebouncedValue(needle);
-      }
-    },
-    500,
-    [needle]
-  );
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // search
+    } else {
+      // clear results
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <React.Fragment>
@@ -32,13 +31,14 @@ export default function Search() {
           id="needle"
           label="Movie title"
           variant="outlined"
-          value={needle}
-          onChange={(e: any) => setNeedle(e.target.value)}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
-      {/* remove this: */}
-      <pre>Value: {needle}</pre>
-      <pre>Debounced: {debouncedValue}</pre>
+      {/* FIXME remove */}
+      <pre>Value: {searchTerm}</pre>
+      <pre>Debounced: {debouncedSearchTerm}</pre>
+      <MovieSearchResult />
     </React.Fragment>
   );
 }

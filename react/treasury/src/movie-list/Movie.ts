@@ -1,4 +1,4 @@
-interface IMovie {
+export interface IMovie {
 	vote_count: number;
 	id: number;
 	video: boolean;
