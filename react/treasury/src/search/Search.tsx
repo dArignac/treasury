@@ -1,7 +1,7 @@
 import { makeStyles, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import useDebounce from "./debounce";
-import MovieSearchResult from "./MovieSearchResult";
+import MovieSearchResultList from "./MovieSearchResultList";
 
 const useStyles = makeStyles((theme) => ({
   h2: {
@@ -28,7 +28,7 @@ export default function Search() {
         />
       </form>
       {debouncedSearchTerm.length > 0 && (
-        <MovieSearchResult searchTerm={debouncedSearchTerm} />
+        <MovieSearchResultList searchTerm={debouncedSearchTerm} />
       )}
     </React.Fragment>
   );

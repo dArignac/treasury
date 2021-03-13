@@ -1,13 +1,13 @@
 import React from "react";
 import useSearchMovies from "./useSearchMovies";
 
-interface MovieSearchResultProps {
+interface MovieSearchResultListProps {
   searchTerm: string;
 }
 
-export default React.memo(function MovieSearchResult({
+export default React.memo(function MovieSearchResultList({
   searchTerm,
-}: MovieSearchResultProps) {
+}: MovieSearchResultListProps) {
   const { status, data, error } = useSearchMovies(searchTerm);
 
   return (
