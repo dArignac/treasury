@@ -1,16 +1,32 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { theMovieDatabaseConfig } from "../config";
-import { IMovie } from "../movie-list/Movie";
 
-type TMDBResponse = {
+export interface IMovieSearchResult {
+	adult: boolean;
+	backdrop_path: string;
+	genre_ids: Array<number>;
+	id: number;
+	original_language: string;
+	original_title: string;
+	overview: string;
+	popularity: number;
+	poster_path: string;
+	release_date: string;
+	title: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+}
+
+export interface TMDBResponse {
 	page: number;
 	total_results: number;
 	total_pages: number;
-	results: IMovie[];
-};
+	results: IMovieSearchResult[];
+}
 
-export default function useSearchMovies(searchTerm: string) {
+export function useSearchMovies(searchTerm: string) {
 	const params = new URLSearchParams({
 		query: searchTerm,
 		page: "1",

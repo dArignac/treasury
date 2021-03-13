@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
 import MovieSearchResult from "./MovieSearchResult";
-import useSearchMovies from "./useSearchMovies";
+import { useSearchMovies } from "./useSearchMovies";
 
 const useStyles = makeStyles({
   resultList: {
