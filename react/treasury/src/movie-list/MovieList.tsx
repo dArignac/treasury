@@ -32,6 +32,8 @@ export default function MovieList(props: MovieListProps) {
       >
         {(collection) => {
           if (collection.isLoading) return <div>Loading....</div>;
+          if (collection.value.length === 0)
+            return <div>No movies added yet.</div>;
           return (
             <div className={classes.root}>
               {collection.value.map((movie: TMovie) => (

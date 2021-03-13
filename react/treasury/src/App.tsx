@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateRows: "4em auto auto",
   },
   main: {
+    marginTop: "0.5em",
     padding: "0.5em",
   },
 }));
