@@ -13,6 +13,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { Route } from "wouter";
 import { firebaseConfig } from "./config";
 import Footer from "./Footer";
@@ -76,6 +77,7 @@ export default function App() {
           </div>
         </ThemeProvider>
       </FirebaseAuthProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
