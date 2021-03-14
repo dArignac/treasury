@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import useDebounce from "./debounce";
 import MovieSearchResultList from "./MovieSearchResultList";
 
+interface SearchProps {
+  user: any;
+}
+
 const useStyles = makeStyles((theme) => ({
   h2: {
     marginBottom: "0.5em",
@@ -10,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Search() {
+export default function Search({ user }: SearchProps) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
@@ -28,7 +32,7 @@ export default function Search() {
         />
       </form>
       {debouncedSearchTerm.length > 0 && (
-        <MovieSearchResultList searchTerm={debouncedSearchTerm} />
+        <MovieSearchResultList searchTerm={debouncedSearchTerm} user={user} />
       )}
     </React.Fragment>
   );

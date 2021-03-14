@@ -41,13 +41,14 @@ const useStyles = makeStyles({
   },
 });
 
-interface MovieSearchResultProps {
+interface MovieResultProps {
   movie: IMovieSearchResult;
+  user: any;
 }
 
 const imgBaseURL = "https://image.tmdb.org/t/p/w92";
 
-export default function MovieResult({ movie }: MovieSearchResultProps) {
+export default function MovieResult({ movie, user }: MovieResultProps) {
   const classes = useStyles();
   return (
     <Card key={movie.id} className={classes.root}>

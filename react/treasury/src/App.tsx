@@ -67,7 +67,7 @@ export default function App() {
                       <MovieList user={user} />
                     </Route>
                     <Route path="/search">
-                      <Search />
+                      <Search user={user} />
                     </Route>
                   </React.Fragment>
                 )}

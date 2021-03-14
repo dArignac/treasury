@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieList(props: MovieListProps) {
-  const path = `/users/${props.user.uid}/movies`;
+export default function MovieList({ user }: MovieListProps) {
+  const path = "/users/" + user.uid + "/movies";
   const classes = useStyles();
   return (
     <FirestoreProvider firebase={firebase} {...firebaseConfig}>
