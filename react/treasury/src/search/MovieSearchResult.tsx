@@ -1,17 +1,45 @@
-import { makeStyles } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardMedia,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { IMovieSearchResult } from "./useSearchMovies";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
+  actions: {
+    padding: "0.25em",
+  },
+  content: {
+    padding: "0.5em",
+    "& > h6": {
+      lineHeight: "1.25",
+    },
+  },
+  contentGrid: {
+    display: "grid",
+    gap: "0 0",
+    gridTemplateColumns: "1fr",
+    gridTemplateRows: "1fr min-content",
+  },
+  media: {
+    maxHeight: "130px",
+    width: "92px",
+  },
+  noPoster: {
+    textAlign: "center",
+    "& > span": {
+      lineHeight: "130px",
+    },
+  },
   root: {
     display: "grid",
     gridTemplateColumns: "1fr 92px",
+    minHeight: "130px",
+    maxWidth: "25em",
   },
-  img: {
-    height: "138px",
-    overflow: "hidden",
-    width: "92px",
-  },
-}));
+});
 
 interface MovieSearchResultProps {
   movie: IMovieSearchResult;
@@ -19,20 +47,35 @@ interface MovieSearchResultProps {
 
 const imgBaseURL = "https://image.tmdb.org/t/p/w92";
 
-// FIXME try out with Card
 export default function MovieSearchResult({ movie }: MovieSearchResultProps) {
   const classes = useStyles();
   return (
-    <div key={movie.id} className={classes.root}>
-      <div>
-        <h3>{movie.title}</h3>
-        {movie.release_date}
+    <Card key={movie.id} className={classes.root}>
+      <div className={classes.contentGrid}>
+        <div className={classes.content}>
+          <Typography variant="subtitle1">{movie.title}</Typography>
+          <Typography variant="body2">{movie.release_date}</Typography>
+        </div>
+        <div className={classes.actions}>
+          <Button size="small" color="primary">
+            Add Movie
+          </Button>
+        </div>
       </div>
-      <div className={classes.img}>
-        {movie.poster_path != null && (
-          <img src={imgBaseURL + movie.poster_path} alt={movie.title} />
-        )}
-      </div>
-    </div>
+      {movie.poster_path == null && (
+        <div className={classes.noPoster}>
+          <Typography variant="overline">No poster</Typography>
+        </div>
+      )}
+      {movie.poster_path != null && (
+        <CardMedia
+          className={classes.media}
+          component="img"
+          alt={movie.title}
+          image={imgBaseURL + movie.poster_path}
+          title={movie.title}
+        />
+      )}
+    </Card>
   );
 }
