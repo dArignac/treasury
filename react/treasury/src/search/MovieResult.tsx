@@ -47,7 +47,7 @@ interface MovieSearchResultProps {
 
 const imgBaseURL = "https://image.tmdb.org/t/p/w92";
 
-export default function MovieSearchResult({ movie }: MovieSearchResultProps) {
+export default function MovieResult({ movie }: MovieSearchResultProps) {
   const classes = useStyles();
   return (
     <Card key={movie.id} className={classes.root}>

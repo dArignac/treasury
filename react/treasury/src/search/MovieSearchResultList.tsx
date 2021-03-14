@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
-import MovieSearchResult from "./MovieSearchResult";
+import MovieResult from "./MovieResult";
 import { useSearchMovies } from "./useSearchMovies";
 
 const useStyles = makeStyles({
@@ -33,7 +33,7 @@ export default React.memo(function MovieSearchResultList({
       ) : (
         <div className={classes.resultList}>
           {data!.results.map((movie) => (
-            <MovieSearchResult key={movie.id} movie={movie} />
+            <MovieResult key={movie.id} movie={movie} />
           ))}
         </div>
       )}
