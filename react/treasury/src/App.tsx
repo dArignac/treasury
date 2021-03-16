@@ -4,14 +4,15 @@ import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
 } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import "firebase/auth";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import initFirebase from "./firebase";
 import Footer from "./Footer";
 import Greeting from "./Greeting";
 import NavigationPanel from "./navigation/NavigationPanel";
 
+initFirebase();
 const queryClient = new QueryClient();
 
 // current palette #525252 #414141 #313131 #CA3E47
