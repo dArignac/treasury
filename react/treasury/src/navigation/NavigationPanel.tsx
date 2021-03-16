@@ -5,9 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-import { IfFirebaseAuthed } from "@react-firebase/auth";
 import React, { useState } from "react";
-import { Route } from "wouter";
 import LoginLogout from "./LoginLogout";
 import NavigationList from "./NavigationList";
 
@@ -51,14 +49,7 @@ export default function NavigationPanel() {
             <Typography variant="h6" className={classes.title}>
               <React.Fragment>
                 Treasury
-                <IfFirebaseAuthed>
-                  {() => (
-                    <React.Fragment>
-                      <Route path="/"> - Movies</Route>
-                    </React.Fragment>
-                  )}
-                </IfFirebaseAuthed>
-                {/* other routes go here */}
+                {/* <Route path="/"> - Movies</Route> */}
               </React.Fragment>
             </Typography>
             <LoginLogout />

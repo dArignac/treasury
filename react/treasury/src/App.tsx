@@ -4,23 +4,13 @@ import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
 } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import {
-  FirebaseAuthProvider,
-  IfFirebaseAuthed,
-  IfFirebaseUnAuthed,
-} from "@react-firebase/auth";
-import firebase from "firebase/app";
 import "firebase/auth";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Route } from "wouter";
-import { firebaseConfig } from "./config";
 import Footer from "./Footer";
 import Greeting from "./Greeting";
-import MovieList from "./movie-list/MovieList";
 import NavigationPanel from "./navigation/NavigationPanel";
-import Search from "./search/Search";
 
 const queryClient = new QueryClient();
 
@@ -53,31 +43,16 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <FirebaseAuthProvider firebase={firebase} {...firebaseConfig}>
-        <CssBaseline />
-        <ThemeProvider theme={theme}>
-          <div className={classes.wrapper}>
-            <NavigationPanel />
-            <main className={classes.main}>
-              <IfFirebaseUnAuthed>{() => <Greeting />}</IfFirebaseUnAuthed>
-              <IfFirebaseAuthed>
-                {({ user }) => (
-                  <React.Fragment>
-                    <Route path="/">
-                      <MovieList user={user} />
-                    </Route>
-                    <Route path="/search">
-                      <Search user={user} />
-                    </Route>
-                  </React.Fragment>
-                )}
-              </IfFirebaseAuthed>
-              {/* other routes go here */}
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-      </FirebaseAuthProvider>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <div className={classes.wrapper}>
+          <NavigationPanel />
+          <main className={classes.main}>
+            <Greeting />
+          </main>
+          <Footer />
+        </div>
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
