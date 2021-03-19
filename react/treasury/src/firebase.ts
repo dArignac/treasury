@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import { firebaseConfig } from "./config";
+import { FirebaseStore } from "./store";
 
 export default function initFirebase() {
 	try {
@@ -13,7 +14,9 @@ export default function initFirebase() {
 		}
 	}
 	firebase.auth().onAuthStateChanged((user) => {
-		// FIXME persist to global state
-		console.log("onAuthStateChanged", user);
+		FirebaseStore.update((s) => {
+			s.isLoggedIn = user !== null;
+			s.user = user;
+		});
 	});
 }

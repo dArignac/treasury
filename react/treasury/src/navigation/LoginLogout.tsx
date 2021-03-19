@@ -2,9 +2,10 @@ import Button from "@material-ui/core/Button";
 import firebase from "firebase/app";
 import "firebase/auth";
 import React from "react";
+import { FirebaseStore } from "../store";
 
 export default function LoginLogout() {
-  const isSignedIn = false;
+  const isSignedIn = FirebaseStore.useState((s) => s.isLoggedIn);
   return (
     <React.Fragment>
       {isSignedIn ? (
