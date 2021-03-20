@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { FirebaseStore } from "../store";
 import { useEffect, useState } from "react";
+import { FirebaseStore } from "../store";
 import { TMovie } from "./Movie";
 import MovieCard from "./MovieCard";
 
@@ -36,14 +36,10 @@ export default function MovieList() {
       .onSnapshot((querySnapshot) => {
         setIsLoading(false);
         if (!querySnapshot.empty) {
-          setMovies(
-            querySnapshot.docs.map((doc) => {
-              return doc.data() as TMovie;
-            })
-          );
+          setMovies(querySnapshot.docs.map((doc) => doc.data() as TMovie));
         }
       });
-  });
+  }, [db, userId]);
 
   return (
     <>
