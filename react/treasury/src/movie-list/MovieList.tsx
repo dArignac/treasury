@@ -33,8 +33,7 @@ export default function MovieList() {
     db!
       .collection("/users/" + userId + "/movies")
       .orderBy("title")
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         setIsLoading(false);
         if (!querySnapshot.empty) {
           setMovies(
