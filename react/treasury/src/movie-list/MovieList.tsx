@@ -1,10 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import "firebase/firestore";
 
-type MovieListProps = {
-  user: any;
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "grid",
@@ -13,8 +9,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieList({ user }: MovieListProps) {
-  const path = "/users/" + user.uid + "/movies";
+export default function MovieList() {
+  // const path = "/users/" + user.uid + "/movies";
   const classes = useStyles();
   return (
     <div>TODO</div>

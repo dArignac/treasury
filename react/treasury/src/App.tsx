@@ -7,10 +7,14 @@ import { ThemeProvider } from "@material-ui/styles";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Route } from "wouter";
 import initFirebase from "./firebase";
 import Footer from "./Footer";
 import Greeting from "./Greeting";
+import MovieList from "./movie-list/MovieList";
 import NavigationPanel from "./navigation/NavigationPanel";
+import Search from "./search/Search";
+import { FirebaseStore } from "./store";
 
 initFirebase();
 const queryClient = new QueryClient();
@@ -41,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
+  const isSignedIn = FirebaseStore.useState((s) => s.isLoggedIn);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -49,7 +54,17 @@ export default function App() {
         <div className={classes.wrapper}>
           <NavigationPanel />
           <main className={classes.main}>
-            <Greeting />
+            {!isSignedIn && <Greeting />}
+            {isSignedIn && (
+              <React.Fragment>
+                <Route path="/">
+                  <MovieList />
+                </Route>
+                <Route path="/search">
+                  <Search />
+                </Route>
+              </React.Fragment>
+            )}
           </main>
           <Footer />
         </div>
