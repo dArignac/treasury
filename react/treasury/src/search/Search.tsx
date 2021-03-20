@@ -1,13 +1,14 @@
 import { makeStyles, TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import useDebounce from "./debounce";
+import MovieSearchResultList from "./MovieSearchResultList";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   h2: {
     marginBottom: "0.5em",
     marginTop: "0",
   },
-}));
+});
 
 export default function Search() {
   const classes = useStyles();
@@ -26,9 +27,9 @@ export default function Search() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
-      {/* {debouncedSearchTerm.length > 0 && (
-        <MovieSearchResultList searchTerm={debouncedSearchTerm} user={user} />
-      )} */}
+      {debouncedSearchTerm.length > 0 && (
+        <MovieSearchResultList searchTerm={debouncedSearchTerm} />
+      )}
     </React.Fragment>
   );
 }

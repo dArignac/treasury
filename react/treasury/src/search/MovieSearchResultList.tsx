@@ -17,12 +17,10 @@ const useStyles = makeStyles({
 
 interface MovieSearchResultListProps {
   searchTerm: string;
-  user: any;
 }
 
 export default React.memo(function MovieSearchResultList({
   searchTerm,
-  user,
 }: MovieSearchResultListProps) {
   const classes = useStyles();
   const { status, data, error } = useSearchMovies(searchTerm);
@@ -36,7 +34,7 @@ export default React.memo(function MovieSearchResultList({
       ) : (
         <div className={classes.resultList}>
           {data!.results.map((movie) => (
-            <MovieResult key={movie.id} movie={movie} user={user} />
+            <MovieResult key={movie.id} movie={movie} />
           ))}
         </div>
       )}
