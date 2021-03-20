@@ -36,7 +36,11 @@ export default function MovieList() {
       .onSnapshot((querySnapshot) => {
         setIsLoading(false);
         if (!querySnapshot.empty) {
-          setMovies(querySnapshot.docs.map((doc) => doc.data() as TMovie));
+          setMovies(
+            querySnapshot.docs.map((doc) => {
+              return { id: parseInt(doc.id), ...doc.data() } as TMovie;
+            })
+          );
         }
       });
   }, [db, userId]);

@@ -1,6 +1,8 @@
 import { makeStyles } from "@material-ui/core";
 import "firebase/firestore";
 import React from "react";
+import { TMovie } from "../movie-list/Movie";
+import { FirebaseStore } from "../store";
 import MovieResult from "./MovieResult";
 import { useSearchMovies } from "./useSearchMovies";
 
@@ -19,11 +21,26 @@ interface MovieSearchResultListProps {
   searchTerm: string;
 }
 
+// FIXME handle empty result list
 export default React.memo(function MovieSearchResultList({
   searchTerm,
 }: MovieSearchResultListProps) {
   const classes = useStyles();
   const { status, data, error } = useSearchMovies(searchTerm);
+  const { db, userId } = FirebaseStore.useState((s) => ({
+    db: s.firestore,
+    userId: s.user!.uid,
+  }));
+
+  const addMovieToFirestore = (movie: TMovie): Promise<void> => {
+    console.log("addMovieToFirestore", movie);
+    return db!
+      .collection("/users/" + userId + "/movies")
+      .doc(`${movie.id}`)
+      .set({
+        title: movie.title,
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -34,7 +51,11 @@ export default React.memo(function MovieSearchResultList({
       ) : (
         <div className={classes.resultList}>
           {data!.results.map((movie) => (
-            <MovieResult key={movie.id} movie={movie} />
+            <MovieResult
+              key={movie.id}
+              movie={movie}
+              addMovie={() => addMovieToFirestore(movie)}
+            />
           ))}
         </div>
       )}

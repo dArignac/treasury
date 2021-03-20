@@ -4,6 +4,6 @@ type MovieCardProps = {
   movie: TMovie;
 };
 
-export default function MovieCard(props: MovieCardProps) {
-  return <div>{props.movie.title}</div>;
+export default function MovieCard({ movie }: MovieCardProps) {
+  return <div>{movie.title}</div>;
 }

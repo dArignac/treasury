@@ -5,6 +5,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import { useState } from "react";
 import { IMovieSearchResult } from "./useSearchMovies";
 
 const useStyles = makeStyles({
@@ -42,13 +43,16 @@ const useStyles = makeStyles({
 });
 
 interface MovieResultProps {
+  addMovie: () => Promise<void>;
   movie: IMovieSearchResult;
 }
 
 const imgBaseURL = "https://image.tmdb.org/t/p/w92";
 
-export default function MovieResult({ movie }: MovieResultProps) {
+export default function MovieResult({ addMovie, movie }: MovieResultProps) {
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const classes = useStyles();
+
   return (
     <Card key={movie.id} className={classes.root}>
       <div className={classes.contentGrid}>
@@ -57,7 +61,16 @@ export default function MovieResult({ movie }: MovieResultProps) {
           <Typography variant="body2">{movie.release_date}</Typography>
         </div>
         <div className={classes.actions}>
-          <Button size="small" color="primary">
+          <Button
+            color="primary"
+            disabled={buttonDisabled}
+            onClick={() => {
+              addMovie()
+                .then(() => setButtonDisabled(true))
+                .catch(() => console.log("error"));
+            }}
+            size="small"
+          >
             Add Movie
           </Button>
         </div>
