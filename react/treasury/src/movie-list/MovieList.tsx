@@ -1,15 +1,16 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { FirebaseStore } from "../store";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
+import { TMovie } from "./Movie";
+import MovieCard from "./MovieCard";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
+const useStyles = makeStyles({
+  container: {
     display: "grid",
     gridTemplateColumns: "1fr",
     rowGap: "0.5rem",
   },
-}));
+});
 
 function MovieListLoading() {
   return <div>Loading...</div>;
@@ -21,46 +22,43 @@ function MovieListEmpty() {
 
 export default function MovieList() {
   const classes = useStyles();
+  const [movies, setMovies] = useState<Array<TMovie>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { db, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     userId: s.user!.uid,
   }));
-  let content = <MovieListLoading />;
 
   useEffect(() => {
-    // FIXME ordering
     db!
       .collection("/users/" + userId + "/movies")
+      .orderBy("title")
       .get()
       .then((querySnapshot) => {
-        if (querySnapshot.empty) {
-          // content = <MovieListEmpty />;
-          console.log("empty");
+        setIsLoading(false);
+        if (!querySnapshot.empty) {
+          setMovies(
+            querySnapshot.docs.map((doc) => {
+              return doc.data() as TMovie;
+            })
+          );
         }
-        querySnapshot.forEach((doc) => {
-          console.log(`${doc.id} => ${doc.data()}`);
-        });
       });
   });
 
-  return content;
-  // <FirestoreProvider firebase={firebase} {...firebaseConfig}>
-  //   <FirestoreCollection
-  //     path={path}
-  //     orderBy={[{ field: "title", type: "asc" }]}
-  //   >
-  //     {(collection) => {
-  //       if (collection.isLoading) return <div>Loading....</div>;
-  //       if (collection.value.length === 0)
-  //         return <div>No movies added yet.</div>;
-  //       return (
-  //         <div className={classes.root}>
-  //           {collection.value.map((movie: TMovie) => (
-  //             <MovieCard key={movie.id} movie={movie} />
-  //           ))}
-  //         </div>
-  //       );
-  //     }}
-  //   </FirestoreCollection>
-  // </FirestoreProvider>
+  return (
+    <>
+      {isLoading && <MovieListLoading />}
+      {!isLoading &&
+        (movies.length === 0 ? (
+          <MovieListEmpty />
+        ) : (
+          <div className={classes.container}>
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        ))}
+    </>
+  );
 }
