@@ -8,7 +8,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Route } from "wouter";
-import initFirebase from "./firebase";
+import { initFirebase } from "./firebase";
 import Footer from "./Footer";
 import Greeting from "./Greeting";
 import MovieList from "./movie-list/MovieList";

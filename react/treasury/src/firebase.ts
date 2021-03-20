@@ -1,9 +1,10 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 import { firebaseConfig } from "./config";
 import { FirebaseStore } from "./store";
 
-export default function initFirebase() {
+function initFirebase() {
 	try {
 		firebase.app();
 	} catch (err) {
@@ -13,6 +14,9 @@ export default function initFirebase() {
 			throw err;
 		}
 	}
+	FirebaseStore.update((s) => {
+		s.firestore = firebase.firestore();
+	});
 	firebase.auth().onAuthStateChanged((user) => {
 		FirebaseStore.update((s) => {
 			s.isLoggedIn = user !== null;
@@ -20,3 +24,5 @@ export default function initFirebase() {
 		});
 	});
 }
+
+export { initFirebase };
