@@ -21,19 +21,16 @@ interface MovieSearchResultListProps {
   searchTerm: string;
 }
 
-// FIXME handle empty result list
 export default React.memo(function MovieSearchResultList({
   searchTerm,
 }: MovieSearchResultListProps) {
   const classes = useStyles();
-  const { status, data, error } = useSearchMovies(searchTerm);
   const { db, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     userId: s.user!.uid,
   }));
-
+  const { status, data, error } = useSearchMovies(searchTerm);
   const addMovieToFirestore = (movie: TMovie): Promise<void> => {
-    console.log("addMovieToFirestore", movie);
     return db!
       .collection("/users/" + userId + "/movies")
       .doc(`${movie.id}`)
@@ -50,7 +47,7 @@ export default React.memo(function MovieSearchResultList({
         <div>{error!.message}</div>
       ) : (
         <div className={classes.resultList}>
-          {data!.results.map((movie) => (
+          {data?.results.map((movie) => (
             <MovieResult
               key={movie.id}
               movie={movie}

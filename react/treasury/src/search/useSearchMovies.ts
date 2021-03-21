@@ -43,6 +43,6 @@ export function useSearchMovies(searchTerm: string) {
 			);
 			return data;
 		},
-		{ retry: 1 }
+		{ enabled: true, refetchOnWindowFocus: false, retry: 0 }
 	);
 }

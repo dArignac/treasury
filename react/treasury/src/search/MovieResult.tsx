@@ -67,6 +67,7 @@ export default function MovieResult({ addMovie, movie }: MovieResultProps) {
             onClick={() => {
               addMovie()
                 .then(() => setButtonDisabled(true))
+                // FIXME add snackbar
                 .catch(() => console.log("error"));
             }}
             size="small"
