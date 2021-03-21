@@ -4,6 +4,7 @@ import {
   unstable_createMuiStrictModeTheme as createMuiTheme,
 } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import { SnackbarProvider } from "notistack";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -51,23 +52,31 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <div className={classes.wrapper}>
-          <NavigationPanel />
-          <main className={classes.main}>
-            {!isSignedIn && <Greeting />}
-            {isSignedIn && (
-              <React.Fragment>
-                <Route path="/">
-                  <MovieList />
-                </Route>
-                <Route path="/search">
-                  <Search />
-                </Route>
-              </React.Fragment>
-            )}
-          </main>
-          <Footer />
-        </div>
+        <SnackbarProvider
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          maxSnack={3}
+        >
+          <div className={classes.wrapper}>
+            <NavigationPanel />
+            <main className={classes.main}>
+              {!isSignedIn && <Greeting />}
+              {isSignedIn && (
+                <React.Fragment>
+                  <Route path="/">
+                    <MovieList />
+                  </Route>
+                  <Route path="/search">
+                    <Search />
+                  </Route>
+                </React.Fragment>
+              )}
+            </main>
+            <Footer />
+          </div>
+        </SnackbarProvider>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

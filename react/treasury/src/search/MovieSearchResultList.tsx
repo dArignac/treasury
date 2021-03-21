@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import "firebase/firestore";
+import { useSnackbar } from "notistack";
 import React from "react";
 import { TMovie } from "../movie-list/Movie";
 import { FirebaseStore } from "../store";
@@ -30,13 +31,26 @@ export default React.memo(function MovieSearchResultList({
     userId: s.user!.uid,
   }));
   const { status, data, error } = useSearchMovies(searchTerm);
-  const addMovieToFirestore = (movie: TMovie): Promise<void> => {
-    return db!
+  const { enqueueSnackbar } = useSnackbar();
+  const addMovieToFirestore = (movie: TMovie) => {
+    db!
       .collection("/users/" + userId + "/movies")
       .doc(`${movie.id}`)
       .set({
         title: movie.title,
-      });
+      })
+      .then(() =>
+        enqueueSnackbar(`"${movie.title}" has been added.`, {
+          autoHideDuration: 3000,
+          variant: "success",
+        })
+      )
+      .catch(() =>
+        enqueueSnackbar(`Error while adding "${movie.title}"`, {
+          autoHideDuration: 5000,
+          variant: "error",
+        })
+      );
   };
 
   return (
@@ -47,11 +61,12 @@ export default React.memo(function MovieSearchResultList({
         <div>{error!.message}</div>
       ) : (
         <div className={classes.resultList}>
+          {data?.results.length === 0 && <div>No movies found!</div>}
           {data?.results.map((movie) => (
             <MovieResult
+              addMovie={() => addMovieToFirestore(movie)}
               key={movie.id}
               movie={movie}
-              addMovie={() => addMovieToFirestore(movie)}
             />
           ))}
         </div>
