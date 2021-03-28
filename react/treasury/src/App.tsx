@@ -15,6 +15,7 @@ import Greeting from "./Greeting";
 import MovieList from "./movie-list/MovieList";
 import NavigationPanel from "./navigation/NavigationPanel";
 import Search from "./search/Search";
+import Settings from "./settings/Settings";
 import { FirebaseStore } from "./store";
 
 initFirebase();
@@ -70,6 +71,9 @@ export default function App() {
                   </Route>
                   <Route path="/search">
                     <Search />
+                  </Route>
+                  <Route path="/settings">
+                    <Settings />
                   </Route>
                 </React.Fragment>
               )}
