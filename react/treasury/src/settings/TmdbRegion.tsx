@@ -3,7 +3,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
-import { FirebaseStore } from "../store";
+import { FirebaseStore, TSettings } from "../store";
 
 const useStyles = makeStyles({
   formControl: {
@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
+// FIXME use https://developers.themoviedb.org/3/configuration/get-countries as selection options
 export default function TmdbRegion() {
   const classes = useStyles();
   const { db, settings, userId } = FirebaseStore.useState((s) => ({
@@ -19,26 +20,26 @@ export default function TmdbRegion() {
     userId: s.user!.uid,
   }));
   const { enqueueSnackbar } = useSnackbar();
-  const lblMovieDataLanguage = "TMDB region";
+  const lblTmdbRegion = "TMDB region";
 
-  const tmdbRegionChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const lang = event.target.value as string;
-    const newSettings = {
+  const regionChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const region = event.target.value as string;
+    const newSettings: TSettings = {
       ...settings,
-      tmdbRegion: lang,
-    };
+      tmdbRegion: region,
+    } as TSettings;
     db!
       .doc("/settings/" + userId)
       .set(newSettings)
       .then(() => {
-        const ll = lang === "DE" ? "German" : "English";
-        enqueueSnackbar(`${lblMovieDataLanguage} has been changed to ${ll}.`, {
+        const r = region === "DE" ? "Germany" : "No Region";
+        enqueueSnackbar(`${lblTmdbRegion} has been changed to "${r}".`, {
           autoHideDuration: 3000,
           variant: "success",
         });
       })
       .catch(() =>
-        enqueueSnackbar(`Error while saving ${lblMovieDataLanguage}`, {
+        enqueueSnackbar(`Error while saving ${lblTmdbRegion}`, {
           autoHideDuration: 5000,
           variant: "error",
         })
@@ -47,23 +48,12 @@ export default function TmdbRegion() {
 
   return (
     <div>
-      <h3>{lblMovieDataLanguage}</h3>
-      <p>
-        This applies to the movies or tv shows you're adding - their title and
-        images will be saved in the configured language. It does not apply to
-        currently existing items in your account. If you add an already added
-        movie again after setting a new region, its values will be updated to
-        the new region.
-      </p>
+      <h3>{lblTmdbRegion}</h3>
+      <p>Release dates are shown for the selected region.</p>
       <FormControl variant="outlined" className={classes.formControl}>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          onChange={tmdbRegionChanged}
-          value={settings.tmdbRegion}
-        >
-          <MenuItem value="EN">English</MenuItem>
-          <MenuItem value="DE">German</MenuItem>
+        <Select onChange={regionChanged} value={settings.tmdbRegion}>
+          <MenuItem value="EN">No Region</MenuItem>
+          <MenuItem value="DE">Germany</MenuItem>
         </Select>
       </FormControl>
     </div>

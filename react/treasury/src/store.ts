@@ -2,6 +2,7 @@ import { Store } from "pullstate";
 import firebase from "firebase/app";
 
 export type TSettings = {
+	tmdbLanguage: "en-US" | "de-DE";
 	tmdbRegion: "EN" | "DE";
 };
 
@@ -18,6 +19,7 @@ export const FirebaseStore = new Store<IFirebaseStore>({
 	isLoggedIn: false,
 	movieSearchTerm: "",
 	settings: {
+		tmdbLanguage: "en-US",
 		tmdbRegion: "EN",
 	},
 	user: null,

@@ -1,4 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+import TmdbLanguage from "./TmdbLanguage";
 import TmdbRegion from "./TmdbRegion";
 
 const useStyles = makeStyles({
@@ -21,6 +23,7 @@ export default function Settings() {
       <h2 className={classes.h2}>Settings</h2>
       <div className={classes.container}>
         <TmdbRegion />
+        <TmdbLanguage />
       </div>
     </>
   );

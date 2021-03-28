@@ -30,6 +30,7 @@ export function initFirebase() {
 				// initial settings setup
 				if (!doc.exists) {
 					db.doc("/settings/" + user.uid).set({
+						tmdbLanguage: "en-US",
 						tmdbRegion: "EN",
 					});
 				}
