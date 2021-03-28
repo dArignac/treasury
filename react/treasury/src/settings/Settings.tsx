@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import DataBackup from "./DataBackup";
 import TmdbLanguage from "./TmdbLanguage";
 import TmdbRegion from "./TmdbRegion";
 
@@ -24,6 +25,7 @@ export default function Settings() {
       <div className={classes.container}>
         <TmdbRegion />
         <TmdbLanguage />
+        <DataBackup />
       </div>
     </>
   );
