@@ -26,11 +26,12 @@ export default React.memo(function MovieSearchResultList({
   searchTerm,
 }: MovieSearchResultListProps) {
   const classes = useStyles();
-  const { db, userId } = FirebaseStore.useState((s) => ({
+  const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
+    settings: s.settings,
     userId: s.user!.uid,
   }));
-  const { status, data, error } = useSearchMovies(searchTerm);
+  const { status, data, error } = useSearchMovies(searchTerm, settings);
   const { enqueueSnackbar } = useSnackbar();
   const addMovieToFirestore = (movie: TMovie) => {
     db!

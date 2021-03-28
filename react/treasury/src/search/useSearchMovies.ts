@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { theMovieDatabaseConfig } from "../config";
+import { TSettings } from "../store";
 
 export interface IMovieSearchResult {
 	adult: boolean;
@@ -26,13 +27,13 @@ export interface TMDBResponse {
 	results: IMovieSearchResult[];
 }
 
-export function useSearchMovies(searchTerm: string) {
+export function useSearchMovies(searchTerm: string, settings: TSettings) {
 	const params = new URLSearchParams({
 		query: searchTerm,
 		page: "1",
 		include_adult: "false", // FIXME add to settings
-		region: "DE", // FIXME add to settings
-		language: "de", // FIXME add to settings
+		region: settings.tmdbRegion,
+		language: settings.tmdbLanguage,
 		api_key: theMovieDatabaseConfig.apiKey,
 	});
 	return useQuery<TMDBResponse, Error>(
