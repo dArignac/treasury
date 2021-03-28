@@ -27,6 +27,12 @@ export function initFirebase() {
 		// if user is authenticated, attach to settings
 		if (user !== null) {
 			db.doc("/settings/" + user.uid).onSnapshot((doc) => {
+				// initial settings setup
+				if (!doc.exists) {
+					db.doc("/settings/" + user.uid).set({
+						tmdbRegion: "EN",
+					});
+				}
 				FirebaseStore.update((s) => {
 					s.settings = doc.data() as TSettings;
 				});
