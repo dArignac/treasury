@@ -2,9 +2,8 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
-import { useEffect, useState } from "react";
-import { FirebaseStore } from "../store";
 import { useSnackbar } from "notistack";
+import { FirebaseStore } from "../store";
 
 const useStyles = makeStyles({
   container: {
@@ -21,15 +20,11 @@ const useStyles = makeStyles({
   },
 });
 
-type TSettings = {
-  tmdbRegion: "EN" | "DE";
-};
-
 export default function Settings() {
   const classes = useStyles();
-  const [settings, setSettings] = useState<TSettings>({ tmdbRegion: "EN" });
-  const { db, userId } = FirebaseStore.useState((s) => ({
+  const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
+    settings: s.settings,
     userId: s.user!.uid,
   }));
   const { enqueueSnackbar } = useSnackbar();
@@ -58,12 +53,6 @@ export default function Settings() {
         })
       );
   };
-
-  useEffect(() => {
-    db!.doc("/settings/" + userId).onSnapshot((doc) => {
-      setSettings(doc.data() as TSettings);
-    });
-  }, [db, userId]);
 
   return (
     <>

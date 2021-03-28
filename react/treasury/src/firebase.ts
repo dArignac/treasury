@@ -2,9 +2,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import { firebaseConfig } from "./config";
-import { FirebaseStore } from "./store";
+import { FirebaseStore, TSettings } from "./store";
 
-function initFirebase() {
+export function initFirebase() {
 	try {
 		firebase.app();
 	} catch (err) {
@@ -14,15 +14,23 @@ function initFirebase() {
 			throw err;
 		}
 	}
+	const db = firebase.firestore();
 	FirebaseStore.update((s) => {
-		s.firestore = firebase.firestore();
+		s.firestore = db;
 	});
 	firebase.auth().onAuthStateChanged((user) => {
+		// store user
 		FirebaseStore.update((s) => {
 			s.isLoggedIn = user !== null;
 			s.user = user;
 		});
+		// if user is authenticated, attach to settings
+		if (user !== null) {
+			db.doc("/settings/" + user.uid).onSnapshot((doc) => {
+				FirebaseStore.update((s) => {
+					s.settings = doc.data() as TSettings;
+				});
+			});
+		}
 	});
 }
-
-export { initFirebase };
