@@ -4,6 +4,14 @@ import { FirebaseStore } from "../store";
 import { Movie } from "./Movie";
 import MovieCard from "./MovieCard";
 
+function MovieListLoading() {
+  return <div>Loading...</div>;
+}
+
+function MovieListEmpty() {
+  return <div>No movies added yet.</div>;
+}
+
 const useStyles = makeStyles({
   container: {
     display: "grid",
@@ -12,14 +20,6 @@ const useStyles = makeStyles({
     gridTemplateColumns: "repeat(auto-fill, 154px)",
   },
 });
-
-function MovieListLoading() {
-  return <div>Loading...</div>;
-}
-
-function MovieListEmpty() {
-  return <div>No movies added yet.</div>;
-}
 
 export default function MovieList() {
   const classes = useStyles();
@@ -46,19 +46,17 @@ export default function MovieList() {
       });
   }, [db, userId]);
 
+  // FIXME save data to firebase as before and write the refetch component?
+  // this probably reduces api count at tmdb significantly
+
+  if (isLoading) return <MovieListLoading />;
+  if (!isLoading && movies.length === 0) return <MovieListEmpty />;
+
   return (
-    <>
-      {isLoading && <MovieListLoading />}
-      {!isLoading &&
-        (movies.length === 0 ? (
-          <MovieListEmpty />
-        ) : (
-          <div className={classes.container}>
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        ))}
-    </>
+    <div className={classes.container}>
+      {movies.map((movie) => (
+        <MovieCard key={movie.id} movie={movie} />
+      ))}
+    </div>
   );
 }
