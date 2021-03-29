@@ -1,20 +1,17 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import { FirebaseStore } from "../store";
+import { Movie } from "./Movie";
 import MovieCard from "./MovieCard";
 
 const useStyles = makeStyles({
   container: {
     display: "grid",
-    gridTemplateColumns: "1fr",
-    rowGap: "0.5rem",
+    gap: "0.5em 0.5em",
+    gridAutoRows: "231px",
+    gridTemplateColumns: "repeat(auto-fill, 154px)",
   },
 });
-
-type Movie = {
-  id: number;
-  title: string;
-};
 
 function MovieListLoading() {
   return <div>Loading...</div>;
