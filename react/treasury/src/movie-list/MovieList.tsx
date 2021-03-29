@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import { FirebaseStore } from "../store";
-import { TMovie } from "./Movie";
 import MovieCard from "./MovieCard";
 
 const useStyles = makeStyles({
@@ -11,6 +10,11 @@ const useStyles = makeStyles({
     rowGap: "0.5rem",
   },
 });
+
+type Movie = {
+  id: number;
+  title: string;
+};
 
 function MovieListLoading() {
   return <div>Loading...</div>;
@@ -22,7 +26,7 @@ function MovieListEmpty() {
 
 export default function MovieList() {
   const classes = useStyles();
-  const [movies, setMovies] = useState<Array<TMovie>>([]);
+  const [movies, setMovies] = useState<Array<Movie>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { db, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
@@ -38,7 +42,7 @@ export default function MovieList() {
         if (!querySnapshot.empty) {
           setMovies(
             querySnapshot.docs.map((doc) => {
-              return { id: parseInt(doc.id), ...doc.data() } as TMovie;
+              return { id: parseInt(doc.id), ...doc.data() } as Movie;
             })
           );
         }

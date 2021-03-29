@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core";
 import "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React from "react";
-import { TMovie } from "../movie-list/Movie";
 import { FirebaseStore } from "../store";
 import MovieResult from "./MovieResult";
 import { useSearchMovies } from "./useSearchMovies";
@@ -17,6 +16,11 @@ const useStyles = makeStyles({
     marginTop: "0.5em",
   },
 });
+
+type Movie = {
+  id: number;
+  title: string;
+};
 
 interface MovieSearchResultListProps {
   searchTerm: string;
@@ -33,7 +37,7 @@ export default React.memo(function MovieSearchResultList({
   }));
   const { status, data, error } = useSearchMovies(searchTerm, settings);
   const { enqueueSnackbar } = useSnackbar();
-  const addMovieToFirestore = (movie: TMovie) => {
+  const addMovieToFirestore = (movie: Movie) => {
     db!
       .collection("/users/" + userId + "/movies")
       .doc(`${movie.id}`)

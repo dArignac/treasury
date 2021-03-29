@@ -1,7 +1,9 @@
-import { TMovie } from "./Movie";
+type Movie = {
+  title: string;
+};
 
 type MovieCardProps = {
-  movie: TMovie;
+  movie: Movie;
 };
 
 export default function MovieCard({ movie }: MovieCardProps) {
