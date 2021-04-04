@@ -1,21 +1,28 @@
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import { useEffect, useState } from "react";
-import { FirebaseStore } from "../store";
 import CircularProgress, {
   CircularProgressProps,
 } from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import { Movie } from "./Movie";
 import axios from "axios";
-import { TSettings } from "../store";
-import { theMovieDatabaseConfig } from "../config";
 import firebase from "firebase/app";
 import { PromiseQueue, PromiseQueueItemResponse } from "promise-queue-manager";
+import { useEffect, useState } from "react";
+import { theMovieDatabaseConfig } from "../config";
+import { FirebaseStore, TSettings } from "../store";
+import { Movie } from "./Movie";
 
 type FirebaseCounter = {
   movies: number;
+};
+
+// FIXME feels inperformant referencing db and settings
+type SyncElement = {
+  db: firebase.firestore.Firestore;
+  movieId: string;
+  settings: TSettings;
+  userId: string;
 };
 
 function CircularProgressWithLabel(
@@ -72,12 +79,20 @@ const getMovieById = async (
   return data;
 };
 
-const fetchAndUpdateMovieData = (movieId: string) => {
-  return new Promise<string>((resolve, reject) => {
-    setTimeout(() => {
-      console.log("fetchAndUpdateMovieData", movieId);
-      return resolve(movieId);
-    }, 2000);
+const fetchAndUpdateMovieData = (element: SyncElement) => {
+  return new Promise<SyncElement>((resolve, reject) => {
+    getMovieById(element.movieId, element.settings).then((movie) => {
+      console.log(movie);
+      element.db
+        .collection(`/users/${element.userId}/movies`)
+        .doc(element.movieId)
+        .set({
+          title: movie.title,
+          poster_path: movie.poster_path,
+        })
+        .then(() => resolve(element))
+        .catch(() => reject());
+    });
   });
 };
 
@@ -108,19 +123,25 @@ export default function TmdbSync() {
   const synchronizeData = () => {
     setIsSynchronizationRunning(true);
 
-    let movies: string[] = [];
+    let moviesToSync: SyncElement[] = [];
     db!
       .collection("/users/" + userId + "/movies")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          movies.push(doc.id);
+          // FIXME we only need the id, but because of hooks and functions things are complicated
+          moviesToSync.push({
+            db: db!,
+            movieId: doc.id,
+            settings,
+            userId,
+          });
         });
 
-        const queue = new PromiseQueue<string>(
+        const queue = new PromiseQueue<SyncElement>(
           {
             promise: fetchAndUpdateMovieData,
-            items: movies,
+            items: moviesToSync,
           },
           1,
           false
