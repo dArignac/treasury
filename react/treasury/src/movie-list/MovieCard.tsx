@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Movie } from "./Movie";
+import { Movie } from "../tmdb/Movie";
 
 type MovieCardProps = {
   movie: Movie;

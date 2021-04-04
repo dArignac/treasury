@@ -16,6 +16,7 @@
     "file-saver": "^2.0.5",
     "firebase": "^8.2.10",
     "notistack": "^1.0.5",
+    "promise-queue-manager": "^2.0.0",
     "pullstate": "^1.22.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

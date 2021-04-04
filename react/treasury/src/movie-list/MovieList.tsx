@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import { FirebaseStore } from "../store";
-import { Movie } from "./Movie";
+import { Movie } from "../tmdb/Movie";
 import MovieCard from "./MovieCard";
 
 function MovieListLoading() {
