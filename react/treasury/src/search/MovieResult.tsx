@@ -5,7 +5,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import { IMovieSearchResult } from "./useSearchMovies";
+import { IMovieSearchResult } from "../tmdb/types";
 
 const useStyles = makeStyles({
   actions: {

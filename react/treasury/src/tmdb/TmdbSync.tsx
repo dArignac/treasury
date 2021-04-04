@@ -5,14 +5,12 @@ import CircularProgress, {
 } from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
 import firebase from "firebase/app";
 import { PromiseQueue, PromiseQueueItemResponse } from "promise-queue-manager";
 import { useEffect, useState } from "react";
-import { theMovieDatabaseConfig } from "../config";
-import { FirebaseStore, TSettings } from "../store";
-import { Movie } from "./Movie";
 import { useGetSet } from "react-use";
+import { FirebaseStore, TSettings } from "../store";
+import { getMovieById } from "./tmdb";
 
 type FirebaseCounter = {
   movies: number;
@@ -64,20 +62,6 @@ const useStyles = makeStyles({
     marginTop: "2em",
   },
 });
-
-const getMovieById = async (
-  id: string,
-  settings: TSettings
-): Promise<Movie> => {
-  const params = new URLSearchParams({
-    language: settings.tmdbLanguage,
-    api_key: theMovieDatabaseConfig.apiKey,
-  });
-  const { data } = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}?${params.toString()}`
-  );
-  return data;
-};
 
 const fetchAndUpdateMovieData = (element: SyncElement) => {
   return new Promise<SyncElement>((resolve, reject) => {

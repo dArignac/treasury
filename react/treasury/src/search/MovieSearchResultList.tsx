@@ -3,8 +3,8 @@ import "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { FirebaseStore } from "../store";
+import { useSearchMovies } from "../tmdb/hooks";
 import MovieResult from "./MovieResult";
-import { useSearchMovies } from "./useSearchMovies";
 
 const useStyles = makeStyles({
   resultList: {
