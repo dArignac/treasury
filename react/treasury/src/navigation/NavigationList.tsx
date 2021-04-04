@@ -8,6 +8,7 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import SettingsIcon from "@material-ui/icons/Settings";
+import SyncIcon from "@material-ui/icons/Sync";
 import { Link } from "wouter";
 
 export default function NavigationList() {
@@ -36,6 +37,14 @@ export default function NavigationList() {
           </ListItemIcon>
           <Link href="/settings">
             <ListItemText>Settings</ListItemText>
+          </Link>
+        </ListItem>
+        <ListItem button key="sync">
+          <ListItemIcon>
+            <SyncIcon />
+          </ListItemIcon>
+          <Link href="/sync">
+            <ListItemText>TMDB Sync</ListItemText>
           </Link>
         </ListItem>
       </List>

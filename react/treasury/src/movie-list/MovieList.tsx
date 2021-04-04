@@ -46,9 +46,6 @@ export default function MovieList() {
       });
   }, [db, userId]);
 
-  // FIXME save data to firebase as before and write the refetch component?
-  // this probably reduces api count at tmdb significantly
-
   if (isLoading) return <MovieListLoading />;
   if (!isLoading && movies.length === 0) return <MovieListEmpty />;
 

@@ -17,6 +17,7 @@ import NavigationPanel from "./navigation/NavigationPanel";
 import Search from "./search/Search";
 import Settings from "./settings/Settings";
 import { FirebaseStore } from "./store";
+import TmdbSync from "./tmdb/TmdbSync";
 
 initFirebase();
 const queryClient = new QueryClient();
@@ -74,6 +75,9 @@ export default function App() {
                   </Route>
                   <Route path="/settings">
                     <Settings />
+                  </Route>
+                  <Route path="/sync">
+                    <TmdbSync />
                   </Route>
                 </React.Fragment>
               )}
