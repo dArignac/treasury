@@ -12,12 +12,12 @@ import { useEffect, useState } from "react";
 import { theMovieDatabaseConfig } from "../config";
 import { FirebaseStore, TSettings } from "../store";
 import { Movie } from "./Movie";
+import { useGetSet } from "react-use";
 
 type FirebaseCounter = {
   movies: number;
 };
 
-// FIXME feels inperformant referencing db and settings
 type SyncElement = {
   db: firebase.firestore.Firestore;
   movieId: string;
@@ -82,7 +82,6 @@ const getMovieById = async (
 const fetchAndUpdateMovieData = (element: SyncElement) => {
   return new Promise<SyncElement>((resolve, reject) => {
     getMovieById(element.movieId, element.settings).then((movie) => {
-      console.log(movie);
       element.db
         .collection(`/users/${element.userId}/movies`)
         .doc(element.movieId)
@@ -93,27 +92,37 @@ const fetchAndUpdateMovieData = (element: SyncElement) => {
         .then(() => resolve(element))
         .catch(() => reject());
     });
+    // setTimeout(() => {
+    //   console.log("fetchAndUpdateMovieData", element.movieId);
+    //   return resolve(element);
+    // }, 2000);
   });
 };
 
 export default function TmdbSync() {
   const classes = useStyles();
+
+  // are we actively syncing?
   const [
     isSynchronizationRunning,
     setIsSynchronizationRunning,
   ] = useState<boolean>(false);
+
   // total number of movies in firestore
   const [movieCount, setMovieCount] = useState<number>(0);
+
   // number of already synchronized movies
   const [
-    synchronizedMoviesCounter,
+    getSynchronizedMoviesCounter,
     setSynchronizedMoviesCounter,
-  ] = useState<number>(0);
+  ] = useGetSet<number>(0);
+
   // movie progress value for progress bar
   const [
-    moviesSynchronizedProgress,
+    getMoviesSynchronizedProgress,
     setMoviesSynchronizedProgress,
-  ] = useState<number>(0);
+  ] = useGetSet<number>(0);
+
   const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     settings: s.settings,
@@ -155,11 +164,13 @@ export default function TmdbSync() {
           }
         );
 
-        // FIXME handle progress indication
         queue.on(
           PromiseQueue.EVENTS.ITEM_PROCESSED,
           (response: PromiseQueueItemResponse<any>) => {
-            console.log("ITEM_PROCESSED", response);
+            setSynchronizedMoviesCounter(getSynchronizedMoviesCounter() + 1);
+            setMoviesSynchronizedProgress(
+              (getSynchronizedMoviesCounter() / movieCount) * 100
+            );
           }
         );
 
@@ -209,7 +220,7 @@ export default function TmdbSync() {
         </div>
         <div>
           <CircularProgressWithLabel
-            value={moviesSynchronizedProgress}
+            value={getMoviesSynchronizedProgress()}
             color="secondary"
           />
         </div>
