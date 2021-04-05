@@ -6,6 +6,7 @@ import CircularProgress, {
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import firebase from "firebase/app";
+import { useSnackbar } from "notistack";
 import { PromiseQueue, PromiseQueueItemResponse } from "promise-queue-manager";
 import { useEffect, useState } from "react";
 import { useGetSet } from "react-use";
@@ -64,19 +65,20 @@ const useStyles = makeStyles({
 });
 
 const fetchAndUpdateMovieData = (element: SyncElement) => {
-  console.log("fetchAndUpdateMovieData");
   return new Promise<SyncElement>((resolve, reject) => {
-    getMovieById(element.movieId, element.settings).then((movie) => {
-      element.db
-        .collection(`/users/${element.userId}/movies`)
-        .doc(element.movieId)
-        .set({
-          title: movie.title,
-          poster_path: movie.poster_path,
-        })
-        .then(() => resolve(element))
-        .catch(() => reject());
-    });
+    getMovieById(element.movieId, element.settings)
+      .then((movie) => {
+        element.db
+          .collection(`/users/${element.userId}/movies`)
+          .doc(element.movieId)
+          .set({
+            title: movie.title,
+            poster_path: movie.poster_path,
+          })
+          .then(() => resolve(element))
+          .catch(() => reject());
+      })
+      .catch(() => reject());
     // FIXME just for testing without actually calling TMDB
     // setTimeout(() => {
     //   console.log("fetchAndUpdateMovieData", element.movieId);
@@ -109,11 +111,15 @@ export default function TmdbSync() {
     setMoviesSynchronizedProgress,
   ] = useGetSet<number>(0);
 
+  // pullstate store
   const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     settings: s.settings,
     userId: s.user!.uid,
   }));
+
+  // have some snacks
+  const { enqueueSnackbar } = useSnackbar();
 
   const synchronizeData = () => {
     setIsSynchronizationRunning(true);
@@ -140,7 +146,7 @@ export default function TmdbSync() {
             promise: fetchAndUpdateMovieData,
             items: moviesToSync,
           },
-          1,
+          2,
           false
         );
 
@@ -153,11 +159,16 @@ export default function TmdbSync() {
         //   false
         // );
 
-        // FIXME show error somehow
         queue.on(
           PromiseQueue.EVENTS.ITEM_ERROR,
           (response: PromiseQueueItemResponse<any>) => {
-            console.error("ITEM_ERROR", response);
+            enqueueSnackbar(
+              `Error while synchronizing movie with id ${response.item.movieId}`,
+              {
+                autoHideDuration: 10000,
+                variant: "error",
+              }
+            );
           }
         );
 
