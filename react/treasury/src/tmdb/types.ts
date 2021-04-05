@@ -5,6 +5,8 @@ export type Movie = {
 	title: string;
 };
 
+export type FirestoreMovie = Omit<Movie, "id">;
+
 export type PosterVariant =
 	| "w92"
 	| "w154"

@@ -11,7 +11,7 @@ import { PromiseQueue, PromiseQueueItemResponse } from "promise-queue-manager";
 import { useEffect, useState } from "react";
 import { useGetSet } from "react-use";
 import { FirebaseStore, TSettings } from "../store";
-import { getMovieById } from "./tmdb";
+import { getFirestoreDocument, getMovieById } from "./tmdb";
 
 type FirebaseCounter = {
   movies: number;
@@ -71,10 +71,7 @@ const fetchAndUpdateMovieData = (element: SyncElement) => {
         element.db
           .collection(`/users/${element.userId}/movies`)
           .doc(element.movieId)
-          .set({
-            title: movie.title,
-            poster_path: movie.poster_path,
-          })
+          .set(getFirestoreDocument(movie))
           .then(() => resolve(element))
           .catch(() => reject());
       })

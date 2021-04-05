@@ -4,6 +4,8 @@ import { useSnackbar } from "notistack";
 import React from "react";
 import { FirebaseStore } from "../store";
 import { useSearchMovies } from "../tmdb/hooks";
+import { getFirestoreDocument } from "../tmdb/tmdb";
+import { Movie } from "../tmdb/types";
 import MovieResult from "./MovieResult";
 
 const useStyles = makeStyles({
@@ -16,11 +18,6 @@ const useStyles = makeStyles({
     marginTop: "0.5em",
   },
 });
-
-type Movie = {
-  id: number;
-  title: string;
-};
 
 interface MovieSearchResultListProps {
   searchTerm: string;
@@ -41,9 +38,7 @@ export default React.memo(function MovieSearchResultList({
     db!
       .collection("/users/" + userId + "/movies")
       .doc(`${movie.id}`)
-      .set({
-        title: movie.title,
-      })
+      .set(getFirestoreDocument(movie))
       .then(() =>
         enqueueSnackbar(`"${movie.title}" has been added.`, {
           autoHideDuration: 3000,

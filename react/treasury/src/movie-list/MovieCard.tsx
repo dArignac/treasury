@@ -22,7 +22,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
     <div className={classes.movie}>
       <img
         src={getPosterUrl("w154") + "/" + movie.poster_path}
-        alt={movie.title}
+        alt={movie.id + ": " + movie.title}
       />
     </div>
   );
