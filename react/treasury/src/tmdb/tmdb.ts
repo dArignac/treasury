@@ -1,7 +1,11 @@
 import axios from "axios";
 import { theMovieDatabaseConfig } from "../config";
 import { TSettings } from "../store";
-import { Movie } from "./types";
+import { Movie, PosterVariant } from "./types";
+
+export const getPosterUrl = (variant: PosterVariant) => {
+	return `https://image.tmdb.org/t/p/${variant}`;
+};
 
 export const getMovieById = async (
 	id: string,
