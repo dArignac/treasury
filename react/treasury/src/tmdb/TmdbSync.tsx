@@ -64,6 +64,7 @@ const useStyles = makeStyles({
 });
 
 const fetchAndUpdateMovieData = (element: SyncElement) => {
+  console.log("fetchAndUpdateMovieData");
   return new Promise<SyncElement>((resolve, reject) => {
     getMovieById(element.movieId, element.settings).then((movie) => {
       element.db
@@ -76,6 +77,7 @@ const fetchAndUpdateMovieData = (element: SyncElement) => {
         .then(() => resolve(element))
         .catch(() => reject());
     });
+    // FIXME just for testing without actually calling TMDB
     // setTimeout(() => {
     //   console.log("fetchAndUpdateMovieData", element.movieId);
     //   return resolve(element);
@@ -115,6 +117,8 @@ export default function TmdbSync() {
 
   const synchronizeData = () => {
     setIsSynchronizationRunning(true);
+    setSynchronizedMoviesCounter(0);
+    setMoviesSynchronizedProgress(0);
 
     let moviesToSync: SyncElement[] = [];
     db!
@@ -140,7 +144,16 @@ export default function TmdbSync() {
           false
         );
 
-        // FIXME show error soemhow
+        // FIXME if promises-queue-manager will be adjusted, we can use this and furthermore give in db and settings here instead of wrapping in SyncElement
+        // const queue = new PromiseQueue<SyncElement>(
+        //   {
+        //     promises: moviesToSync.map((m) => () => fetchAndUpdateMovieData(m)),
+        //   },
+        //   1,
+        //   false
+        // );
+
+        // FIXME show error somehow
         queue.on(
           PromiseQueue.EVENTS.ITEM_ERROR,
           (response: PromiseQueueItemResponse<any>) => {
