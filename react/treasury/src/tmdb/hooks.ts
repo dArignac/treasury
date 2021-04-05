@@ -6,7 +6,7 @@ import { TMDBResponse } from "./types";
 
 export function useSearchMovies(searchTerm: string, settings: TSettings) {
 	const params = new URLSearchParams({
-		query: searchTerm,
+		query: searchTerm.trim(),
 		page: "1",
 		include_adult: "false", // FIXME add to settings
 		region: settings.tmdbRegion,

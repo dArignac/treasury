@@ -40,7 +40,7 @@ export default function Search() {
           variant="outlined"
           value={searchTerm}
           onChange={(e) => {
-            const search = e.target.value.trim();
+            const search = e.target.value;
             if (search !== searchTerm) {
               setSearchTerm(search);
             }
