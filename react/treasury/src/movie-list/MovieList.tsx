@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { FirebaseStore } from "../store";
 import { Movie } from "../tmdb/types";
@@ -25,10 +26,30 @@ export default function MovieList() {
   const classes = useStyles();
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { enqueueSnackbar } = useSnackbar();
   const { db, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     userId: s.user!.uid,
   }));
+
+  const removeMovie = (movieId: number) => {
+    db!
+      .collection("/users/" + userId + "/movies")
+      .doc(movieId.toString())
+      .delete()
+      .then(() =>
+        enqueueSnackbar("Movie was removed successfully.", {
+          autoHideDuration: 3000,
+          variant: "success",
+        })
+      )
+      .catch(() =>
+        enqueueSnackbar("Error occurred when removing the movie.", {
+          autoHideDuration: 3000,
+          variant: "error",
+        })
+      );
+  };
 
   useEffect(() => {
     db!
@@ -52,7 +73,11 @@ export default function MovieList() {
   return (
     <div className={classes.container}>
       {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          removeMovieHandler={removeMovie}
+        />
       ))}
     </div>
   );
