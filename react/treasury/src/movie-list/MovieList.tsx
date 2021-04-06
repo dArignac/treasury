@@ -57,13 +57,11 @@ export default function MovieList() {
       .orderBy("title")
       .onSnapshot((querySnapshot) => {
         setIsLoading(false);
-        if (!querySnapshot.empty) {
-          setMovies(
-            querySnapshot.docs.map((doc) => {
-              return { id: parseInt(doc.id), ...doc.data() } as Movie;
-            })
-          );
-        }
+        setMovies(
+          querySnapshot.docs.map((doc) => {
+            return { id: parseInt(doc.id), ...doc.data() } as Movie;
+          })
+        );
       });
   }, [db, userId]);
 
