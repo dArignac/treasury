@@ -3,13 +3,5 @@
 .firebase
 firebase-debug.log
 
-# Sonarcloud
-.scannerwork
-
-# Angular
-treasury/dist
-treasury/node_modules
-treasury/src/environments/environment.*.ts
-
 # documentation
 documents/index.html
