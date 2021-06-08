@@ -1,6 +1,8 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
+const FUNCTIONS_REGION = 'europe-west1';
+
 admin.initializeApp();
 
 // Since this code will be running in the Cloud Functions environment
@@ -10,6 +12,7 @@ const firestore = admin.firestore();
 
 // triggered when a movie is created
 export const createMovie = functions
+	.region(FUNCTIONS_REGION)
 	.firestore
 	.document('users/{userId}/movies/{movieId}')
 	.onCreate((data, context) => {
@@ -57,6 +60,7 @@ export const createMovie = functions
 
 // triggered when a movie is deleted
 export const deleteMovie = functions
+	.region(FUNCTIONS_REGION)
 	.firestore
 	.document('users/{userId}/movies/{movieId}')
 	.onDelete((data, context) => {
