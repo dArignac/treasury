@@ -15,8 +15,9 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 - React App
   - go to the `treasury` folder
     - copy the `.env` file to `.env.local` and fill the values
-    - Firebase settings can be found in the Firebase project settings (you need to create a project beforehand of course)
-    - TMDB API key can be found here: https://www.themoviedb.org/settings/api
+      - Firebase settings can be found in the Firebase project settings (you need to create a project beforehand of course)
+      - TMDB API key can be found here: https://www.themoviedb.org/settings/api
+      - do the same for the production file `.env.production.local`
     - install dependencies with `npm i`
 - Firebase functions
   - go to `functions` folder
@@ -24,11 +25,12 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 - Firebase setup
   - install Firebase tooling globally `npm i --global firebase-tools`
   - log into Firebase `firebase login`
+  - run `firebase --use add` to select the Firebase project
 
 ## Deploy to Firebase
 
 - go to `treasury` folder & build the app `npm run build`
-- from root run `firebase deploy --project <PROJECT-ID>`
+- from root run `firebase deploy`
 
 ## Development insights
 
