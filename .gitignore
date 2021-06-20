@@ -1,7 +1,8 @@
 # Firebase
 .firebaserc
 .firebase
-firebase-debug.log
+fire*-debug.log
+ui-debug.log
 
 # documentation
 documents/index.html

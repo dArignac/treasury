@@ -32,6 +32,15 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 - go to `treasury` folder & build the app `npm run build`
 - from root run `firebase deploy`
 
+## Testing Firebase with Firebase Emulator
+
+- to start the emulators manually run `npm run emulators` then run `npm test -- --watch` from the functions folder
+- to run the tests having automatically ramping up the emulators and tearing them down afterwards, run `npm run test:firebase`
+
+### Firestore
+
+- see rules test coverage: http://localhost:8080/emulator/v1/projects/demo-treasury:ruleCoverage.html
+
 ## Development insights
 
 - [Prettier setup](https://medium.com/technical-credit/using-prettier-with-vs-code-and-create-react-app-67c2449b9d08)

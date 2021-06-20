@@ -1,0 +1,7 @@
+{
+	"name": "treasury",
+	"scripts": {
+		"emulators": "firebase --project demo-treasury emulators:start",
+		"test:firebase": "firebase emulators:exec 'cd functions && npm test'"
+	}
+}
