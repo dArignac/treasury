@@ -27,8 +27,8 @@ export default function DataBackup() {
     <div>
       <h3>Data backup</h3>
       <p>
-        Downloads your movie data as JSON file. Can be imported in a future
-        version.
+        Downloads your movie data as JSON file. Maybe can be imported in a
+        future version.
       </p>
       <Button variant="contained" color="primary" onClick={downloadData}>
         Download

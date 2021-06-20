@@ -4,6 +4,8 @@ import "firebase/firestore";
 import { firebaseConfig } from "./config";
 import { FirebaseStore, TSettings } from "./store";
 
+export const getFirestoreUserPath = (userId: string) => `/users/${userId}`;
+
 export function initFirebase() {
   try {
     firebase.app();
@@ -15,6 +17,9 @@ export function initFirebase() {
     }
   }
   const db = firebase.firestore();
+  if (process.env.NODE_ENV === "development") {
+    db.useEmulator("localhost", 8080);
+  }
   FirebaseStore.update((s) => {
     s.firestore = db;
   });
@@ -26,10 +31,10 @@ export function initFirebase() {
     });
     // if user is authenticated, attach to settings
     if (user !== null) {
-      db.doc("/settings/" + user.uid).onSnapshot((doc) => {
+      db.doc(getFirestoreUserPath(user.uid)).onSnapshot((doc) => {
         // initial settings setup
         if (!doc.exists) {
-          db.doc("/settings/" + user.uid).set({
+          db.doc(getFirestoreUserPath(user.uid)).set({
             tmdbLanguage: "en-US",
             tmdbRegion: "EN",
           });

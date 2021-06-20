@@ -19,10 +19,5 @@ service cloud.firestore {
         allow write: if signedInAndMatchingUser(userId);
       }
     }
-
-    match /settings/{userId} { 
-      allow read: if signedInAndMatchingUser(userId);
-      allow write: if signedInAndMatchingUser(userId);
-    }
   }
 }

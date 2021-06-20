@@ -87,18 +87,4 @@ describe("Treasury Application", () => {
       await firebase.assertFails(testDoc.set({ content: "after" }));
     });
   });
-
-  describe("Firestore settings collection", () => {
-    it("It can write to the settings document with the same ID as our user", async () => {
-      const db = getFirestore(myAuth);
-      const testDoc = db.collection("settings").doc(myUser);
-      await firebase.assertSucceeds(testDoc.set({ field1: "value1" }));
-    });
-
-    it("It can't write to the settings document with a different ID as our user", async () => {
-      const db = getFirestore(myAuth);
-      const testDoc = db.collection("settings").doc(theirUser);
-      await firebase.assertFails(testDoc.set({ field1: "value1" }));
-    });
-  });
 });

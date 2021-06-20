@@ -1,7 +1,8 @@
 {
-	"name": "treasury",
-	"scripts": {
-		"emulators": "firebase --project demo-treasury emulators:start",
-		"test:firebase": "firebase emulators:exec 'cd functions && npm test'"
-	}
+  "name": "treasury",
+  "scripts": {
+    "emulators:live": "firebase emulators:start",
+    "emulators:demo": "firebase --project demo-treasury emulators:start",
+    "test": "firebase emulators:exec 'cd functions && npm test'"
+  }
 }

@@ -3,6 +3,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
+import { getFirestoreUserPath } from "../firebase";
 import { FirebaseStore, TSettings } from "../store";
 
 const useStyles = makeStyles({
@@ -29,7 +30,7 @@ export default function TmdbRegion() {
       tmdbRegion: region,
     } as TSettings;
     db!
-      .doc("/settings/" + userId)
+      .doc(getFirestoreUserPath(userId))
       .set(newSettings)
       .then(() => {
         const r = region === "DE" ? "Germany" : "No Region";

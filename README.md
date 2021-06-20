@@ -34,8 +34,13 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 
 ## Testing Firebase with Firebase Emulator
 
-- to start the emulators manually run `npm run emulators` then run `npm test -- --watch` from the functions folder
+- to locally use the emulator, run `npm run emulators:live`, it will emulate Firestore and Functions locally and falls back to the online Firebase project for the other functionalities like authentication
+- to start the emulators manually for testing run `npm run emulators:demo` or then run `npm test -- --watch` from the functions folder
 - to run the tests having automatically ramping up the emulators and tearing them down afterwards, run `npm run test:firebase`
+
+### Functions
+
+- need to build functions to have them reflected, may also need restart of emulator
 
 ### Firestore
 

@@ -14,7 +14,7 @@ import { FirebaseStore, TSettings } from "../store";
 import { getFirestoreDocument, getMovieById } from "./tmdb";
 
 type FirebaseCounter = {
-  movies: number;
+  movieCount: number;
 };
 
 type SyncElement = {
@@ -183,11 +183,11 @@ export default function TmdbSync() {
 
   useEffect(() => {
     db!
-      .collection("/counters")
+      .collection("/users")
       .doc(userId)
       .onSnapshot((doc) => {
         if (doc.exists) {
-          setMovieCount((doc.data() as FirebaseCounter).movies);
+          setMovieCount((doc.data() as FirebaseCounter).movieCount);
         }
       });
   }, [db, userId]);
@@ -198,8 +198,7 @@ export default function TmdbSync() {
       <p>
         A copy of the relevant movie/series data from TMDB is stored in the
         Firebase database. This data can get out of sync if the application was
-        extended and uses new data from TMDB or if the data itself on TMDB
-        changed.
+        extended and uses new data from TMDB or if the data on TMDB changed.
       </p>
       <p>
         Therefore you can run a syn of data here. Depending on the size of your
