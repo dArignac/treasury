@@ -4,21 +4,21 @@ import { TSettings } from "../store";
 import { FirestoreMovie, Movie, PosterVariant } from "./types";
 
 export const getPosterUrl = (variant: PosterVariant) => {
-	return `https://image.tmdb.org/t/p/${variant}`;
+  return `https://image.tmdb.org/t/p/${variant}`;
 };
 
 export const getMovieById = async (
-	id: string,
-	settings: TSettings
+  id: string,
+  settings: TSettings
 ): Promise<Movie> => {
-	const params = new URLSearchParams({
-		language: settings.tmdbLanguage,
-		api_key: theMovieDatabaseConfig.apiKey,
-	});
-	const { data } = await axios.get(
-		`https://api.themoviedb.org/3/movie/${id}?${params.toString()}`
-	);
-	return data;
+  const params = new URLSearchParams({
+    language: settings.tmdbLanguage,
+    api_key: theMovieDatabaseConfig.apiKey,
+  });
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}?${params.toString()}`
+  );
+  return data;
 };
 
 /**
@@ -29,8 +29,8 @@ export const getMovieById = async (
  * @returns the Firestore representation of the movie
  */
 export function getFirestoreDocument(movie: Movie): FirestoreMovie {
-	return {
-		poster_path: movie.poster_path,
-		title: movie.title,
-	};
+  return {
+    poster_path: movie.poster_path,
+    title: movie.title,
+  };
 }

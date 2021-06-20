@@ -88,25 +88,19 @@ export default function TmdbSync() {
   const classes = useStyles();
 
   // are we actively syncing?
-  const [
-    isSynchronizationRunning,
-    setIsSynchronizationRunning,
-  ] = useState<boolean>(false);
+  const [isSynchronizationRunning, setIsSynchronizationRunning] =
+    useState<boolean>(false);
 
   // total number of movies in firestore
   const [movieCount, setMovieCount] = useState<number>(0);
 
   // number of already synchronized movies
-  const [
-    getSynchronizedMoviesCounter,
-    setSynchronizedMoviesCounter,
-  ] = useGetSet<number>(0);
+  const [getSynchronizedMoviesCounter, setSynchronizedMoviesCounter] =
+    useGetSet<number>(0);
 
   // movie progress value for progress bar
-  const [
-    getMoviesSynchronizedProgress,
-    setMoviesSynchronizedProgress,
-  ] = useGetSet<number>(0);
+  const [getMoviesSynchronizedProgress, setMoviesSynchronizedProgress] =
+    useGetSet<number>(0);
 
   // pullstate store
   const { db, settings, userId } = FirebaseStore.useState((s) => ({

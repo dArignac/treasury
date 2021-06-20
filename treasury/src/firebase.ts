@@ -5,39 +5,39 @@ import { firebaseConfig } from "./config";
 import { FirebaseStore, TSettings } from "./store";
 
 export function initFirebase() {
-	try {
-		firebase.app();
-	} catch (err) {
-		if (err.code === "app/no-app") {
-			firebase.initializeApp(firebaseConfig);
-		} else {
-			throw err;
-		}
-	}
-	const db = firebase.firestore();
-	FirebaseStore.update((s) => {
-		s.firestore = db;
-	});
-	firebase.auth().onAuthStateChanged((user) => {
-		// store user
-		FirebaseStore.update((s) => {
-			s.isLoggedIn = user !== null;
-			s.user = user;
-		});
-		// if user is authenticated, attach to settings
-		if (user !== null) {
-			db.doc("/settings/" + user.uid).onSnapshot((doc) => {
-				// initial settings setup
-				if (!doc.exists) {
-					db.doc("/settings/" + user.uid).set({
-						tmdbLanguage: "en-US",
-						tmdbRegion: "EN",
-					});
-				}
-				FirebaseStore.update((s) => {
-					s.settings = doc.data() as TSettings;
-				});
-			});
-		}
-	});
+  try {
+    firebase.app();
+  } catch (err) {
+    if (err.code === "app/no-app") {
+      firebase.initializeApp(firebaseConfig);
+    } else {
+      throw err;
+    }
+  }
+  const db = firebase.firestore();
+  FirebaseStore.update((s) => {
+    s.firestore = db;
+  });
+  firebase.auth().onAuthStateChanged((user) => {
+    // store user
+    FirebaseStore.update((s) => {
+      s.isLoggedIn = user !== null;
+      s.user = user;
+    });
+    // if user is authenticated, attach to settings
+    if (user !== null) {
+      db.doc("/settings/" + user.uid).onSnapshot((doc) => {
+        // initial settings setup
+        if (!doc.exists) {
+          db.doc("/settings/" + user.uid).set({
+            tmdbLanguage: "en-US",
+            tmdbRegion: "EN",
+          });
+        }
+        FirebaseStore.update((s) => {
+          s.settings = doc.data() as TSettings;
+        });
+      });
+    }
+  });
 }
