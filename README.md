@@ -46,6 +46,10 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 
 - see rules test coverage: http://localhost:8080/emulator/v1/projects/demo-treasury:ruleCoverage.html
 
+## Github Actions
+
+- to initially setup the Firebase access, see [here](https://firebase.google.com/docs/cli#cli-ci-systems)
+
 ## Development insights
 
 - [Prettier setup](https://medium.com/technical-credit/using-prettier-with-vs-code-and-create-react-app-67c2449b9d08)

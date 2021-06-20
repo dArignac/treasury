@@ -1,0 +1,20 @@
+{
+  "name": "functions",
+  "scripts": {
+    "test": "mocha 'src/**/*.ts' --exit"
+  },
+  "main": "src/firestore.test.ts",
+  "devDependencies": {
+    "@firebase/testing": "^0.20.11",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.12.4",
+    "mocha": "^9.0.1",
+    "ts-node": "^10.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^3.9.10"
+  },
+  "private": true,
+  "volta": {
+    "node": "14.17.0"
+  }
+}

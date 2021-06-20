@@ -1,0 +1,66 @@
+name: Firebase
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: tests
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache Firebase emulators
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-firebase-emulators
+        with:
+          path: .cache/firebase/emulators
+          key: ${{ runner.os }}-${{ env.cache-name }}
+
+      - name: Cache Firebase Functions node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-firebase-functions-node-modules
+        with:
+          path: functions/node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('functions/package-lock.json') }}
+
+      - name: Cache tests node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-tests-node-modules
+        with:
+          path: tests/node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('tests/package-lock.json') }}
+
+      - name: Install Firebase CLI
+        run: curl -sL https://firebase.tools | bash
+
+      - name: Install and build Firebase Functions
+        run: |
+          cd functions
+          npm ci
+          npm run build
+          cd $GITHUB_WORKSPACE
+
+      - name: Install test prerequisites
+        run: |
+          cd tests
+          npm ci
+          cd $GITHUB_WORKSPACE
+
+      - name: Run test
+        run: npm run test

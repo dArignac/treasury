@@ -3,6 +3,6 @@
   "scripts": {
     "emulators:live": "firebase emulators:start",
     "emulators:demo": "firebase --project demo-treasury emulators:start",
-    "test": "firebase emulators:exec 'cd functions && npm test'"
+    "test": "firebase --project demo-treasury emulators:exec 'cd tests && npm test'"
   }
 }
