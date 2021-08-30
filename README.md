@@ -22,10 +22,11 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 - Firebase functions
   - go to `functions` folder
   - install dependencies with `npm i`
+  - run `npm run build` to be enabled for the emulator
 - Firebase setup
-  - install Firebase tooling globally `npm i --global firebase-tools`
+  - install Firebase tooling globally `npm i --global firebase-tools firebase-admin firebase-functions`
   - log into Firebase `firebase login`
-  - run `firebase --use add` to select the Firebase project
+  - run `firebase use --add` to select the Firebase project
 
 ## Deploy to Firebase
 
