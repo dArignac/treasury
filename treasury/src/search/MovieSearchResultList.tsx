@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import "firebase/compat/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { FirebaseStore } from "../store";
@@ -34,23 +34,27 @@ export default React.memo(function MovieSearchResultList({
   }));
   const { status, data, error } = useSearchMovies(searchTerm, settings);
   const { enqueueSnackbar } = useSnackbar();
+
+  const persistMovie = async (movie: Movie) => {
+    if (db) {
+      const docRef = doc(db, `/users/${userId}/movies/${movie.id}`);
+      await setDoc(docRef, getFirestoreDocument(movie));
+      enqueueSnackbar(`"${movie.title}" has been added.`, {
+        autoHideDuration: 3000,
+        variant: "success",
+      });
+    }
+  };
+
   const addMovieToFirestore = (movie: Movie) => {
-    db!
-      .collection("/users/" + userId + "/movies")
-      .doc(`${movie.id}`)
-      .set(getFirestoreDocument(movie))
-      .then(() =>
-        enqueueSnackbar(`"${movie.title}" has been added.`, {
-          autoHideDuration: 3000,
-          variant: "success",
-        })
-      )
-      .catch(() =>
+    if (db) {
+      persistMovie(movie).catch(() => {
         enqueueSnackbar(`Error while adding "${movie.title}"`, {
           autoHideDuration: 5000,
           variant: "error",
-        })
-      );
+        });
+      });
+    }
   };
 
   return (

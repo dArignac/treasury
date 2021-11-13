@@ -5,20 +5,24 @@ import CircularProgress, {
 } from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import firebase from "firebase/compat/app";
+import {
+  collection,
+  doc,
+  Firestore,
+  getDocs,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import { PromiseQueue, PromiseQueueItemResponse } from "promise-queue-manager";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetSet } from "react-use";
 import { FirebaseStore, TSettings } from "../store";
 import { getFirestoreDocument, getMovieById } from "./tmdb";
-
-type FirebaseCounter = {
-  movieCount: number;
-};
+import { Movie } from "./types";
 
 type SyncElement = {
-  db: firebase.firestore.Firestore;
+  db: Firestore;
   movieId: string;
   settings: TSettings;
   userId: string;
@@ -64,14 +68,23 @@ const useStyles = makeStyles({
   },
 });
 
+const saveMovieData = async (
+  userId: string,
+  movieId: string,
+  movie: Movie,
+  db: Firestore
+) => {
+  await setDoc(
+    doc(db, `/users/${userId}/movies/${movieId}`),
+    getFirestoreDocument(movie)
+  );
+};
+
 const fetchAndUpdateMovieData = (element: SyncElement) => {
   return new Promise<SyncElement>((resolve, reject) => {
     getMovieById(element.movieId, element.settings)
       .then((movie) => {
-        element.db
-          .collection(`/users/${element.userId}/movies`)
-          .doc(element.movieId)
-          .set(getFirestoreDocument(movie))
+        saveMovieData(element.userId, element.movieId, movie, element.db)
           .then(() => resolve(element))
           .catch(() => reject());
       })
@@ -91,9 +104,6 @@ export default function TmdbSync() {
   const [isSynchronizationRunning, setIsSynchronizationRunning] =
     useState<boolean>(false);
 
-  // total number of movies in firestore
-  const [movieCount, setMovieCount] = useState<number>(0);
-
   // number of already synchronized movies
   const [getSynchronizedMoviesCounter, setSynchronizedMoviesCounter] =
     useGetSet<number>(0);
@@ -112,85 +122,76 @@ export default function TmdbSync() {
   // have some snacks
   const { enqueueSnackbar } = useSnackbar();
 
-  const synchronizeData = () => {
-    setIsSynchronizationRunning(true);
-    setSynchronizedMoviesCounter(0);
-    setMoviesSynchronizedProgress(0);
+  const synchronizeData = async () => {
+    if (db) {
+      setIsSynchronizationRunning(true);
+      setSynchronizedMoviesCounter(0);
+      setMoviesSynchronizedProgress(0);
 
-    let moviesToSync: SyncElement[] = [];
-    db!
-      .collection("/users/" + userId + "/movies")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // FIXME we only need the id, but because of hooks and functions things are complicated
-          moviesToSync.push({
-            db: db!,
-            movieId: doc.id,
-            settings,
-            userId,
-          });
+      // fetch all movies and create the SyncElement we need for the queue manager
+      let moviesToSync: SyncElement[] = [];
+      const q = query(collection(db, "/users/" + userId + "/movies"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // FIXME we only need the id, but because of hooks and functions things are complicated
+        moviesToSync.push({
+          db: db!,
+          movieId: doc.id,
+          settings,
+          userId,
         });
-
-        const queue = new PromiseQueue<SyncElement>(
-          {
-            promise: fetchAndUpdateMovieData,
-            items: moviesToSync,
-          },
-          2,
-          false
-        );
-
-        // FIXME if promises-queue-manager will be adjusted, we can use this and furthermore give in db and settings here instead of wrapping in SyncElement
-        // const queue = new PromiseQueue<SyncElement>(
-        //   {
-        //     promises: moviesToSync.map((m) => () => fetchAndUpdateMovieData(m)),
-        //   },
-        //   1,
-        //   false
-        // );
-
-        queue.on(
-          PromiseQueue.EVENTS.ITEM_ERROR,
-          (response: PromiseQueueItemResponse<any>) => {
-            enqueueSnackbar(
-              `Error while synchronizing movie with id ${response.item.movieId}`,
-              {
-                autoHideDuration: 10000,
-                variant: "error",
-              }
-            );
-          }
-        );
-
-        queue.on(
-          PromiseQueue.EVENTS.ITEM_PROCESSED,
-          (response: PromiseQueueItemResponse<any>) => {
-            setSynchronizedMoviesCounter(getSynchronizedMoviesCounter() + 1);
-            setMoviesSynchronizedProgress(
-              (getSynchronizedMoviesCounter() / movieCount) * 100
-            );
-          }
-        );
-
-        queue.on(PromiseQueue.EVENTS.QUEUE_PROCESSED, () => {
-          setIsSynchronizationRunning(false);
-        });
-
-        queue.start();
       });
-  };
 
-  useEffect(() => {
-    db!
-      .collection("/users")
-      .doc(userId)
-      .onSnapshot((doc) => {
-        if (doc.exists) {
-          setMovieCount((doc.data() as FirebaseCounter).movieCount);
+      const movieCount = moviesToSync.length;
+
+      const queue = new PromiseQueue<SyncElement>(
+        {
+          promise: fetchAndUpdateMovieData,
+          items: moviesToSync,
+        },
+        1,
+        true
+      );
+
+      // FIXME if promises-queue-manager would be adjusted, we can use this and furthermore give in db and settings here instead of wrapping in SyncElement
+      // const queue = new PromiseQueue<SyncElement>(
+      //   {
+      //     promises: moviesToSync.map((m) => () => fetchAndUpdateMovieData(m)),
+      //   },
+      //   1,
+      //   false
+      // );
+
+      queue.on(
+        PromiseQueue.EVENTS.ITEM_ERROR,
+        (response: PromiseQueueItemResponse<any>) => {
+          enqueueSnackbar(
+            `Error while synchronizing movie with id ${response.item.movieId}`,
+            {
+              autoHideDuration: 10000,
+              variant: "error",
+            }
+          );
         }
+      );
+
+      queue.on(
+        PromiseQueue.EVENTS.ITEM_PROCESSED,
+        (response: PromiseQueueItemResponse<any>) => {
+          setSynchronizedMoviesCounter(getSynchronizedMoviesCounter() + 1);
+          setMoviesSynchronizedProgress(
+            (getSynchronizedMoviesCounter() / movieCount) * 100
+          );
+        }
+      );
+
+      queue.on(PromiseQueue.EVENTS.QUEUE_PROCESSED, () => {
+        setIsSynchronizationRunning(false);
       });
-  }, [db, userId]);
+
+      queue.start();
+    }
+  };
 
   return (
     <>

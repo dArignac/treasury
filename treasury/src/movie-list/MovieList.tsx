@@ -1,4 +1,12 @@
 import { makeStyles } from "@material-ui/core/styles";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { FirebaseStore } from "../store";
@@ -32,37 +40,44 @@ export default function MovieList() {
     userId: s.user!.uid,
   }));
 
+  const deleteFromFirebase = async (movieId: number) => {
+    if (db) {
+      const docRef = doc(db, `/users/${userId}/movies/${movieId}`);
+      await deleteDoc(docRef);
+      enqueueSnackbar("Movie was removed successfully.", {
+        autoHideDuration: 3000,
+        variant: "success",
+      });
+    }
+  };
+
   const removeMovie = (movieId: number) => {
-    db!
-      .collection("/users/" + userId + "/movies")
-      .doc(movieId.toString())
-      .delete()
-      .then(() =>
-        enqueueSnackbar("Movie was removed successfully.", {
-          autoHideDuration: 3000,
-          variant: "success",
-        })
-      )
-      .catch(() =>
-        enqueueSnackbar("Error occurred when removing the movie.", {
-          autoHideDuration: 3000,
-          variant: "error",
-        })
-      );
+    deleteFromFirebase(movieId).catch(() =>
+      enqueueSnackbar("Error occurred when removing the movie.", {
+        autoHideDuration: 3000,
+        variant: "error",
+      })
+    );
   };
 
   useEffect(() => {
-    db!
-      .collection("/users/" + userId + "/movies")
-      .orderBy("title")
-      .onSnapshot((querySnapshot) => {
-        setIsLoading(false);
-        setMovies(
-          querySnapshot.docs.map((doc) => {
-            return { id: parseInt(doc.id), ...doc.data() } as Movie;
-          })
+    async function fetchMovies() {
+      if (db) {
+        const q = query(
+          collection(db, "/users/" + userId + "/movies"),
+          orderBy("title")
         );
-      });
+        onSnapshot(q, (querySnapshot) => {
+          setMovies(
+            querySnapshot.docs.map((doc) => {
+              return { id: parseInt(doc.id), ...doc.data() } as Movie;
+            })
+          );
+        });
+        setIsLoading(false);
+      }
+    }
+    fetchMovies();
   }, [db, userId]);
 
   if (isLoading) return <MovieListLoading />;

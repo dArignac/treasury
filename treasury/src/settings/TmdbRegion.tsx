@@ -2,6 +2,7 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
+import { doc, setDoc } from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import { getFirestoreUserPath } from "../firebase";
 import { FirebaseStore, TSettings } from "../store";
@@ -23,28 +24,31 @@ export default function TmdbRegion() {
   const { enqueueSnackbar } = useSnackbar();
   const lblTmdbRegion = "TMDB region";
 
+  const updateRegion = async (userId: string, region: string) => {
+    if (db) {
+      const newSettings: TSettings = {
+        ...settings,
+        tmdbRegion: region,
+      } as TSettings;
+      const docRef = doc(db, getFirestoreUserPath(userId));
+      await setDoc(docRef, newSettings);
+
+      const r = region === "DE" ? "Germany" : "No specific region";
+      enqueueSnackbar(`${lblTmdbRegion} has been changed to "${r}".`, {
+        autoHideDuration: 3000,
+        variant: "success",
+      });
+    }
+  };
+
   const regionChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
     const region = event.target.value as string;
-    const newSettings: TSettings = {
-      ...settings,
-      tmdbRegion: region,
-    } as TSettings;
-    db!
-      .doc(getFirestoreUserPath(userId))
-      .set(newSettings)
-      .then(() => {
-        const r = region === "DE" ? "Germany" : "No Region";
-        enqueueSnackbar(`${lblTmdbRegion} has been changed to "${r}".`, {
-          autoHideDuration: 3000,
-          variant: "success",
-        });
+    updateRegion(userId, region).catch(() =>
+      enqueueSnackbar(`Error while saving ${lblTmdbRegion}`, {
+        autoHideDuration: 5000,
+        variant: "error",
       })
-      .catch(() =>
-        enqueueSnackbar(`Error while saving ${lblTmdbRegion}`, {
-          autoHideDuration: 5000,
-          variant: "error",
-        })
-      );
+    );
   };
 
   return (
@@ -53,7 +57,7 @@ export default function TmdbRegion() {
       <p>Release dates are shown for the selected region.</p>
       <FormControl variant="outlined" className={classes.formControl}>
         <Select onChange={regionChanged} value={settings.tmdbRegion}>
-          <MenuItem value="EN">No Region</MenuItem>
+          <MenuItem value="EN">No specific region</MenuItem>
           <MenuItem value="DE">Germany</MenuItem>
         </Select>
       </FormControl>

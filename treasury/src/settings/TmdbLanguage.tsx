@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSnackbar } from "notistack";
 import { getFirestoreUserPath } from "../firebase";
 import { FirebaseStore, TSettings } from "../store";
+import { doc, setDoc } from "firebase/firestore";
 
 const useStyles = makeStyles({
   formControl: {
@@ -23,36 +24,39 @@ export default function TmdbLanguage() {
   const { enqueueSnackbar } = useSnackbar();
   const lblTmdbLanguage = "TMDB language";
 
+  const updateLanguage = async (userId: string, language: string) => {
+    if (db) {
+      const newSettings: TSettings = {
+        ...settings,
+        tmdbLanguage: language,
+      } as TSettings;
+      const docRef = doc(db, getFirestoreUserPath(userId));
+      await setDoc(docRef, newSettings);
+
+      const languageMapping: any = {
+        "de-DE": "German (de-DE)",
+        "en-US": "English (en-US)",
+      };
+      enqueueSnackbar(
+        `${lblTmdbLanguage} has been changed to ` +
+          languageMapping[language] +
+          ".",
+        {
+          autoHideDuration: 3000,
+          variant: "success",
+        }
+      );
+    }
+  };
+
   const languageChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
     const lang = event.target.value as string;
-    const newSettings: TSettings = {
-      ...settings,
-      tmdbLanguage: lang,
-    } as TSettings;
-    db!
-      .doc(getFirestoreUserPath(userId))
-      .set(newSettings)
-      .then(() => {
-        const languageMapping: any = {
-          "de-DE": "German (de-DE)",
-          "en-US": "English (en-US)",
-        };
-        enqueueSnackbar(
-          `${lblTmdbLanguage} has been changed to ` +
-            languageMapping[lang] +
-            ".",
-          {
-            autoHideDuration: 3000,
-            variant: "success",
-          }
-        );
+    updateLanguage(userId, lang).catch(() =>
+      enqueueSnackbar(`Error while saving ${lblTmdbLanguage}`, {
+        autoHideDuration: 5000,
+        variant: "error",
       })
-      .catch(() =>
-        enqueueSnackbar(`Error while saving ${lblTmdbLanguage}`, {
-          autoHideDuration: 5000,
-          variant: "error",
-        })
-      );
+    );
   };
 
   return (

@@ -1,5 +1,6 @@
 import { Store } from "pullstate";
-import firebase from "firebase/compat/app";
+import { Firestore } from "firebase/firestore";
+import { User } from "firebase/auth";
 
 export type TSettings = {
   tmdbLanguage: "en-US" | "de-DE";
@@ -7,11 +8,11 @@ export type TSettings = {
 };
 
 interface IFirebaseStore {
-  firestore: firebase.firestore.Firestore | null;
+  firestore: Firestore | null;
   isLoggedIn: boolean;
   movieSearchTerm: string;
   settings: TSettings;
-  user: firebase.User | null;
+  user: User | null;
 }
 
 export const FirebaseStore = new Store<IFirebaseStore>({

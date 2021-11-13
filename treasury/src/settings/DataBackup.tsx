@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import { saveAs } from "file-saver";
+import { collection, getDocs, query } from "firebase/firestore";
 import { FirebaseStore } from "../store";
 
 export default function DataBackup() {
@@ -8,19 +9,18 @@ export default function DataBackup() {
     userId: s.user!.uid,
   }));
 
-  const downloadData = () => {
-    db!
-      .collection("/users/" + userId + "/movies")
-      .get()
-      .then((querySnapshot) => {
-        const movieIds = querySnapshot.docs.map((doc) => doc.id);
-        saveAs(
-          new Blob([JSON.stringify({ movies: movieIds })], {
-            type: "application/json",
-          }),
-          "movies.json"
-        );
-      });
+  const downloadData = async () => {
+    if (db) {
+      const q = query(collection(db, "/users/" + userId + "/movies"));
+      const querySnapshot = await getDocs(q);
+      const movieIds = querySnapshot.docs.map((doc) => doc.id);
+      saveAs(
+        new Blob([JSON.stringify({ movies: movieIds })], {
+          type: "application/json",
+        }),
+        "movies.json"
+      );
+    }
   };
 
   return (
