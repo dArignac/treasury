@@ -1,5 +1,5 @@
 import { Store } from "pullstate";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 export type TSettings = {
   tmdbLanguage: "en-US" | "de-DE";

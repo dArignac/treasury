@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import "firebase/firestore";
+import "firebase/compat/firestore";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { FirebaseStore } from "../store";
