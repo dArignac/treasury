@@ -10,11 +10,12 @@ export function initFirebase() {
   try {
     firebase.app();
   } catch (err) {
-    if (err.code === "app/no-app") {
-      firebase.initializeApp(firebaseConfig);
-    } else {
-      throw err;
-    }
+    // FIXME revolve after firebase update
+    // if (err.code === "app/no-app") {
+    firebase.initializeApp(firebaseConfig);
+    // } else {
+    // throw err;
+    // }
   }
   const db = firebase.firestore();
   if (process.env.NODE_ENV === "development") {
