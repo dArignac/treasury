@@ -28,6 +28,7 @@ export default function Footer() {
           Treasury is an open source application. Find it at{" "}
           <a href="https://github.com/darignac/treasury">Github</a>. Created
           2017 - 2021 by <a href="https://github.com/darignac">darignac</a>.
+          Version: master.
         </p>
         <p>Treasury proudly uses:</p>
         <p>

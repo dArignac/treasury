@@ -29,7 +29,9 @@
   },
   "scripts": {
     "start": "BROWSER=none react-scripts start",
+    "prebuild": "sed -i 's#master#'\"$npm_package_version\"'#g' src/Footer.tsx",
     "build": "react-scripts build",
+    "postbuild": "sed -i 's#'\"$npm_package_version\"'#master#g' src/Footer.tsx",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
