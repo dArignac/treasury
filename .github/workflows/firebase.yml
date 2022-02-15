@@ -63,4 +63,6 @@ jobs:
           cd $GITHUB_WORKSPACE
 
       - name: Run test
-        run: npm run test
+        run: |
+          cd tests
+          npm run test
