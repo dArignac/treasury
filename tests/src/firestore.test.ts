@@ -1,83 +1,90 @@
-import * as firebase from "@firebase/testing";
+import {
+  assertFails,
+  assertSucceeds,
+  initializeTestEnvironment,
+  RulesTestEnvironment,
+} from "@firebase/rules-unit-testing";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import * as fs from "fs";
 
-type TAuth = {
-  uid: string;
-};
+let testEnv: RulesTestEnvironment;
 
-const PROJECT_ID = "demo-treasury";
-const myUser = "carlton";
-const theirUser = "phillip";
-const myAuth = {
-  uid: myUser,
-};
-
-function getFirestore(auth: TAuth | undefined) {
-  return firebase
-    .initializeTestApp({ projectId: PROJECT_ID, auth: auth })
-    .firestore();
-}
-
-function getAdminFirestore() {
-  return firebase.initializeAdminApp({ projectId: PROJECT_ID }).firestore();
-}
+before(async () => {
+  testEnv = await initializeTestEnvironment({
+    projectId: "demo-treasury",
+    firestore: {
+      rules: fs.readFileSync("../firestore.rules", "utf8"),
+    },
+  });
+});
 
 beforeEach(async () => {
-  await firebase.clearFirestoreData({ projectId: PROJECT_ID });
+  await testEnv.clearFirestore();
 });
 
 after(async () => {
-  await firebase.clearFirestoreData({ projectId: PROJECT_ID });
+  await testEnv.clearFirestore();
 });
 
 describe("Treasury Application", () => {
   describe("General Firestore lockdown", () => {
     it("It cannot read from any unknown document", async () => {
-      const db = getFirestore(undefined);
-      const testDoc = db.collection("testColl").doc("testDocRead");
-      await firebase.assertFails(testDoc.get());
+      const anonymous = testEnv.unauthenticatedContext();
+      await assertFails(
+        getDoc(doc(anonymous.firestore(), "testColl", "testDoc"))
+      );
     });
     it("It cannot write to any unknown document", async () => {
-      const db = getFirestore(undefined);
-      const testDoc = db.collection("testColl").doc("testDocWrite");
-      await firebase.assertFails(testDoc.set({ field1: "value1" }));
+      const anonymous = testEnv.unauthenticatedContext();
+      await assertFails(
+        setDoc(doc(anonymous.firestore(), "/testColl/TestDoc"), {
+          field1: "value1",
+        })
+      );
     });
   });
   describe("Firestore user collection", () => {
-    it("It can read from the users document with the same ID as our user", async () => {
-      const db = getFirestore(myAuth);
-      const testDoc = db.collection("users").doc(myUser);
-      await firebase.assertSucceeds(testDoc.get());
+    it("It can read the users document as authenticated user", async () => {
+      const carlton = testEnv.authenticatedContext("carlton");
+      await assertSucceeds(
+        getDoc(doc(carlton.firestore(), "users", "carlton"))
+      );
     });
-    it("It can't read from the users document with a different ID as our user", async () => {
-      const db = getFirestore(myAuth);
-      const testDoc = db.collection("users").doc(theirUser);
-      await firebase.assertFails(testDoc.get());
+    it("It cannot read the users document of another user", async () => {
+      const carlton = testEnv.authenticatedContext("carlton");
+      await assertFails(getDoc(doc(carlton.firestore(), "users", "hilary")));
     });
-    it("It can write to the users document with the same ID as our user", async () => {
-      const db = getFirestore(myAuth);
-      const testDoc = db.collection("users").doc(myUser);
-      await firebase.assertSucceeds(testDoc.set({ field1: "value1" }));
+    it("It can write to the users document", async () => {
+      const carlton = testEnv.authenticatedContext("carlton");
+      await assertSucceeds(
+        setDoc(doc(carlton.firestore(), "users", "carlton"), {
+          field1: "value1",
+        })
+      );
     });
-    it("It can't write to the users document with a different ID as our user", async () => {
-      const db = getFirestore(myAuth);
-      const testDoc = db.collection("users").doc(theirUser);
-      await firebase.assertFails(testDoc.set({ field1: "value1" }));
+    it("It cannot write to the users document of another user", async () => {
+      const carlton = testEnv.authenticatedContext("carlton");
+      await assertFails(
+        setDoc(doc(carlton.firestore(), "users", "hilary"), {
+          field1: "value1",
+        })
+      );
     });
-    it("It can write to the movies document with the same ID as our user", async () => {
-      const moviePath = `users/${myUser}/movies/666`;
-      const admin = getAdminFirestore();
-      await admin.doc(moviePath).set({ content: "before" });
-      const db = getFirestore(myAuth);
-      const testDoc = db.doc(moviePath);
-      await firebase.assertSucceeds(testDoc.set({ content: "after" }));
+    it("It can write the movies document", async () => {
+      const carlton = testEnv.authenticatedContext("carlton");
+      await assertSucceeds(
+        setDoc(doc(carlton.firestore(), "users", "carlton", "movies", "666"), {
+          field1: "value1",
+        })
+      );
     });
-    it("It can't write to the movies document with a different ID as our user", async () => {
-      const moviePath = (user: string) => `users/${user}/movies/666`;
-      const admin = getAdminFirestore();
-      await admin.doc(moviePath(myUser)).set({ content: "before" });
-      const db = getFirestore(myAuth);
-      const testDoc = db.doc(moviePath(theirUser));
-      await firebase.assertFails(testDoc.set({ content: "after" }));
+    it("It cannot write the movies document of another user", async () => {
+      const carlton = testEnv.authenticatedContext("carlton");
+      await assertFails(
+        setDoc(doc(carlton.firestore(), "users", "hilary", "movies", "666"), {
+          field1: "value1",
+        })
+      );
     });
   });
 });
