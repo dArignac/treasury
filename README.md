@@ -13,7 +13,7 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 
 - Clone the project
 - React App
-  - go to the `treasury` folder
+  - go to the `react` folder
     - copy the `.env` file to `.env.local` and fill the values
       - Firebase settings can be found in the Firebase project settings (you need to create a project beforehand of course)
       - TMDB API key can be found here: https://www.themoviedb.org/settings/api
@@ -30,7 +30,7 @@ You basically can set this up for yourself, you only need a [Firebase](https://f
 
 ## Deploy to Firebase
 
-- go to `treasury` folder & build the app `npm run build`
+- go to `react` folder & build the app `npm run build`
 - from root run `firebase deploy`
 
 ## Testing Firebase with Firebase Emulator
