@@ -1,21 +1,14 @@
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
+import { SelectChangeEvent } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import { doc, setDoc } from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import { getFirestoreUserPath } from "../firebase";
 import { FirebaseStore, TSettings } from "../store";
 
-const useStyles = makeStyles({
-  formControl: {
-    width: "25em",
-  },
-});
-
 // FIXME use https://developers.themoviedb.org/3/configuration/get-countries as selection options
 export default function TmdbRegion() {
-  const classes = useStyles();
   const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     settings: s.settings,
@@ -41,8 +34,8 @@ export default function TmdbRegion() {
     }
   };
 
-  const regionChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const region = event.target.value as string;
+  const regionChanged = (event: SelectChangeEvent<"EN" | "DE">) => {
+    const region = event.target.value;
     updateRegion(userId, region).catch(() =>
       enqueueSnackbar(`Error while saving ${lblTmdbRegion}`, {
         autoHideDuration: 5000,
@@ -55,7 +48,7 @@ export default function TmdbRegion() {
     <div>
       <h3>{lblTmdbRegion}</h3>
       <p>Release dates are shown for the selected region.</p>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" sx={{ width: "25em" }}>
         <Select onChange={regionChanged} value={settings.tmdbRegion}>
           <MenuItem value="EN">No specific region</MenuItem>
           <MenuItem value="DE">Germany</MenuItem>

@@ -1,28 +1,19 @@
-import { Drawer } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import MenuIcon from "@material-ui/icons/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Drawer } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import LoginLogout from "./LoginLogout";
 import NavigationList from "./NavigationList";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
+const DivRoot = styled("div")(({ theme }) => ({
+  flexGrow: 1,
 }));
 
 export default function NavigationPanel() {
-  const classes = useStyles();
   const [drawerIsVisible, setDrawerIsVisible] = useState<boolean>(false);
   const toggleDrawer = () => setDrawerIsVisible(!drawerIsVisible);
 
@@ -34,19 +25,19 @@ export default function NavigationPanel() {
 
   return (
     <header>
-      <div className={classes.root}>
+      <DivRoot>
         <AppBar position="static">
           <Toolbar>
             <IconButton
               edge="start"
-              className={classes.menuButton}
+              sx={{ marginRight: 2 }}
               color="inherit"
               aria-label="menu"
               onClick={() => toggleDrawer()}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
               <React.Fragment>
                 Treasury
                 {/* <Route path="/"> - Movies</Route> */}
@@ -55,7 +46,7 @@ export default function NavigationPanel() {
             <LoginLogout />
           </Toolbar>
         </AppBar>
-      </div>
+      </DivRoot>
       <Drawer
         anchor="left"
         open={drawerIsVisible}

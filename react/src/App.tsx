@@ -1,6 +1,6 @@
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { initFirebase } from "./firebase";
@@ -10,7 +10,7 @@ initFirebase();
 const queryClient = new QueryClient();
 
 // current palette #525252 #414141 #313131 #CA3E47
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#525252",

@@ -1,29 +1,29 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.primary.main,
-    color: "rgba(255,255,255,.6)",
-    "& a": {
-      color: theme.palette.common.white,
-    },
-    display: "grid",
-    gap: "0 0",
-    gridTemplateColumns: "minmax(min-content, 400px)",
-    gridTemplateRows: "1fr",
-    height: "100%",
-    justifyContent: "center",
+const FooterRoot = styled("footer")(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: "rgba(255,255,255,.6)",
+
+  "& a": {
+    color: theme.palette.common.white,
   },
-  inner: {
-    textAlign: "center",
-  },
+
+  display: "grid",
+  gap: "0 0",
+  gridTemplateColumns: "minmax(min-content, 400px)",
+  gridTemplateRows: "1fr",
+  height: "100%",
+  justifyContent: "center",
+}));
+
+const DivInner = styled("div")(({ theme }) => ({
+  textAlign: "center",
 }));
 
 export default function Footer() {
-  const classes = useStyles();
   return (
-    <footer className={classes.root}>
-      <div className={classes.inner}>
+    <FooterRoot>
+      <DivInner>
         <p>
           Treasury is an open source application. Find it at{" "}
           <a href="https://github.com/darignac/treasury">Github</a>. Created
@@ -44,7 +44,7 @@ export default function Footer() {
             <img src="firebase.svg" alt="Built with Firebase" />
           </a>
         </p>
-      </div>
-    </footer>
+      </DivInner>
+    </FooterRoot>
   );
 }

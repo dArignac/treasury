@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import {
   collection,
   deleteDoc,
@@ -21,17 +21,14 @@ function MovieListEmpty() {
   return <div>No movies added yet.</div>;
 }
 
-const useStyles = makeStyles({
-  container: {
-    display: "grid",
-    gap: "0.5em 0.5em",
-    gridAutoRows: "231px",
-    gridTemplateColumns: "repeat(auto-fill, 154px)",
-  },
+const DivContainer = styled("div")({
+  display: "grid",
+  gap: "0.5em 0.5em",
+  gridAutoRows: "231px",
+  gridTemplateColumns: "repeat(auto-fill, 154px)",
 });
 
 export default function MovieList() {
-  const classes = useStyles();
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -84,7 +81,7 @@ export default function MovieList() {
   if (!isLoading && movies.length === 0) return <MovieListEmpty />;
 
   return (
-    <div className={classes.container}>
+    <DivContainer>
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
@@ -92,6 +89,6 @@ export default function MovieList() {
           removeMovieHandler={removeMovie}
         />
       ))}
-    </div>
+    </DivContainer>
   );
 }

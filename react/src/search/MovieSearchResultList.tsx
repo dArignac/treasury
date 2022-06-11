@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { styled } from "@mui/material/styles";
 import { doc, setDoc } from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React from "react";
@@ -8,15 +8,14 @@ import { getFirestoreDocument } from "../tmdb/tmdb";
 import { Movie } from "../tmdb/types";
 import MovieResult from "./MovieResult";
 
-const useStyles = makeStyles({
-  resultList: {
-    display: "grid",
-    gap: "0.5em 0.5em",
-    gridTemplateColumns: "repeat(auto-fill, 25em)",
-  },
-  root: {
-    marginTop: "0.5em",
-  },
+const DivResultList = styled("div")({
+  display: "grid",
+  gap: "0.5em 0.5em",
+  gridTemplateColumns: "repeat(auto-fill, 25em)",
+});
+
+const DivRoot = styled("div")({
+  marginTop: "0.5em",
 });
 
 interface MovieSearchResultListProps {
@@ -26,7 +25,6 @@ interface MovieSearchResultListProps {
 export default React.memo(function MovieSearchResultList({
   searchTerm,
 }: MovieSearchResultListProps) {
-  const classes = useStyles();
   const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     settings: s.settings,
@@ -58,13 +56,13 @@ export default React.memo(function MovieSearchResultList({
   };
 
   return (
-    <div className={classes.root}>
+    <DivRoot>
       {status === "loading" ? (
         <div>Loading...</div>
       ) : status === "error" ? (
         <div>{error!.message}</div>
       ) : (
-        <div className={classes.resultList}>
+        <DivResultList>
           {data?.results.length === 0 && <div>No movies found!</div>}
           {data?.results.map((movie) => (
             <MovieResult
@@ -73,8 +71,8 @@ export default React.memo(function MovieSearchResultList({
               movie={movie}
             />
           ))}
-        </div>
+        </DivResultList>
       )}
-    </div>
+    </DivRoot>
   );
 });

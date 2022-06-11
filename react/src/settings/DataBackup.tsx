@@ -1,4 +1,4 @@
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { saveAs } from "file-saver";
 import { collection, getDocs, query } from "firebase/firestore";
 import { FirebaseStore } from "../store";

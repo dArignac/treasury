@@ -1,19 +1,17 @@
-import { makeStyles, TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { InjectStoreState } from "pullstate";
 import React, { useEffect, useState } from "react";
 import { FirebaseStore } from "../store";
 import useDebounce from "./debounce";
 import MovieSearchResultList from "./MovieSearchResultList";
 
-const useStyles = makeStyles({
-  h2: {
-    marginBottom: "0.5em",
-    marginTop: "0",
-  },
+const StyledH2 = styled("h2")({
+  marginBottom: "0.5em",
+  marginTop: "0",
 });
 
 export default function Search() {
-  const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const storeMovieSearchTerm = FirebaseStore.useState((s) => s.movieSearchTerm);
@@ -32,7 +30,7 @@ export default function Search() {
 
   return (
     <React.Fragment>
-      <h2 className={classes.h2}>Search for movies</h2>
+      <StyledH2>Search for movies</StyledH2>
       <form noValidate autoComplete="off">
         <TextField
           id="needle"

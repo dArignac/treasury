@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
 import React from "react";
 import { Route } from "wouter";
@@ -11,20 +11,18 @@ import Settings from "./settings/Settings";
 import { FirebaseStore } from "./store";
 import TmdbSync from "./tmdb/TmdbSync";
 
-const useStyles = makeStyles((theme) => ({
-  wrapper: {
-    display: "grid",
-    gridTemplateColumns: "1fr",
-    gridTemplateRows: "4em auto auto",
-  },
-  main: {
-    marginTop: "0.5em",
-    padding: "0.5em",
-  },
+const DivWrapper = styled("div")(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gridTemplateRows: "4em auto auto",
+}));
+
+const StyledMain = styled("main")(({ theme }) => ({
+  marginTop: "0.5em",
+  padding: "0.5em",
 }));
 
 export default function Wrapper() {
-  const classes = useStyles();
   const isSignedIn = FirebaseStore.useState((s) => s.isLoggedIn);
 
   return (
@@ -35,9 +33,9 @@ export default function Wrapper() {
       }}
       maxSnack={3}
     >
-      <div className={classes.wrapper}>
+      <DivWrapper>
         <NavigationPanel />
-        <main className={classes.main}>
+        <StyledMain>
           {!isSignedIn && <Greeting />}
           {isSignedIn && (
             <React.Fragment>
@@ -55,9 +53,9 @@ export default function Wrapper() {
               </Route>
             </React.Fragment>
           )}
-        </main>
+        </StyledMain>
         <Footer />
-      </div>
+      </DivWrapper>
     </SnackbarProvider>
   );
 }

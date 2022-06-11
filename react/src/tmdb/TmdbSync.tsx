@@ -1,10 +1,10 @@
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import CircularProgress, {
   CircularProgressProps,
-} from "@material-ui/core/CircularProgress";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+} from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import {
   collection,
   doc,
@@ -54,18 +54,17 @@ function CircularProgressWithLabel(
   );
 }
 
-const useStyles = makeStyles({
-  h2: {
-    marginBottom: "0.5em",
-    marginTop: "0",
-  },
-  syncContainer: {
-    display: "grid",
-    gap: "0.5em 0.5em",
-    gridTemplateColumns: "5em 5em",
-    gridTemplateRows: "5em",
-    marginTop: "2em",
-  },
+const StyledH2 = styled("h2")({
+  marginBottom: "0.5em",
+  marginTop: "0",
+});
+
+const DivSyncContainer = styled("div")({
+  display: "grid",
+  gap: "0.5em 0.5em",
+  gridTemplateColumns: "5em 5em",
+  gridTemplateRows: "5em",
+  marginTop: "2em",
 });
 
 const saveMovieData = async (
@@ -98,8 +97,6 @@ const fetchAndUpdateMovieData = (element: SyncElement) => {
 };
 
 export default function TmdbSync() {
-  const classes = useStyles();
-
   // are we actively syncing?
   const [isSynchronizationRunning, setIsSynchronizationRunning] =
     useState<boolean>(false);
@@ -195,7 +192,7 @@ export default function TmdbSync() {
 
   return (
     <>
-      <h2 className={classes.h2}>Synchronize TMDB</h2>
+      <StyledH2>Synchronize TMDB</StyledH2>
       <p>
         A copy of the relevant movie/series data from TMDB is stored in the
         Firebase database. This data can get out of sync if the application was
@@ -213,7 +210,7 @@ export default function TmdbSync() {
       >
         Start synchronization
       </Button>
-      <div className={classes.syncContainer}>
+      <DivSyncContainer>
         <div>
           <strong>Movies:</strong>
         </div>
@@ -223,7 +220,7 @@ export default function TmdbSync() {
             color="secondary"
           />
         </div>
-      </div>
+      </DivSyncContainer>
     </>
   );
 }

@@ -1,21 +1,14 @@
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
+import { SelectChangeEvent } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { doc, setDoc } from "firebase/firestore";
 import { useSnackbar } from "notistack";
 import { getFirestoreUserPath } from "../firebase";
 import { FirebaseStore, TSettings } from "../store";
-import { doc, setDoc } from "firebase/firestore";
-
-const useStyles = makeStyles({
-  formControl: {
-    width: "25em",
-  },
-});
 
 // FIXME use https://developers.themoviedb.org/3/configuration/get-primary-translations as selection options
 export default function TmdbLanguage() {
-  const classes = useStyles();
   const { db, settings, userId } = FirebaseStore.useState((s) => ({
     db: s.firestore,
     settings: s.settings,
@@ -49,8 +42,8 @@ export default function TmdbLanguage() {
     }
   };
 
-  const languageChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const lang = event.target.value as string;
+  const languageChanged = (event: SelectChangeEvent<"en-US" | "de-DE">) => {
+    const lang = event.target.value;
     updateLanguage(userId, lang).catch(() =>
       enqueueSnackbar(`Error while saving ${lblTmdbLanguage}`, {
         autoHideDuration: 5000,
@@ -66,7 +59,7 @@ export default function TmdbLanguage() {
         This applies to the movies or tv shows you're adding - their title and
         images will be shown in the configured language.
       </p>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" sx={{ width: "25em" }}>
         <Select onChange={languageChanged} value={settings.tmdbLanguage}>
           <MenuItem value="en-US">English (US)</MenuItem>
           <MenuItem value="de-DE">German</MenuItem>
